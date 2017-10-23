@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaintenanceMode.Site", "MaintenanceMode.Site\MaintenanceMode.Site.csproj", "{A5634F78-83F2-40AB-B354-AF86303905AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.MaintenanceMode", "Our.Umbraco.MaintenanceMode\Our.Umbraco.MaintenanceMode.csproj", "{095985E3-7786-4AE0-8E33-FAA7ED83D04F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{486999F4-3AC9-49FD-9FAE-4F6FC5007E8E}"
+	ProjectSection(SolutionItems) = preProject
+		gulpfile.js = gulpfile.js
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5634F78-83F2-40AB-B354-AF86303905AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5634F78-83F2-40AB-B354-AF86303905AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5634F78-83F2-40AB-B354-AF86303905AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5634F78-83F2-40AB-B354-AF86303905AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{095985E3-7786-4AE0-8E33-FAA7ED83D04F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{095985E3-7786-4AE0-8E33-FAA7ED83D04F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{095985E3-7786-4AE0-8E33-FAA7ED83D04F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{095985E3-7786-4AE0-8E33-FAA7ED83D04F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCEECB68-66BC-4E0E-AE7C-1E27F13273EC}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,9 @@
+{
+  "javascript": [
+    "~/App_Plugins/Our.Umbraco.MaintenanceMode/MaintenanceMode.Dashboard.js",
+    "~/App_Plugins/Our.Umbraco.MaintenanceMode/MaintenanceMode.Service.js"
+  ],
+	"css" : [
+		"~/App_Plugins/Our.Umbraco.MaintenanceMode/MaintenanceMode.css"
+	]
+}
