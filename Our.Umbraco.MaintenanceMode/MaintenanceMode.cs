@@ -100,7 +100,7 @@ namespace Our.Umbraco.MaintenanceMode
 
         private MaintenanceModeStatus CheckWebConfig(MaintenanceModeStatus status)
         {
-            var webConfigSetting = ConfigurationManager.AppSettings["maintenanceMode"];
+            var webConfigSetting = ConfigurationManager.AppSettings["MaintenanceMode"];
             if (webConfigSetting != null)
             {
                 if (bool.TryParse(webConfigSetting, out bool mode))

@@ -25,29 +25,46 @@
             with your site.
         </p>
 
-        <div class="maintenanceMode-button">
-            <div ng-show="vm.status.IsInMaintenanceMode">
-                <umb-button action="vm.toggleMode()"
-                            type="button"
-                            button-style="success btn-large"
-                            state="vm.buttonState"
-                            shortcut="ctrl+c"
-                            label="Turn off maintenance mode"
-                            disabled="vm.buttonState === 'busy'">
-                </umb-button>
-            </div>
-            <div ng-show="!vm.status.IsInMaintenanceMode">
-                <umb-button action="vm.toggleMode()"
-                            type="button"
-                            button-style="danger btn-large"
-                            state="vm.buttonState"
-                            shortcut="ctrl+c"
-                            label="Turn on maintenance mode"
-                            disabled="vm.buttonState === 'busy'">
-                </umb-button>
+        <div ng-if="!vm.status.UsingWebConfig">
+            <div class="maintenanceMode-button">
+                <div ng-show="vm.status.IsInMaintenanceMode">
+                    <umb-button action="vm.toggleMode()"
+                                type="button"
+                                button-style="success btn-large"
+                                state="vm.buttonState"
+                                shortcut="ctrl+c"
+                                label="Turn off maintenance mode"
+                                disabled="vm.buttonState === 'busy'">
+                    </umb-button>
+                </div>
+                <div ng-show="!vm.status.IsInMaintenanceMode">
+                    <umb-button action="vm.toggleMode()"
+                                type="button"
+                                button-style="danger btn-large"
+                                state="vm.buttonState"
+                                shortcut="ctrl+c"
+                                label="Turn on maintenance mode"
+                                disabled="vm.buttonState === 'busy'">
+                    </umb-button>
+                </div>
             </div>
         </div>
+        <div ng-if="vm.status.UsingWebConfig">
 
+            <div class="maintenanceMode-warning">
+                Maintance Mode set in the web.config, so you cannot turn it on
+                or off via the dashboard.
+            </div>
+
+            <pre>
+                <code>
+&lt;appSettings&gt;
+    &lt;add key="MaintenanceMode" value="true" /&gt;
+&lt;appSettings/&gt;
+
+                </code>
+            </pre>
+        </div>
         <div class="maintenanceMode-options">
 
             <div class="maintenanceMode-backoffice">
@@ -89,9 +106,15 @@
                                     ng-click="vm.saveSettings()">Update</button>
                         </div>
                     </div>
-
                 </div>
             </div>
+
+            <p>
+                Maintenance Mode offers a simple way to turn your site on and off for maintenance, if you require
+                some complex stuff (like IP address restrcitions) you should look at
+                <a href="https://leekelleher.com/2009/09/29/putting-your-asp-net-web-application-in-maintenance-mode-using-isapi_rewrite/"
+                   target="_blank">URL-Rewrite rules</a>.
+            </p>
 
         </div>
 

@@ -3,11 +3,14 @@
     max-width: 800px;
     text-align: center;
 }
+.maintenanceMode-dashboard pre {
+    text-align: left;
+}
 
-.maintenanceMode-alert  {
+
+.maintenanceMode-alert {
     padding: 2em;
     font-size: 125%;
-
 }
 
 .maintenanceMode-header {
