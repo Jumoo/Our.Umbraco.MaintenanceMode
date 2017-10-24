@@ -119,7 +119,7 @@ namespace Our.Umbraco.MaintenanceMode
             try
             {
                 if (File.Exists(configFilePath))
-                    File.Decrypt(configFilePath);
+                    File.Delete(configFilePath);
 
                 XmlSerializer serializer = new XmlSerializer(typeof(MaintenanceModeStatus));
 
