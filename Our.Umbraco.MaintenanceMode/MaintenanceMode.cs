@@ -64,7 +64,7 @@ namespace Our.Umbraco.MaintenanceMode
         {
             MaintenanceModeStatus status = null;
 
-            if (File.Exists(configFilePath))
+            if (configFilePath != null && File.Exists(configFilePath))
             {
                 try
                 {

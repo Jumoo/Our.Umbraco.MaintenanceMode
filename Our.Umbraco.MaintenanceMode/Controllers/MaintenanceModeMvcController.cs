@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Security;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
@@ -15,34 +16,39 @@ namespace Our.Umbraco.MaintenanceMode.Controllers
         : RenderMvcController
     {
         public override ActionResult Index(RenderModel model)
-        {            
-            if (MaintenanceMode.Current.Status.IsInMaintenanceMode
-                && ApplicationContext.IsConfigured)
+        {
+            try
             {
-                if (MaintenanceMode.Current.Status.Settings.AllowBackOfficeUsersThrough
-                    && IsBackOfficeUserLoggedIn())
+                if (ApplicationContext != null
+                    && ApplicationContext.IsConfigured
+                    && MaintenanceMode.Current.Status.IsInMaintenanceMode)
                 {
-                    return base.Index(model);
-                }
+                    if (MaintenanceMode.Current.Status.Settings.AllowBackOfficeUsersThrough
+                        && IsBackOfficeUserLoggedIn())
+                    {
+                        return base.Index(model);
+                    }
 
-                Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
-                return View(MaintenanceMode.Current.Status.Settings.TemplateName, model);
+                    if (Response != null)
+                        Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
+
+                    return View(MaintenanceMode.Current.Status.Settings.TemplateName, model);
+                }
+            }
+            catch(Exception ex)
+            {
+                Logger.Warn<MaintenanceModeMvcController>("Checking Maintance Mode Failed: {0}", () => ex.Message);
             }
 
             return base.Index(model);
-
         }
 
         private bool IsBackOfficeUserLoggedIn()
         {
-            var userTicket = this.HttpContext.GetUmbracoAuthTicket();
-            if (userTicket != null)
-            {
+            if (HttpContext != null && HttpContext.GetUmbracoAuthTicket() != null)
                 return true;
-            }
-
+          
             return false;
-
         }
     }
 }
