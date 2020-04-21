@@ -1,14 +1,22 @@
-﻿using System;
+using System;
 using System.Configuration;
 using System.IO;
 using System.Xml.Serialization;
 using Our.Umbraco.MaintenanceModeV8.Models;
 using Umbraco.Core.IO;
+using Umbraco.Core.Logging;
 
 namespace Our.Umbraco.MaintenanceModeV8
 {
     public class MaintenanceMode
     {
+        private readonly ILogger _logger;
+
+        public MaintenanceMode(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         private static MaintenanceMode _instance;
         public static MaintenanceMode Current
         {
@@ -72,7 +80,7 @@ namespace Our.Umbraco.MaintenanceModeV8
                 }
                 catch(Exception ex)
                 {
-                    //Logger.Warn<MaintenanceMode>("Failed to load maintance mode settings file: {0}", () => ex);
+                    _logger.Warn<MaintenanceMode>("Failed to load maintance mode settings file: {0}", ex.Message);
                 }
             }
 
@@ -125,7 +133,7 @@ namespace Our.Umbraco.MaintenanceModeV8
             }
             catch(Exception ex)
             {
-                //LogHelper.Warn<MaintenanceMode>("Failed to save maintance mode settings file: {0}", () => ex);
+                _logger.Warn<MaintenanceMode>("Failed to save maintance mode settings file: {0}", ex.Message);
             }
         }
     }
