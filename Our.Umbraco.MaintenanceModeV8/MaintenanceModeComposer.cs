@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using Our.Umbraco.MaintenanceModeV8.Controllers;
+using Our.Umbraco.MaintenanceModeV8.Services;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
 using Umbraco.Web;
@@ -14,6 +15,8 @@ namespace Our.Umbraco.MaintenanceModeV8
     {
         public void Compose(Composition composition)
         {
+            composition.RegisterUnique<MaintenanceModeService>();
+
             composition.SetDefaultRenderMvcController(typeof(MaintenanceModeMvcController));
 
             composition.Components().Append<MaintenanceModeComponent>();

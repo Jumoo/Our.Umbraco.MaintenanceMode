@@ -238,10 +238,10 @@
   <ItemGroup>
     <Compile Include="Controllers\MaintenanceModeBackOfficeApiController.cs" />
     <Compile Include="Controllers\MaintenanceModeMvcController.cs" />
-    <Compile Include="MaintenanceMode.cs" />
     <Compile Include="MaintenanceModeComposer.cs" />
     <Compile Include="Models\MaintenanceModeStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\MaintenanceModeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\lang\en-US.xml" />

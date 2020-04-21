@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using Our.Umbraco.MaintenanceModeV8.Models;
+using Our.Umbraco.MaintenanceModeV8.Services;
 using Umbraco.Web.WebApi;
 
 namespace Our.Umbraco.MaintenanceModeV8.Controllers
@@ -9,22 +10,28 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
     public class MaintenanceModeBackOfficeApiController
         : UmbracoAuthorizedApiController
     {
+        private readonly MaintenanceModeService maintenanceModeService;
+
+        public MaintenanceModeBackOfficeApiController(
+            MaintenanceModeService maintenanceModeService)
+        {
+            this.maintenanceModeService = maintenanceModeService;
+        }
+
         [HttpGet]
         public MaintenanceModeStatus GetStatus()
-        {
-            return MaintenanceMode.Current.Status;
-        }
+            => maintenanceModeService.Status;
 
         [HttpPost]
         public void ToggleMode(bool maintenanceMode)
         {
-            MaintenanceMode.Current.ToggleMaintenanceMode(maintenanceMode);
+            maintenanceModeService.ToggleMaintenanceMode(maintenanceMode);
         }
 
         [HttpPost]
         public void SaveSettings(MaintenanceModeSettings settings)
         {
-            MaintenanceMode.Current.SaveSettings(settings);
+            maintenanceModeService.SaveSettings(settings);
         }
 
         [HttpGet]
@@ -41,10 +48,7 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
 
         // called in events - the url of this call is put into 
         // sys variables so we don't have to hardwire it in javascript
-        public int GetControllerUrl()
-        {
-            return 1; 
-        }
+        public int GetControllerUrl() => 1;
     }
 }
  
