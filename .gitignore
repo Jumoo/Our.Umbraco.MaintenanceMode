@@ -311,3 +311,5 @@ $RECYCLE.BIN/
 **/App_Data/NuGetBackup/
 **/App_Data/Umbraco.config
 **/App_Data/cache/
+
+MaintenanceMode.SiteV8/Media/created-packages/
