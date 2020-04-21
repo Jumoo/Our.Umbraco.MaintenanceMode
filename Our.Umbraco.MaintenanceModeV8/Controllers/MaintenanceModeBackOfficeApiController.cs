@@ -29,6 +29,13 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
         }
 
         [HttpPost]
+        public void ToggleFreeze(bool contentFreeze)
+        {
+            maintenanceModeService.ToggleContentFreeze(contentFreeze);
+        }
+
+
+        [HttpPost]
         public void SaveSettings(MaintenanceModeSettings settings)
         {
             maintenanceModeService.SaveSettings(settings);
