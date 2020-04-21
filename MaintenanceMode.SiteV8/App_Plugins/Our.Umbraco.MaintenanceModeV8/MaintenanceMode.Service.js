@@ -4,8 +4,6 @@
 
     function maintenanceModeService($http) {
 
-        var services = Umbraco.Sys.ServerVariables;
-
         var serviceRoot = Umbraco.Sys.ServerVariables.MaintenanceMode.Service;
 
         var service = {

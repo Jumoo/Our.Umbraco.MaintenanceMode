@@ -264,12 +264,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\img\duggfest_tshirt.jpg" />
-    <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\img\nasa_console.jpg" />
-    <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\MaintenanceMode.css" />
-    <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\MaintenanceMode.Dashboard.js" />
-    <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\MaintenanceMode.Service.js" />
-    <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\MaintenanceModeDashboard.html" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
@@ -308,7 +302,6 @@
     <Content Include="config\HealthChecks.config" />
     <Content Include="config\ClientDependency.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
-    <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\package.manifest" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
