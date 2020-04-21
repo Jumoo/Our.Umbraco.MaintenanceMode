@@ -1,11 +1,8 @@
 <div ng-controller="maintenanceModeDashboardController as vm">
 
     <umb-box>
-        <umb-box-header title="Maintenance Mode"
-                        description="Setup a placeholder page to respond to all requests while you
-                    sort things out or make sure everything is OK before going live
-                    with your site."></umb-box-header>
         <umb-box-content class="maintenanceMode-dashboard">
+
             <div ng-hide="vm.loaded">
                 <umb-load-indicator></umb-load-indicator>
             </div>
@@ -29,6 +26,17 @@
                         no one can save/update or delete content or media.
                     </div>
                 </div>
+
+                <div class="maintenanceMode-header">
+                    <i class="icon icon-wrench"></i>
+                    <h3>Maintenance Mode</h3>
+                </div>
+
+                <p>
+                    Setup a placeholder page to respond to all requests while you
+                    sort things out or make sure everything is OK before going live
+                    with your site.
+                </p>
 
                 <div ng-if="!vm.status.UsingWebConfig" class="flex justify-center">
                     <div class="maintenanceMode-button">
