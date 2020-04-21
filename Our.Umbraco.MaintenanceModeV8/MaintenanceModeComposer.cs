@@ -33,17 +33,17 @@ namespace Our.Umbraco.MaintenanceModeV8
 
         private void ServerVariablesParser_Parsing(object o, Dictionary<string, object> e)
         {
-            if (HttpContext.Current != null)
+            if (HttpContext.Current == null) 
+                return;
+
+            var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            e.Add("MaintenanceMode", new Dictionary<string, object>
             {
-                var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-                e.Add("MaintenanceMode", new Dictionary<string, object>
                 {
-                    {
-                        "Service", urlHelper.GetUmbracoApiServiceBaseUrl<MaintenanceModeBackOfficeApiController>(
-                            controller => controller.GetControllerUrl())
-                    }
-                });
-            }
+                    "Service", urlHelper.GetUmbracoApiServiceBaseUrl<MaintenanceModeBackOfficeApiController>(
+                        controller => controller.GetControllerUrl())
+                }
+            });
         }
     }
 }

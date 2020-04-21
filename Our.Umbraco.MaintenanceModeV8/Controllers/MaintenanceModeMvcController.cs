@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Net;
 using System.Web.Mvc;
 using Umbraco.Core.Composing;
@@ -39,10 +39,7 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
 
         private bool IsBackOfficeUserLoggedIn()
         {
-            if (HttpContext != null && HttpContext.GetUmbracoAuthTicket() != null)
-                return true;
-          
-            return false;
+            return HttpContext?.GetUmbracoAuthTicket() != null;
         }
     }
 }

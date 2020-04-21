@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Configuration;
 using System.IO;
 using System.Xml.Serialization;
@@ -22,11 +22,11 @@ namespace Our.Umbraco.MaintenanceModeV8
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new MaintenanceMode();
-                    _instance.InitializeCurrent();
-                }
+                if (_instance != null) 
+                    return _instance;
+
+                _instance = new MaintenanceMode();
+                _instance.InitializeCurrent();
 
                 return _instance;
             }
@@ -34,27 +34,27 @@ namespace Our.Umbraco.MaintenanceModeV8
 
         public MaintenanceModeStatus Status { get; private set; }
 
-        private readonly string configFilePath;
+        private readonly string _configFilePath;
 
-        public MaintenanceMode()
+        private MaintenanceMode()
         {
-            configFilePath = IOHelper.MapPath(
+            _configFilePath = IOHelper.MapPath(
                 Path.Combine(SystemDirectories.Config, "MaintenanceMode.Config"));
             
         }
 
-        internal void InitializeCurrent()
+        private void InitializeCurrent()
         {
-            this.Status = InitializeStatus();
+            Status = InitializeStatus();
         }
 
         public void ToggleMaintenanceMode(bool maintenanceMode)
         {
-            if (maintenanceMode != Status.IsInMaintenanceMode)
-            {
-                Status.IsInMaintenanceMode = maintenanceMode;
-                PersistStatusToDisk();
-            }
+            if (maintenanceMode == Status.IsInMaintenanceMode) 
+                return;
+
+            Status.IsInMaintenanceMode = maintenanceMode;
+            PersistStatusToDisk();
         }
 
         public void SaveSettings(MaintenanceModeSettings settings)
@@ -67,12 +67,12 @@ namespace Our.Umbraco.MaintenanceModeV8
         {
             MaintenanceModeStatus status = null;
 
-            if (configFilePath != null && File.Exists(configFilePath))
+            if (_configFilePath != null && File.Exists(_configFilePath))
             {
                 try
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(MaintenanceModeStatus));
-                    string xml = File.ReadAllText(configFilePath);
+                    var serializer = new XmlSerializer(typeof(MaintenanceModeStatus));
+                    var xml = File.ReadAllText(_configFilePath);
                     using(TextReader reader = new StringReader(xml))
                     {
                         status = (MaintenanceModeStatus)serializer.Deserialize(reader);
@@ -101,17 +101,17 @@ namespace Our.Umbraco.MaintenanceModeV8
             return status; 
         }
 
-        private MaintenanceModeStatus CheckWebConfig(MaintenanceModeStatus status)
+        private static MaintenanceModeStatus CheckWebConfig(MaintenanceModeStatus status)
         {
             var webConfigSetting = ConfigurationManager.AppSettings["MaintenanceMode"];
-            if (webConfigSetting != null)
-            {
-                if (bool.TryParse(webConfigSetting, out bool mode))
-                {
-                    status.IsInMaintenanceMode = mode;
-                    status.UsingWebConfig = true;
-                }
-            }
+            if (webConfigSetting == null) 
+                return status;
+
+            if (!bool.TryParse(webConfigSetting, out var mode)) 
+                return status;
+
+            status.IsInMaintenanceMode = mode;
+            status.UsingWebConfig = true;
 
             return status;
         }
@@ -121,12 +121,12 @@ namespace Our.Umbraco.MaintenanceModeV8
         {
             try
             {
-                if (File.Exists(configFilePath))
-                    File.Delete(configFilePath);
+                if (File.Exists(_configFilePath))
+                    File.Delete(_configFilePath);
 
-                XmlSerializer serializer = new XmlSerializer(typeof(MaintenanceModeStatus));
+                var serializer = new XmlSerializer(typeof(MaintenanceModeStatus));
 
-                using(StreamWriter w = new StreamWriter(configFilePath))
+                using(var w = new StreamWriter(_configFilePath))
                 {
                     serializer.Serialize(w, Status);
                 }
