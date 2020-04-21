@@ -92,14 +92,16 @@
                 <div class="maintenanceMode-options">
 
                     <div class="maintenanceMode-backoffice">
-                        <input type="checkbox"
-                               ng-checked="vm.status.Settings.AllowBackOfficeUsersThrough"
-                               ng-model="vm.status.Settings.AllowBackOfficeUsersThrough"
-                               id="maintenanceModeBackofficeUser"
-                               no-Dirty-Check />
-                        <label for="maintenanceModeBackofficeUser">
-                            Let backoffice users still view the site
-                        </label>
+
+                        <div class="flex justify-center">
+                            <umb-toggle checked="vm.status.Settings.AllowBackOfficeUsersThrough"
+                                        on-click="vm.status.Settings.AllowBackOfficeUsersThrough = !vm.status.Settings.AllowBackOfficeUsersThrough"
+                                        show-labels="true"
+                                        label-on="Allow backoffice users to view site"
+                                        label-off="Allow backoffice users to view site"
+                                        label-position="right">
+                            </umb-toggle>
+                        </div>
                     </div>
 
                     <div class="maintenanceMode-options-advanced">
