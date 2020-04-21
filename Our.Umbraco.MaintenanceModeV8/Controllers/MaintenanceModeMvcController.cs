@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Web.Mvc;
 using Umbraco.Core.Composing;
@@ -31,7 +31,7 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
             }
             catch(Exception ex)
             {
-                Current.Logger.Info(typeof(MaintenanceModeMvcController), $"Checking Maintance Mode Failed: {ex.Message}");
+                Current.Logger.Info(typeof(MaintenanceModeMvcController), "Checking Maintance Mode Failed: {0}", ex.Message);
             }
 
             return base.Index(model);
