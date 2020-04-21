@@ -1,0 +1,39 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Model.Content.Name - Site Maintenance </title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            /* background-image: url('/App_Plugins/Our.Umbraco.MaintenanceMode/Img/duggfest_tshirt.jpg'); */
+            background-image: url('/App_Plugins/Our.Umbraco.MaintenanceMode/Img/nasa_console.jpg');
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+        }
+
+        .wrapper {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(25,19,51,0.9);
+            color: #fff;
+            padding: 5em 0;
+            font-size: 200%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Under Maintenance</h1>
+        <p>
+            The Website is currently undergoing maintenance and will be back shortly.
+        </p>
+    </div>
+</body>
+</html>
