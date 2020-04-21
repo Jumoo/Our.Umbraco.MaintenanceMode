@@ -1,27 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
-using Umbraco.Core.Logging;
-using Umbraco.Core.Security;
+using Umbraco.Core.Composing;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
+using Umbraco.Web.Security;
 
-namespace Our.Umbraco.MaintenanceMode.Controllers
+namespace Our.Umbraco.MaintenanceModeV8.Controllers
 {
     public class MaintenanceModeMvcController 
         : RenderMvcController
     {
-        public override ActionResult Index(RenderModel model)
+        public override ActionResult Index(ContentModel model)
         {
             try
             {
-                if (ApplicationContext != null
-                    && ApplicationContext.IsConfigured
-                    && MaintenanceMode.Current.Status.IsInMaintenanceMode)
+                if (MaintenanceMode.Current.Status.IsInMaintenanceMode)
                 {
                     if (MaintenanceMode.Current.Status.Settings.AllowBackOfficeUsersThrough
                         && IsBackOfficeUserLoggedIn())
@@ -37,7 +31,7 @@ namespace Our.Umbraco.MaintenanceMode.Controllers
             }
             catch(Exception ex)
             {
-                Logger.Warn<MaintenanceModeMvcController>("Checking Maintance Mode Failed: {0}", () => ex.Message);
+                Current.Logger.Info(typeof(MaintenanceModeMvcController), $"Checking Maintance Mode Failed: {ex.Message}");
             }
 
             return base.Index(model);

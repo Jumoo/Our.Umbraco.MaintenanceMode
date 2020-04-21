@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
-using Our.Umbraco.MaintenanceMode.Models;
+using Our.Umbraco.MaintenanceModeV8.Models;
 using Umbraco.Web.WebApi;
 
-namespace Our.Umbraco.MaintenanceMode.Controllers
+namespace Our.Umbraco.MaintenanceModeV8.Controllers
 {
     public class MaintenanceModeBackOfficeApiController
         : UmbracoAuthorizedApiController
