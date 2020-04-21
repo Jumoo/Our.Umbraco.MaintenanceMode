@@ -29,6 +29,8 @@ namespace Our.Umbraco.MaintenanceModeV8.Services
 
         public bool IsInMaintenanceMode => Status.IsInMaintenanceMode;
 
+        public bool IsContentFrozen => Status.IsContentFrozen;
+
         public MaintenanceModeSettings Settings => Status.Settings;
 
         public void ToggleMaintenanceMode(bool maintenanceMode)
@@ -40,6 +42,14 @@ namespace Our.Umbraco.MaintenanceModeV8.Services
             SaveToDisk();
         }
 
+        public void ToggleContentFreeze(bool isContentFrozen)
+        {
+            if (isContentFrozen == Status.IsContentFrozen)
+                return; // already in this state
+
+            Status.IsContentFrozen = isContentFrozen;
+            SaveToDisk();
+        }
 
         public void SaveSettings(MaintenanceModeSettings settings)
         {

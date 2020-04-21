@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
 
     'use strict';
 
@@ -11,6 +11,8 @@
         vm.buttonState = 'init';
 
         vm.toggleMode = toggleMode;
+        vm.toggleFreeze = toggleFreeze;
+
         vm.getStatus = getStatus;
         vm.saveSettings = saveSettings;
         vm.triggerAccordian = triggerAccordian;
@@ -42,6 +44,29 @@
                 }, function (error) {
 
                 });
+        }
+
+        function toggleFreeze() {
+
+            var freezeMode = !vm.status.IsContentFrozen;
+            if (freezeMode) {
+                var c = confirm('Are you sure? If you freeze content, no one will be able to update content, media or members');
+                if (!c) {
+                    return;
+                }
+            }
+
+            maintenanceModeService.toggleFreeze(freezeMode)
+                .then(function (result) {
+                    vm.getStatus();
+
+                    var msg = "Content is " + (freezeMode ? "On" : "Off");
+                    notificationsService.success("Maintenance Mode", msg);
+
+                }, function (error) {
+                    notificationsService.error('Error', error.data.ExceptionMessage);
+                });
+
         }
 
         function getStatus()
