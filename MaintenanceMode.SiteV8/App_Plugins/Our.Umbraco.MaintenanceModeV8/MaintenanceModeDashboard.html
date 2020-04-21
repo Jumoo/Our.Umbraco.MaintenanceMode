@@ -14,14 +14,20 @@
 
                 <div ng-if="vm.status.IsInMaintenanceMode"
                      class="alert alert-danger maintenanceMode-alert">
-                    The site is currently in maintenance mode<br /> Visitors will
-                    be seeing the in maintenance page for all pages.
+                    <i class="icon icon-block"></i>
+                    <div>
+                        The site is currently in maintenance mode<br /> Visitors will
+                        be seeing the in maintenance page for all pages.
+                    </div>
                 </div>
 
                 <div ng-if="vm.status.IsContentFrozen"
-                     class="alert alert-danger maintenanceMode-alert">
-                    Content and Media updates on this site are currently frozen<br />
-                    no one can save/update or delete content or media.
+                     class="alert alert-info maintenanceMode-alert">
+                    <i class="icon icon-snow"></i>
+                    <div>
+                        Content and Media updates on this site are currently frozen<br />
+                        no one can save/update or delete content or media.
+                    </div>
                 </div>
 
                 <div ng-if="!vm.status.UsingWebConfig" class="flex justify-center">
