@@ -1,6 +1,6 @@
 ﻿.maintenanceMode-dashboard {
     margin: 0 auto;
-    max-width: 800px;
+    /*max-width: 800px;*/
     text-align: center;
 }
 .maintenanceMode-dashboard pre {
@@ -54,12 +54,17 @@
     .maintenanceMode-options-advanced .accordion-body {
         background-color: #F5F5F5;
         text-align: left;
-        border: 1px solid #eee;
+        /*border: 1px solid #eee;*/
         border-radius: 4px;
+        margin-top: 3em;
     }
 
 .maintenanceMode-options-advanced-button {
     text-align: right;
+}
+
+.accordion-inner {
+    padding: 3em 15px;
 }
 
 .maintenanceMode-warning {

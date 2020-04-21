@@ -30,8 +30,12 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
         [HttpGet]
         public IEnumerable<string> GetTemplates()
         {
-            return Services.FileService.GetTemplates()
+            var templates = Services.FileService.GetTemplates()
                 .Select(x => x.Alias).ToList();
+
+            templates.Insert(0, "MaintenancePage");
+
+            return templates;
         }
 
 

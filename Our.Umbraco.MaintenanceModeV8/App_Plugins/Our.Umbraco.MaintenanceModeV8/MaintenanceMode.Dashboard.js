@@ -2,7 +2,7 @@
 
     'use strict';
 
-    function maintenanceModeDashboardController($scope, notificationsService, maintenanceModeService) {
+    function maintenanceModeDashboardController($scope, notificationsService, maintenanceModeService, appState) {
 
         var vm = this;
         vm.loaded = false; 
@@ -13,6 +13,7 @@
         vm.toggleMode = toggleMode;
         vm.getStatus = getStatus;
         vm.saveSettings = saveSettings;
+        vm.triggerAccordian = triggerAccordian;
 
         init();
 
@@ -76,7 +77,16 @@
                 });
         }
 
+        function triggerAccordian() {
+            const collapse = "collapse";
+            const element = document.getElementById("maintanceModeAdvanced");
 
+            if (element.classList.contains(collapse)) {
+                element.classList.remove(collapse);
+            } else {
+                element.classList.add(collapse);
+            }
+        }
         ///////////////////////////
 
         function getTemplates() {
