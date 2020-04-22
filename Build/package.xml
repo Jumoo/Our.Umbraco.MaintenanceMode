@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<umbPackage>
+  <files base="../Our.Umbraco.MaintenanceModeV8">
+    <folder path="../Our.Umbraco.MaintenanceModeV8/App_Plugins/" />
+    <folder path="..//Our.Umbraco.MaintenanceModeV8/Views/" />
+    <file path="../Our.Umbraco.MaintenanceModeV8/Bin/Release/Our.Umbraco.MaintenanceModeV8.dll"
+          orgPath="~/bin" />
+  </files>
+  <info>
+    <package>
+      <name>Maintenance Mode V8</name>
+      <version>2.0.0</version>
+      <iconUrl></iconUrl>
+      <license url="http://opensource.org/licenses/MIT">MIT License</license>
+      <url>https://our.umbraco.com/packages/backoffice-extensions/maintenance-manager/</url>
+      <requirements type="Strict">
+        <major>8</major>
+        <minor>4</minor>
+        <patch>0</patch>
+      </requirements>
+    </package>
+    <author>
+      <name>Kevin Jump</name>
+      <website>http://jumoo.co.uk/</website>
+    </author>
+    <contributors>
+      <contributor>Aaron Sadler</contributor>
+    </contributors>
+    <readme><![CDATA[Put your Umbraco site in maintenance mode while you sort things out.]]></readme>
+  </info>
+  <DocumentTypes />
+  <Templates />
+  <Stylesheets />
+  <Macros />
+  <DictionaryItems />
+  <Languages />
+  <DataTypes />
+  <Actions />
+</umbPackage>

@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{486999F4-3AC9-49FD-9FAE-4F6FC5007E8E}"
 	ProjectSection(SolutionItems) = preProject
+		Build\buildpackage.cmd = Build\buildpackage.cmd
 		gulpfile.js = gulpfile.js
+		Build\package.xml = Build\package.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaintenanceMode.SiteV8", "MaintenanceMode.SiteV8\MaintenanceMode.SiteV8.csproj", "{851FEF9A-32B2-4872-9CBF-1DC6F69356B2}"
