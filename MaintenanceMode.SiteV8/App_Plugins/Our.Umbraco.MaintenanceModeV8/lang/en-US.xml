@@ -3,4 +3,28 @@
   <area alias="dashboardTabs">
     <key alias="maintenanceModeDashboard">Maintenance Mode</key>
   </area>
+  <area alias="maintain">
+    <key alias="title">Maintenance Mode</key>
+    <key alias="intro"><![CDATA[<p>
+  Setup a placeholder page to respond to all requests while you
+  sort things out or make sure everything is OK before going live
+  with your site.
+</p>]]></key>
+
+    <key alias="onMsg"><![CDATA[The site is currently in maintenance mode<br /> Visitors will be seeing the in maintenance page for all pages.]]></key>
+    <key alias="frozenMsg"><![CDATA[Content and Media updates on this site are currently frozen<br /> no one can save/update or delete content or media.]]></key>
+    
+    <key alias="btnModeOn">Turn on maintenance mode</key>
+    <key alias="btnModeOff">Turn off maintenance mode</key>
+    
+    <key alias="btnFreezeOn">Freeze Content/Media</key>
+    <key alias="btnFreezeOff">Unfreeze Content/Media</key>
+    
+    <key alias="btnAdvanced">Advanced options</key>
+
+    <key alias="webConfigWarn"><![CDATA[Maintance Mode set in the web.config, so you cannot turn it on or off via the dashboard.]]></key>
+
+    <key alias="labelTemplate">Template Name</key>
+    <key alias="labelUnfreeze">Unfrozen userIds</key>
+  </area>
 </language>

@@ -3,31 +3,45 @@
     /*max-width: 800px;*/
     text-align: center;
 }
-.maintenanceMode-dashboard pre {
-    text-align: left;
-}
+
+    .maintenanceMode-dashboard pre {
+        text-align: left;
+    }
 
 
 .maintenanceMode-alert {
     padding: 2em;
     font-size: 125%;
+    display: flex;
+    justify-content: center;
 }
+
+    .maintenanceMode-alert > div {
+        text-align: left;
+    }
+
+    .maintenanceMode-alert > i {
+        font-size: 50px;
+        padding: 10px;
+    }
+
+
 
 .maintenanceMode-header {
-    padding: 2em 0;
+    padding: 0 0 2em 0;
 }
 
-.maintenanceMode-header h3 {
-    font-weight:700;
-    display: inline-block;
-    font-size: 30pt;
-}
+    .maintenanceMode-header h3 {
+        font-weight: 700;
+        display: inline-block;
+        font-size: 30pt;
+    }
 
-.maintenanceMode-header i {
-    display: inline-block;
-    font-size: 30pt;
-    padding-right: 0.2em;
-}
+    .maintenanceMode-header i {
+        display: inline-block;
+        font-size: 30pt;
+        padding-right: 0.2em;
+    }
 
 .maintenanceMode-button {
     padding: 3em 0 1em;
@@ -35,7 +49,6 @@
 }
 
 .maintenanceMode-options {
-
 }
 
 .maintenanceMode-backoffice label {
@@ -48,7 +61,6 @@
 .maintenanceMode-options-advanced {
     max-width: 400px;
     margin: 2em auto;
-    
 }
 
     .maintenanceMode-options-advanced .accordion-body {

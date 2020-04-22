@@ -1,0 +1,53 @@
+<umb-editor-panel>
+    <umb-editor-header name="'Advanced options'"
+                       description="'Additional Settings to tweak maintenance mode'"
+                       description-locked="true"
+                       name-locked="true"
+                       hide-alias="true"
+                       hide-icon="true">
+    </umb-editor-header>
+
+    <umb-editor-container class="form-horizontal">
+
+        <umb-box>
+
+            <umb-box-content>
+
+                <umb-control-group label="@maintain_labelTemplate"
+                                   description="The template will be passed the model of the page, so if it interacts with the content it must work for all content types">
+                    <select ng-model="model.status.Settings.TemplateName"
+                            ng-options="t for t in model.templates" no-Dirty-Check></select>
+                </umb-control-group>
+
+                <umb-control-group label="@maintain_labelUnfreeze"
+                                   description="Ids of users that you don't want to be frozen out of content or media">
+                    <input type="text"
+                           ng-value="model.status.Settings.UnfrozenUsers"
+                           ng-model="model.status.Settings.UnfrozenUsers"
+                           id="unfrozenUsers"
+                           placeholder="Id of users not to freeze" />
+                </umb-control-group>
+            </umb-box-content>
+        </umb-box>
+
+    </umb-editor-container>
+
+    <umb-editor-footer>
+        <umb-editor-footer-content-right>
+            <umb-button type="button"
+                        button-style="link"
+                        label-key="general_close"
+                        action="model.close()">
+            </umb-button>
+
+            <umb-button type="button"
+                        action="model.submit()"
+                        button-style="action"
+                        label-key="buttons_save">
+            </umb-button>
+
+        </umb-editor-footer-content-right>
+    </umb-editor-footer>
+
+
+</umb-editor-panel>

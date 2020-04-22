@@ -244,6 +244,7 @@
     <Compile Include="Services\MaintenanceModeService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\advanced.html" />
     <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\lang\en-US.xml" />
     <None Include="app.config" />
     <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\package.manifest" />
