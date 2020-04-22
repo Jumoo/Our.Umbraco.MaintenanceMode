@@ -119,54 +119,13 @@
                     </div>
 
                     <div class="maintenanceMode-options-advanced">
-                        <div class="accordion-heading">
-                            <!--<a class="accordion-toggle"
-                       data-toggle="collapse"
-                       ng-click="vm.triggerAccordian()"
-                       href="#maintanceModeAdvanced">
-                    Advanced Options
-                </a>-->
-                            <umb-button action="vm.triggerAccordian()"
+                            <umb-button action="vm.openAdvanced()"
                                         type="button"
-                                        button-style="action"
+                                        button-style="link"
                                         state="vm.buttonState"
                                         label="Advanced Options"
                                         disabled="vm.buttonState === 'busy'">
                             </umb-button>
-                        </div>
-                        <div class="accordion-body collapse"
-                             id="maintanceModeAdvanced">
-                            <div class="accordion-inner">
-                                <div>
-                                    Maintenance Template Name :
-                                    <select ng-model="vm.status.Settings.TemplateName"
-                                            ng-options="t for t in vm.templates" no-Dirty-Check></select>
-                                </div>
-                                <div class="maintenanceMode-warning">
-                                    The template will be passed the model of the page,
-                                    so if it interacts with the content it must work
-                                    for all content types
-                                </div>
-
-                                <div>
-                                    <label for="unfrozenUsers">Unfrozen user Ids:</label>
-                                    <input type="text"
-                                           ng-value="vm.status.Settings.UnfrozenUsers"
-                                           ng-model="vm.status.Settings.UnfrozenUsers"
-                                           id="unfrozenUsers"
-                                           placeholder="Id of users not to freeze" />
-                                </div>
-                                <div class="maintenanceMode-warning">
-                                    Any userIds that are specified here, won't be subject to the content freeze (maybe so background processes can still function)
-                                </div>
-
-                                <div class="maintenanceMode-options-advanced-button">
-                                    <button class="btn btn-info"
-                                            ng-click="vm.saveSettings()">
-                                        Update
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
 

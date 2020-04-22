@@ -2,7 +2,9 @@
 
     'use strict';
 
-    function maintenanceModeDashboardController($scope, notificationsService, maintenanceModeService, appState) {
+    function maintenanceModeDashboardController($scope,
+        editorService,
+        notificationsService, maintenanceModeService, appState) {
 
         var vm = this;
         vm.loaded = false; 
@@ -16,6 +18,7 @@
         vm.getStatus = getStatus;
         vm.saveSettings = saveSettings;
         vm.triggerAccordian = triggerAccordian;
+        vm.openAdvanced = openAdvanced;
 
         init();
 
@@ -112,6 +115,26 @@
                 element.classList.add(collapse);
             }
         }
+
+        function openAdvanced() {
+
+            editorService.open({
+                status: vm.status,
+                templates: vm.templates,
+                title: 'Advanced Options',
+                size: 'small',
+                view: '/App_Plugins/Our.Umbraco.MaintenanceModev8/advanced.html',
+                submit: function (done) {
+                    console.log(vm.status);
+                    editorService.close();
+                    saveSettings();
+                },
+                close: function () {
+                    editorService.close();
+                }
+            })
+        }
+
         ///////////////////////////
 
         function getTemplates() {
