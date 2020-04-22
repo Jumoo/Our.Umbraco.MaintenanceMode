@@ -13,13 +13,13 @@
 
             <umb-box-content>
 
-                <umb-control-group label="Template Name"
+                <umb-control-group label="@maintain_labelTemplate"
                                    description="The template will be passed the model of the page, so if it interacts with the content it must work for all content types">
                     <select ng-model="model.status.Settings.TemplateName"
                             ng-options="t for t in model.templates" no-Dirty-Check></select>
                 </umb-control-group>
 
-                <umb-control-group label="Unfrozen user Ids"
+                <umb-control-group label="@maintain_labelUnfreeze"
                                    description="Ids of users that you don't want to be frozen out of content or media">
                     <input type="text"
                            ng-value="model.status.Settings.UnfrozenUsers"

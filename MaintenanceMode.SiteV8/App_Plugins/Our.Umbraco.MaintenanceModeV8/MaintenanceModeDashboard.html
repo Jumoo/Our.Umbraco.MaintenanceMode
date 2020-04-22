@@ -13,8 +13,7 @@
                      class="alert alert-danger maintenanceMode-alert">
                     <i class="icon icon-block"></i>
                     <div>
-                        The site is currently in maintenance mode<br /> Visitors will
-                        be seeing the in maintenance page for all pages.
+                        <localize key="maintain_onMsg"></localize>
                     </div>
                 </div>
 
@@ -22,21 +21,16 @@
                      class="alert alert-info maintenanceMode-alert">
                     <i class="icon icon-snow"></i>
                     <div>
-                        Content and Media updates on this site are currently frozen<br />
-                        no one can save/update or delete content or media.
+                        <localize key="maintain_frozenMsg"></localize>
                     </div>
                 </div>
 
                 <div class="maintenanceMode-header">
                     <i class="icon icon-wrench"></i>
-                    <h3>Maintenance Mode</h3>
+                    <h3><localize key="maintain_title"></localize></h3>
                 </div>
 
-                <p>
-                    Setup a placeholder page to respond to all requests while you
-                    sort things out or make sure everything is OK before going live
-                    with your site.
-                </p>
+                <localize key="maintain_intro"></localize>
 
                 <div ng-if="!vm.status.UsingWebConfig" class="flex justify-center">
                     <div class="maintenanceMode-button">
@@ -45,8 +39,7 @@
                                         type="button"
                                         button-style="success btn-large"
                                         state="vm.buttonState"
-                                        shortcut="ctrl+c"
-                                        label="Turn off maintenance mode"
+                                        label-key="maintain_btnModeOff"
                                         disabled="vm.buttonState === 'busy'">
                             </umb-button>
                         </div>
@@ -55,8 +48,7 @@
                                         type="button"
                                         button-style="danger btn-large"
                                         state="vm.buttonState"
-                                        shortcut="ctrl+c"
-                                        label="Turn on maintenance mode"
+                                        label-key="maintain_btnModeOn"
                                         disabled="vm.buttonState === 'busy'">
                             </umb-button>
                         </div>
@@ -68,8 +60,7 @@
                                         type="button"
                                         button-style="action btn-large"
                                         state="vm.buttonState"
-                                        shortcut="ctrl+c"
-                                        label="Unfreeze Content"
+                                        label-key="maintain_btnFreezeOff"
                                         disabled="vm.buttonState === 'busy'">
                             </umb-button>
                         </div>
@@ -78,8 +69,7 @@
                                         type="button"
                                         button-style="danger btn-large"
                                         state="vm.buttonState"
-                                        shortcut="ctrl+c"
-                                        label="Freeze Content/Media"
+                                        label-key="maintain_btnFreezeOn"
                                         disabled="vm.buttonState === 'busy'">
                             </umb-button>
                         </div>
@@ -90,10 +80,8 @@
                 <div ng-if="vm.status.UsingWebConfig">
 
                     <div class="maintenanceMode-warning">
-                        Maintance Mode set in the web.config, so you cannot turn it on
-                        or off via the dashboard.
+                        <localize key="maintain_webConfigWarn"></localize>
                     </div>
-
                     <pre>
                     <code>
 &lt;appSettings&gt;
@@ -123,7 +111,7 @@
                                         type="button"
                                         button-style="link"
                                         state="vm.buttonState"
-                                        label="Advanced Options"
+                                        label-key="maintain_btnAdvanced"
                                         disabled="vm.buttonState === 'busy'">
                             </umb-button>
                         </div>
