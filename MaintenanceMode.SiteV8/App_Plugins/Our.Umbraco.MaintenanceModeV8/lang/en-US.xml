@@ -11,7 +11,7 @@
   with your site.
 </p>]]></key>
 
-    <key alias="OnMsg"><![CDATA[The site is currently in maintenance mode<br /> Visitors will be seeing the in maintenance page for all pages.]]></key>
+    <key alias="onMsg"><![CDATA[The site is currently in maintenance mode<br /> Visitors will be seeing the in maintenance page for all pages.]]></key>
     <key alias="frozenMsg"><![CDATA[Content and Media updates on this site are currently frozen<br /> no one can save/update or delete content or media.]]></key>
     
     <key alias="btnModeOn">Turn on maintenance mode</key>
