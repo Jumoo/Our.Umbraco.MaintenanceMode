@@ -21,7 +21,7 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
         {
             _logger = logger;
             _maintenanceModeSettings = maintenanceModeSettings.Value;
-            _configFilePath = hostingEnvironment.MapPathContentRoot(Path.Combine(Constants.SystemDirectories.Config, "maintenanceMode.json"));
+            _configFilePath = hostingEnvironment.MapPathContentRoot("~/umbraco/config/maintenanceMode.json");
 
             Status = LoadStatus();
         }
@@ -102,12 +102,16 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
         }
 
         private MaintenanceModeStatus CheckAppSettings(MaintenanceModeStatus status)
-        { ;
+        {
             if (_maintenanceModeSettings == null)
                 return status;
 
             status.IsInMaintenanceMode = _maintenanceModeSettings.Enabled;
-            status.UsingWebConfig = true;
+
+            if (_maintenanceModeSettings.Enabled)
+            {
+                status.UsingWebConfig = true;
+            }
 
             return status;
         }

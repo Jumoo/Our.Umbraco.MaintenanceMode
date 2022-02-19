@@ -2,6 +2,6 @@
 {
     public class MaintenanceModeSettings
     {
-        public bool Enabled { get; set; }
+        public bool Enabled { get; set; } = false;
     }
 }

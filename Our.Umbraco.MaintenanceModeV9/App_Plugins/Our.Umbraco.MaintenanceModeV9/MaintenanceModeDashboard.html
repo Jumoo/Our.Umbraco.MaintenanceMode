@@ -32,7 +32,7 @@
 
                 <localize key="maintain_intro"></localize>
 
-                <div ng-if="!vm.status.UsingWebConfig" class="flex justify-center">
+                <div class="flex justify-center">
                     <div class="maintenanceMode-button">
                         <div ng-show="vm.status.IsInMaintenanceMode">
                             <umb-button action="vm.toggleMode()"
@@ -118,8 +118,6 @@
                     </div>
 
                 </div>
-
-            </div>
         </umb-box-content>
     </umb-box>
 </div>
