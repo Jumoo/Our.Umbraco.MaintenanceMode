@@ -32,6 +32,18 @@
 
 
     <ItemGroup>
+      <Content Remove="Views\MaintenancePage.cshtml" />
+    </ItemGroup>
+
+
+
+    <ItemGroup>
+      <None Include="Views\MaintenancePage.cshtml" />
+    </ItemGroup>
+
+
+
+    <ItemGroup>
       <ProjectReference Include="..\Our.Umbraco.MaintenanceModeV9\Our.Umbraco.MaintenanceModeV9.csproj" />
     </ItemGroup>
 
