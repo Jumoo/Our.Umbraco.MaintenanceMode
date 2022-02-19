@@ -31,6 +31,12 @@
         <Compile Include="umbraco/models/**" Exclude="**/*.flag" />
     </ItemGroup>
 
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\Our.Umbraco.MaintenanceModeV9\Our.Umbraco.MaintenanceModeV9.csproj" />
+    </ItemGroup>
+
     <PropertyGroup>
         <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
     </PropertyGroup>
