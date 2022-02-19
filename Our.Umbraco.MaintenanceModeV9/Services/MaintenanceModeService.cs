@@ -61,6 +61,7 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
             var maintenanceModeStatus = new MaintenanceModeStatus
             {
                 IsInMaintenanceMode = false,
+                UsingWebConfig = false,
                 Settings = new MaintenanceModeSettings
                 {
                     AllowBackOfficeUsersThrough = false,
