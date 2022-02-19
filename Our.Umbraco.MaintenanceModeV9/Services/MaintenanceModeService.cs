@@ -15,15 +15,16 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
         private readonly ILogger _logger;
         private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
         private readonly string _configFilePath;
+        public MaintenanceModeStatus Status { get; private set; }
 
         public MaintenanceModeService(ILogger logger, IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, IHostingEnvironment hostingEnvironment)
         {
             _logger = logger;
             _maintenanceModeSettings = maintenanceModeSettings.Value;
             _configFilePath = hostingEnvironment.MapPathContentRoot(Path.Combine(Constants.SystemDirectories.Config, "maintenanceMode.json"));
-        }
 
-        public MaintenanceModeStatus Status { get; private set; }
+            Status = LoadStatus();
+        }
 
         public bool IsInMaintenanceMode => Status.IsInMaintenanceMode;
 

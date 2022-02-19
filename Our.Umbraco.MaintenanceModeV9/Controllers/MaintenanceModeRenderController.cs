@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
@@ -17,6 +18,7 @@ namespace Our.Umbraco.MaintenanceModeV9.Controllers
         private readonly IRuntimeState _runtimeState;
         private readonly ILogger _logger;
         private readonly IMaintenanceModeService _maintenanceModeService;
+        private readonly IBackofficeUserAccessor _backofficeUserAccessor;
 
         public override IActionResult Index()
         {
@@ -31,7 +33,7 @@ namespace Our.Umbraco.MaintenanceModeV9.Controllers
             try
             {
                 if (_runtimeState.Level == RuntimeLevel.Run &&
-                _maintenanceModeService.IsInMaintenanceMode)
+                    _maintenanceModeService.IsInMaintenanceMode)
                 {
                     if (_maintenanceModeService.Settings.AllowBackOfficeUsersThrough
                         && IsBackOfficeUserLoggedIn())
@@ -50,16 +52,16 @@ namespace Our.Umbraco.MaintenanceModeV9.Controllers
 
         private bool IsBackOfficeUserLoggedIn()
         {
-            //return HttpContext?.GetUmbracoAuthTicket() != null;
-            return false;
+            return  _backofficeUserAccessor.BackofficeUser.IsAuthenticated;
         }
 
-        public MaintenanceModeRenderController(ILogger<MaintenanceModeRenderController> logger, ICompositeViewEngine compositeViewEngine, IUmbracoContextAccessor umbracoContextAccessor, IRuntimeState runtimeState, IMaintenanceModeService maintenanceModeService)
+        public MaintenanceModeRenderController(ILogger<MaintenanceModeRenderController> logger, ICompositeViewEngine compositeViewEngine, IUmbracoContextAccessor umbracoContextAccessor, IRuntimeState runtimeState, IMaintenanceModeService maintenanceModeService, IBackofficeUserAccessor backofficeUserAccessor)
             : base(logger, compositeViewEngine, umbracoContextAccessor)
         {
             _logger = logger;
             _runtimeState = runtimeState;
             _maintenanceModeService = maintenanceModeService;
+            _backofficeUserAccessor = backofficeUserAccessor;
         }
     }
 }
