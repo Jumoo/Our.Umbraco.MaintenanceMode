@@ -26,4 +26,15 @@
             <PackagePath>buildTransitive</PackagePath>
         </None>
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\advanced.html" />
+      <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\img\duggfest_tshirt.jpg" />
+      <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\img\nasa_console.jpg" />
+      <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\lang\en-US.xml" />
+      <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceMode.css" />
+      <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceMode.Dashboard.js" />
+      <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceMode.Service.js" />
+      <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceModeDashboard.html" />
+    </ItemGroup>
 </Project>
