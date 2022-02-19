@@ -43,6 +43,10 @@ namespace Our.Umbraco.MaintenanceModeV9.Controllers
 
                     context.Result = new ActionResults.ServiceUnavailableResult(_maintenanceModeService.Settings);
                 }
+                else
+                {
+                    await base.OnActionExecutionAsync(context, next);
+                }
             }
             catch (Exception ex)
             {
