@@ -2,6 +2,7 @@
 {
     public class MaintenanceModeSettings
     {
-        public bool Enabled { get; set; } = false;
+        public bool IsInMaintenanceMode { get; set; }
+        public bool IsContentFrozen { get; set; }
     }
 }

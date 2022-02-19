@@ -22,7 +22,7 @@
     
     <key alias="btnAdvanced">Advanced options</key>
 
-    <key alias="webConfigWarn"><![CDATA[Maintenance disabled or not set in appsettings.json, so you cannot turn it on or off via the dashboard.]]></key>
+    <key alias="webConfigWarn"><![CDATA[Maintenance Mode has been enabled in appsettings.json, so you cannot turn it on or off via the dashboard.]]></key>
 
     <key alias="labelTemplate">Template Name</key>
     <key alias="labelUnfreeze">Unfrozen userIds</key>

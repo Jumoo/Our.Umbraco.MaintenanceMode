@@ -10,7 +10,7 @@ using Umbraco.Cms.Core.Hosting;
 
 namespace Our.Umbraco.MaintenanceModeV9.Services
 {
-    public class MaintenanceModeService :  IMaintenanceModeService
+    public class MaintenanceModeService : IMaintenanceModeService
     {
         private readonly ILogger _logger;
         private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
@@ -107,15 +107,12 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
 
         private MaintenanceModeStatus CheckAppSettings(MaintenanceModeStatus status)
         {
-            if (_maintenanceModeSettings is null or { Enabled: false })
+            if (_maintenanceModeSettings is null or { IsInMaintenanceMode: false })
                 return status;
 
-            status.IsInMaintenanceMode = _maintenanceModeSettings.Enabled;
-
-            if (_maintenanceModeSettings.Enabled)
-            {
-                status.UsingWebConfig = true;
-            }
+            status.IsInMaintenanceMode = _maintenanceModeSettings.IsInMaintenanceMode;
+            status.IsContentFrozen = _maintenanceModeSettings.IsContentFrozen;
+            status.UsingWebConfig = true;
 
             return status;
         }
