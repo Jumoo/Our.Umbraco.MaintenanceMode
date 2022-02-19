@@ -123,7 +123,7 @@
                 templates: vm.templates,
                 title: 'Advanced Options',
                 size: 'small',
-                view: '/App_Plugins/Our.Umbraco.MaintenanceModev8/advanced.html',
+                view: '/App_Plugins/Our.Umbraco.MaintenanceModev9/advanced.html',
                 submit: function (done) {
                     console.log(vm.status);
                     editorService.close();
