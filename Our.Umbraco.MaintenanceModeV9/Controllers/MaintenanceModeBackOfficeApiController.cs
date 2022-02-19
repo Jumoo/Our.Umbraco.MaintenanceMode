@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
-using Our.Umbraco.MaintenanceModeV8.Models;
-using Our.Umbraco.MaintenanceModeV8.Services;
-using Umbraco.Web.WebApi;
+using Microsoft.AspNetCore.Mvc;
+using Our.Umbraco.MaintenanceModeV9.Interfaces;
+using Our.Umbraco.MaintenanceModeV9.Models;
+using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Web.BackOffice.Controllers;
 
-namespace Our.Umbraco.MaintenanceModeV8.Controllers
+namespace Our.Umbraco.MaintenanceModeV9.Controllers
 {
-    public class MaintenanceModeBackOfficeApiController
-        : UmbracoAuthorizedApiController
+    public class MaintenanceModeBackOfficeApiController : UmbracoAuthorizedApiController
     {
-        private readonly MaintenanceModeService _maintenanceModeService;
+        private readonly IMaintenanceModeService _maintenanceModeService;
+        private readonly IFileService _fileService;
 
-        public MaintenanceModeBackOfficeApiController(
-            MaintenanceModeService maintenanceModeService)
+        public MaintenanceModeBackOfficeApiController(IMaintenanceModeService maintenanceModeService, IFileService fileService)
         {
             _maintenanceModeService = maintenanceModeService;
+            _fileService = fileService;
         }
 
         [HttpGet]
@@ -44,7 +45,7 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
         [HttpGet]
         public IEnumerable<string> GetTemplates()
         {
-            var templates = Services.FileService.GetTemplates()
+            var templates = _fileService.GetTemplates()
                 .Select(x => x.Alias).ToList();
 
             templates.Insert(0, "MaintenancePage");
@@ -58,4 +59,3 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
         public int GetControllerUrl() => 1;
     }
 }
- 

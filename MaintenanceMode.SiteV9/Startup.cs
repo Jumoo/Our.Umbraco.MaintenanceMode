@@ -4,7 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using Our.Umbraco.MaintenanceModeV9.Controllers;
 using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Web.Website.Controllers;
 using Umbraco.Extensions;
 
 namespace MaintenanceMode.SiteV9
@@ -45,6 +47,16 @@ namespace MaintenanceMode.SiteV9
                 .AddComposers()
                 .Build();
 #pragma warning restore IDE0022 // Use expression body for methods
+
+            //services.Configure<UmbracoRenderingDefaultsOptions>(c =>
+            //{
+            //    c.DefaultControllerType = typeof(MaintenanceModeRenderController);
+            //});
+
+            services.Configure<UmbracoRenderingDefaultsOptions>(c =>
+            {
+                c.DefaultControllerType = typeof(MyRenderController);
+            });
 
         }
 

@@ -1,4 +1,4 @@
-﻿namespace Our.Umbraco.MaintenanceModeV8.Models
+﻿namespace Our.Umbraco.MaintenanceModeV9.Models
 {
     public class MaintenanceModeStatus
     {
