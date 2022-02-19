@@ -84,11 +84,10 @@
                     </div>
                     <pre>
                     <code>
-&lt;appSettings&gt;
-    &lt;add key="MaintenanceMode" value="true" /&gt;
-&lt;appSettings/&gt;
-
-                </code>
+"MaintenanceMode": {
+    "Enabled": boolean
+}
+                        </code>
             </pre>
                 </div>
                 <div class="maintenanceMode-options">
@@ -107,16 +106,14 @@
                     </div>
 
                     <div class="maintenanceMode-options-advanced">
-                            <umb-button action="vm.openAdvanced()"
-                                        type="button"
-                                        button-style="link"
-                                        state="vm.buttonState"
-                                        label-key="maintain_btnAdvanced"
-                                        disabled="vm.buttonState === 'busy'">
-                            </umb-button>
-                        </div>
+                        <umb-button action="vm.openAdvanced()"
+                                    type="button"
+                                    button-style="link"
+                                    state="vm.buttonState"
+                                    label-key="maintain_btnAdvanced"
+                                    disabled="vm.buttonState === 'busy'">
+                        </umb-button>
                     </div>
-
                 </div>
 
             </div>
