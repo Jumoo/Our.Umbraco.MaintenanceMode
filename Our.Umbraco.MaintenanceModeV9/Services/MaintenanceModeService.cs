@@ -72,8 +72,11 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
                 // load from config
                 try
                 {
-                    var settings = JsonSerializer.Deserialize<MaintenanceModeSettings>(_configFilePath);
-                    maintenanceModeStatus.Settings = settings;
+                    var settings = JsonSerializer.Deserialize<MaintenanceModeStatus>(_configFilePath);
+                    if (settings != null)
+                    {
+                        maintenanceModeStatus.Settings = settings.Settings;
+                    }
                 }
                 catch (Exception ex)
                 {
