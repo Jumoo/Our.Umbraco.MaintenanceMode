@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Our.Umbraco.MaintenanceModeV9.Interfaces;
 using Our.Umbraco.MaintenanceModeV9.Models;
@@ -22,7 +23,7 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
             _maintenanceModeSettings = maintenanceModeSettings.Value;
             _configFilePath = hostingEnvironment.MapPathContentRoot("~/umbraco/config/maintenanceMode.json");
 
-            Status = LoadStatus();
+            Status = LoadStatus().Result;
         }
 
         public bool IsInMaintenanceMode => Status.IsInMaintenanceMode;
@@ -31,31 +32,31 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
 
         public MaintenanceModeSettings Settings => Status.Settings;
 
-        public void ToggleMaintenanceMode(bool maintenanceMode)
+        public async Task ToggleMaintenanceMode(bool maintenanceMode)
         {
             if (maintenanceMode == Status.IsInMaintenanceMode)
                 return; // already in this state
 
             Status.IsInMaintenanceMode = maintenanceMode;
-            SaveToDisk();
+            await SaveToDisk();
         }
 
-        public void ToggleContentFreeze(bool isContentFrozen)
+        public async Task ToggleContentFreeze(bool isContentFrozen)
         {
             if (isContentFrozen == Status.IsContentFrozen)
                 return; // already in this state
 
             Status.IsContentFrozen = isContentFrozen;
-            SaveToDisk();
+            await SaveToDisk();
         }
 
-        public void SaveSettings(MaintenanceModeSettings settings)
+        public async Task SaveSettings(MaintenanceModeSettings settings)
         {
             Status.Settings = settings;
-            SaveToDisk();
+            await SaveToDisk();
         }
 
-        private MaintenanceModeStatus LoadStatus()
+        private async Task<MaintenanceModeStatus> LoadStatus()
         {
             var maintenanceModeStatus = new MaintenanceModeStatus
             {
@@ -72,10 +73,11 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
                 // load from config
                 try
                 {
-                    var settings = JsonSerializer.Deserialize<MaintenanceModeStatus>(_configFilePath);
-                    if (settings != null)
+                    var file = await File.ReadAllBytesAsync(_configFilePath);
+                    var status = JsonSerializer.Deserialize<MaintenanceModeStatus>(file);
+                    if (status != null)
                     {
-                        maintenanceModeStatus.Settings = settings.Settings;
+                        maintenanceModeStatus = status;
                     }
                 }
                 catch (Exception ex)
@@ -87,7 +89,7 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
             return CheckAppSettings(maintenanceModeStatus);
         }
 
-        private void SaveToDisk()
+        private async Task SaveToDisk()
         {
             try
             {
@@ -95,7 +97,7 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
                     File.Delete(_configFilePath);
 
                 string json = JsonSerializer.Serialize(Status);
-                File.WriteAllText(_configFilePath, json);
+                await File.WriteAllTextAsync(_configFilePath, json);
             }
             catch (Exception ex)
             {
@@ -105,7 +107,7 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
 
         private MaintenanceModeStatus CheckAppSettings(MaintenanceModeStatus status)
         {
-            if (_maintenanceModeSettings == null)
+            if (_maintenanceModeSettings is null or { Enabled: false })
                 return status;
 
             status.IsInMaintenanceMode = _maintenanceModeSettings.Enabled;

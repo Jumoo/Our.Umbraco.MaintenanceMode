@@ -1,15 +1,16 @@
-﻿using Our.Umbraco.MaintenanceModeV9.Models;
+﻿using System.Threading.Tasks;
+using Our.Umbraco.MaintenanceModeV9.Models;
 
 namespace Our.Umbraco.MaintenanceModeV9.Interfaces
 {
     public interface IMaintenanceModeService
     {
-        void ToggleMaintenanceMode(bool maintenanceMode);
-        void ToggleContentFreeze(bool isContentFrozen);
+        Task ToggleMaintenanceMode(bool maintenanceMode);
+        Task ToggleContentFreeze(bool isContentFrozen);
         bool IsInMaintenanceMode { get; }
         bool IsContentFrozen { get;  }
         MaintenanceModeSettings Settings { get; }
         MaintenanceModeStatus Status { get; }
-        void SaveSettings(MaintenanceModeSettings settings);
+        Task SaveSettings(MaintenanceModeSettings settings);
     }
 }
