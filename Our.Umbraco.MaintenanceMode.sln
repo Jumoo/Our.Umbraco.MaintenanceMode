@@ -14,9 +14,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaintenanceMode.SiteV8", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.MaintenanceModeV8", "Our.Umbraco.MaintenanceModeV8\Our.Umbraco.MaintenanceModeV8.csproj", "{FA28CFD7-E9B6-4B17-AC38-9B66443C55FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaintenanceMode.SiteV9", "MaintenanceMode.SiteV9\MaintenanceMode.SiteV9.csproj", "{A61C79E0-997D-4E35-837D-1F8C1858CA3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintenanceMode.SiteV9", "MaintenanceMode.SiteV9\MaintenanceMode.SiteV9.csproj", "{A61C79E0-997D-4E35-837D-1F8C1858CA3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.MaintenanceModeV9", "Our.Umbraco.MaintenanceModeV9\Our.Umbraco.MaintenanceModeV9.csproj", "{01C5FF18-9B62-47B9-97F2-CB097C856A6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Our.Umbraco.MaintenanceModeV9", "Our.Umbraco.MaintenanceModeV9\Our.Umbraco.MaintenanceModeV9.csproj", "{01C5FF18-9B62-47B9-97F2-CB097C856A6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaintenanceModeClean.SiteV9", "MaintenanceModeClean.SiteV9\MaintenanceModeClean.SiteV9.csproj", "{6BC17B43-2719-4EF6-85F6-DA8C0A243694}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{01C5FF18-9B62-47B9-97F2-CB097C856A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01C5FF18-9B62-47B9-97F2-CB097C856A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01C5FF18-9B62-47B9-97F2-CB097C856A6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BC17B43-2719-4EF6-85F6-DA8C0A243694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC17B43-2719-4EF6-85F6-DA8C0A243694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC17B43-2719-4EF6-85F6-DA8C0A243694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC17B43-2719-4EF6-85F6-DA8C0A243694}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
