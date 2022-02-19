@@ -23,7 +23,7 @@ namespace Our.Umbraco.MaintenanceModeV9.ActionResults
 
             var viewResult = new ViewResult
             {
-                ViewName = $"~/Views/{_maintenanceModeSettings.TemplateName}"
+                ViewName = $"~/Views/{_maintenanceModeSettings.TemplateName}.cshtml"
             };
 
             await viewResult.ExecuteResultAsync(context);
