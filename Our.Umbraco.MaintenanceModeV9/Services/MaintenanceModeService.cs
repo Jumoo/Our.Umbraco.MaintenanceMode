@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using Our.Umbraco.MaintenanceModeV9.Interfaces;
 using Our.Umbraco.MaintenanceModeV9.Models;
 using Serilog;
-using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Hosting;
 
 namespace Our.Umbraco.MaintenanceModeV9.Services
