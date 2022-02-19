@@ -1,5 +1,6 @@
 ﻿using Our.Umbraco.MaintenanceModeV9.NotificationHandlers.Content;
 using Our.Umbraco.MaintenanceModeV9.NotificationHandlers.Media;
+using Our.Umbraco.MaintenanceModeV9.NotificationHandlers.Routing;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
@@ -20,7 +21,8 @@ namespace Our.Umbraco.MaintenanceModeV9.Composers
                 .AddNotificationHandler<MediaDeletingNotification, FreezeMediaDeletingNotification>()
                 .AddNotificationHandler<MediaMovingNotification, FreezeMediaMovingNotification>()
                 .AddNotificationHandler<MediaMovingToRecycleBinNotification, FreezeMediaMovingToRecycleBinNotification>()
-                .AddNotificationHandler<MediaSavingNotification, FreezeMediaSavingNotification>();
+                .AddNotificationHandler<MediaSavingNotification, FreezeMediaSavingNotification>()
+                .AddNotificationHandler<RoutingRequestNotification, RoutingRequestHandler>();
         }
     }
 }
