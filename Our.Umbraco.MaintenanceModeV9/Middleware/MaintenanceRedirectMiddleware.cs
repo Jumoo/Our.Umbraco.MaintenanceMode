@@ -51,7 +51,7 @@ namespace Our.Umbraco.MaintenanceModeV9.Middleware
 
         private static HttpContext HandleRequest(HttpContext context)
         {
-            var newPath = new PathString("/maintain");
+            var newPath = new PathString("/e7f7581c6bcd4113954e163ff18cbaba");
 
             context.Features.Set<IStatusCodeReExecuteFeature>(new StatusCodeReExecuteFeature()
             {
