@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Our.Umbraco.MaintenanceModeV9.Interfaces;
+using Our.Umbraco.MaintenanceModeV9.Models;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Routing;
@@ -16,7 +17,9 @@ namespace Our.Umbraco.MaintenanceModeV9.Controllers
         [Route("e7f7581c6bcd4113954e163ff18cbaba")]
         public IActionResult Index()
         {
-            return new ActionResults.ServiceUnavailableResult(_maintenanceModeService.Settings);
+
+            Response.StatusCode = 503;
+            return View($"~/Views/{_maintenanceModeService.Settings.TemplateName}.cshtml", _maintenanceModeService.Settings.ViewModel);
         }
 
         public MaintenanceModeController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider, IMaintenanceModeService maintenanceModeService) 
