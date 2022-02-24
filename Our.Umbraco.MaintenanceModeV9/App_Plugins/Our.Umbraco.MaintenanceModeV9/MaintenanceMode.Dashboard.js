@@ -144,17 +144,17 @@
 
         function validate(status) {
 
-            if (status.Settings.ViewModel.PageTitle || status.Settings.ViewModel.PageTitle < 1) {
+            if (_.isEmpty(status.Settings.ViewModel.PageTitle)) {
                 notificationsService.error("The 'Page Title' field is required");
                 return false;
             }
 
-            if (status.Settings.ViewModel.Title || status.Settings.ViewModel.Title < 1) {
+            if (_.isEmpty(status.Settings.ViewModel.Title)) {
                 notificationsService.error("The 'Title' field is required");
                 return false;
             }
 
-            if (status.Settings.ViewModel.Text || status.Settings.ViewModel.Text < 1) {
+            if (_.isEmpty(status.Settings.ViewModel.Text)) {
                 notificationsService.error("The 'Text' field is required");
                 return false;
             }

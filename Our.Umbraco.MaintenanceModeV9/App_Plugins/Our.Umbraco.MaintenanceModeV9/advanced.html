@@ -7,7 +7,7 @@
                        hide-icon="true">
     </umb-editor-header>
 
-    <umb-editor-container class="form-horizontal">
+    <umb-editor-container>
 
         <umb-box>
 
@@ -16,7 +16,8 @@
                 <umb-control-group label="@maintain_labelTemplate"
                                    description="The template will be passed the model of the page, so if it interacts with the content it must work for all content types">
                     <select ng-model="model.status.Settings.TemplateName"
-                            ng-options="t for t in model.templates" no-Dirty-Check></select>
+                            ng-options="t for t in model.templates" no-Dirty-Check
+                            class="umb-property-editor"></select>
                 </umb-control-group>
 
                 <umb-control-group label="@maintain_labelUnfreeze"
@@ -25,6 +26,7 @@
                            ng-value="model.status.Settings.UnfrozenUsers"
                            ng-model="model.status.Settings.UnfrozenUsers"
                            id="unfrozenUsers"
+                           class="umb-property-editor umb-textstring textstring"
                            placeholder="Id of users not to freeze" />
                 </umb-control-group>
             </umb-box-content>
@@ -43,6 +45,7 @@
                            ng-required ="true"
                            required="required"
                            id="pageTitle"
+                           class="umb-property-editor umb-textstring textstring"
                            placeholder="Browser title text" />
                 </umb-control-group>
 
@@ -56,17 +59,19 @@
                            ng-required ="title"
                            required="required"
                            id="title"
+                           class="umb-property-editor umb-textstring textstring"
                            placeholder="Title text" />
                 </umb-control-group>
 
 	            <umb-control-group label="@maintain_labelText"
 	                               description="The body text"
 	                               required="true">
-		            <input type="text"
-		                   ng-value="model.status.Settings.ViewModel.Text"
+                    <textarea ng-value="model.status.Settings.ViewModel.Text"
 		                   ng-model="model.status.Settings.ViewModel.Text"
 		                   id="body"
-		                   placeholder="Body text" />
+                           class="umb-property-editor umb-textstring textstring"
+		                   placeholder="Body text"
+                           rows="5"></textarea>
 	            </umb-control-group>
 
             </umb-box-content>
