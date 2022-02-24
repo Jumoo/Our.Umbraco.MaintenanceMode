@@ -64,8 +64,7 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
                 UsingWebConfig = false,
                 Settings = new MaintenanceModeSettings
                 {
-                    AllowBackOfficeUsersThrough = false,
-                    TemplateName = "MaintenancePage"
+                    ViewModel = new MaintenanceMode()
                 }
             };
 

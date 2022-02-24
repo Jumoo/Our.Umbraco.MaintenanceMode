@@ -22,9 +22,12 @@
     
     <key alias="btnAdvanced">Advanced options</key>
 
-    <key alias="webConfigWarn"><![CDATA[Maintance Mode set in the web.config, so you cannot turn it on or off via the dashboard.]]></key>
+    <key alias="webConfigWarn"><![CDATA[Maintenance Mode has been enabled in appsettings.json, so you cannot turn it on or off via the dashboard.]]></key>
 
     <key alias="labelTemplate">Template Name</key>
     <key alias="labelUnfreeze">Unfrozen userIds</key>
+    <key alias="labelBrowserTitle">Browser title</key>
+    <key alias="labelTitle">Title</key>
+    <key alias="labelText">Body</key>
   </area>
 </language>

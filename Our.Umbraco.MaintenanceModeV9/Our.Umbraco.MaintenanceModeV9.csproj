@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ContentTargetFolders>.</ContentTargetFolders>
@@ -36,5 +36,57 @@
       <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceMode.Dashboard.js" />
       <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceMode.Service.js" />
       <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceModeDashboard.html" />
+      <None Remove="App_Plugins\Our.Umbraco.MaintenanceModeV9\package.manifest" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="App_Plugins\Our.Umbraco.MaintenanceModeV9\advanced.html">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Update="App_Plugins\Our.Umbraco.MaintenanceModeV9\img\duggfest_tshirt.jpg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Update="App_Plugins\Our.Umbraco.MaintenanceModeV9\img\nasa_console.jpg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Update="App_Plugins\Our.Umbraco.MaintenanceModeV9\lang\en-US.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Update="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceMode.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Update="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceMode.Dashboard.js">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Update="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceMode.Service.js">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Update="App_Plugins\Our.Umbraco.MaintenanceModeV9\MaintenanceModeDashboard.html">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="App_Plugins\Our.Umbraco.MaintenanceModeV9\package.manifest">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
     </ItemGroup>
 </Project>

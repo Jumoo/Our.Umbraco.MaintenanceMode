@@ -26,5 +26,8 @@
 
     <key alias="labelTemplate">Template Name</key>
     <key alias="labelUnfreeze">Unfrozen userIds</key>
+    <key alias="labelBrowserTitle">Browser title</key>
+    <key alias="labelTitle">Title</key>
+    <key alias="labelText">Body</key>
   </area>
 </language>

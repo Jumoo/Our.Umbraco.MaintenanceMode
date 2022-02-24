@@ -1,11 +1,12 @@
-﻿@inherits UmbracoViewPage
+﻿@using Microsoft.AspNetCore.Http
+@inherits UmbracoViewPage<Our.Umbraco.MaintenanceModeV9.Models.MaintenanceMode>
 @{
     Layout = null;
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Site Maintenance </title>
+    <title>@Model.PageTitle</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -36,9 +37,9 @@
 <body>
     <div class="wrapper">
         <div class="text-wrap">
-            <h1>Under Maintenance</h1>
+            <h1>@Model.Title</h1>
             <p>
-                The Website is currently undergoing maintenance and will be back shortly.
+                @Model.Text
             </p>
         </div>
     </div>

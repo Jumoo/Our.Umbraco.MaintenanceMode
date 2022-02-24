@@ -32,7 +32,7 @@
 
                 <localize key="maintain_intro"></localize>
 
-                <div class="flex justify-center">
+                <div ng-if="!vm.status.UsingWebConfig" class="flex justify-center">
                     <div class="maintenanceMode-button">
                         <div ng-show="vm.status.IsInMaintenanceMode">
                             <umb-button action="vm.toggleMode()"
@@ -83,12 +83,12 @@
                         <localize key="maintain_webConfigWarn"></localize>
                     </div>
                     <pre>
-                    <code>
-&lt;appSettings&gt;
-    &lt;add key="MaintenanceMode" value="true" /&gt;
-&lt;appSettings/&gt;
-
-                </code>
+                        <code>
+"MaintenanceMode": {
+    "IsInMaintenanceMode": true,
+    "IsContentFrozen": true
+}
+                        </code>
             </pre>
                 </div>
                 <div class="maintenanceMode-options">
@@ -107,17 +107,17 @@
                     </div>
 
                     <div class="maintenanceMode-options-advanced">
-                            <umb-button action="vm.openAdvanced()"
-                                        type="button"
-                                        button-style="link"
-                                        state="vm.buttonState"
-                                        label-key="maintain_btnAdvanced"
-                                        disabled="vm.buttonState === 'busy'">
-                            </umb-button>
-                        </div>
+                        <umb-button action="vm.openAdvanced()"
+                                    type="button"
+                                    button-style="link"
+                                    state="vm.buttonState"
+                                    label-key="maintain_btnAdvanced"
+                                    disabled="vm.buttonState === 'busy'">
+                        </umb-button>
                     </div>
-
                 </div>
+
+            </div>
         </umb-box-content>
     </umb-box>
 </div>

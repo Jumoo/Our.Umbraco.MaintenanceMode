@@ -116,6 +116,26 @@
             }
         }
 
+        function validate(status) {
+
+            if (status.Settings.ViewModel.PageTitle || status.Settings.ViewModel.PageTitle < 1) {
+                notificationsService.error("The 'Page Title' field is required");
+                return false;
+            }
+
+            if (status.Settings.ViewModel.Title || status.Settings.ViewModel.Title < 1) {
+                notificationsService.error("The 'Title' field is required");
+                return false;
+            }
+
+            if (status.Settings.ViewModel.Text || status.Settings.ViewModel.Text < 1) {
+                notificationsService.error("The 'Text' field is required");
+                return false;
+            }
+
+            return true;
+        }
+
         function openAdvanced() {
 
             editorService.open({
@@ -123,11 +143,13 @@
                 templates: vm.templates,
                 title: 'Advanced Options',
                 size: 'small',
-                view: '/App_Plugins/Our.Umbraco.MaintenanceModev8/advanced.html',
+                view: '/App_Plugins/Our.Umbraco.MaintenanceModev9/advanced.html',
                 submit: function (done) {
-                    console.log(vm.status);
-                    editorService.close();
-                    saveSettings();
+                    if (validate(vm.status)) {
+                        console.log(vm.status);
+                        editorService.close();
+                        saveSettings();
+                    };
                 },
                 close: function () {
                     editorService.close();
