@@ -6,6 +6,8 @@ using Microsoft.Extensions.Options;
 using Our.Umbraco.MaintenanceModeV9.Interfaces;
 using Our.Umbraco.MaintenanceModeV9.Models;
 using Serilog;
+
+using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Hosting;
 
 namespace Our.Umbraco.MaintenanceModeV9.Services
@@ -17,11 +19,15 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
         private readonly string _configFilePath;
         public MaintenanceModeStatus Status { get; private set; }
 
-        public MaintenanceModeService(ILogger logger, IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, IHostingEnvironment hostingEnvironment)
+        public MaintenanceModeService(ILogger logger,
+            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, IHostingEnvironment hostingEnvironment)
         {
             _logger = logger;
             _maintenanceModeSettings = maintenanceModeSettings.Value;
-            _configFilePath = hostingEnvironment.MapPathContentRoot("~/umbraco/config/maintenanceMode.json");
+
+            // put maintenanceMode config in the 'config folder'
+            var configFolder = new DirectoryInfo(hostingEnvironment.MapPathContentRoot(Constants.SystemDirectories.Config));
+            _configFilePath = Path.Combine(configFolder.FullName, "maintenanceMode.json");
 
             Status = LoadStatus().Result;
         }
@@ -95,6 +101,8 @@ namespace Our.Umbraco.MaintenanceModeV9.Services
             {
                 if (File.Exists(_configFilePath))
                     File.Delete(_configFilePath);
+
+                Directory.CreateDirectory(Path.GetDirectoryName(_configFilePath));
 
                 string json = JsonSerializer.Serialize(Status);
                 await File.WriteAllTextAsync(_configFilePath, json);
