@@ -48,11 +48,6 @@ namespace MaintenanceModeClean.SiteV9
                 .Build();
 #pragma warning restore IDE0022 // Use expression body for methods
 
-            services.Configure<UmbracoRenderingDefaultsOptions>(c =>
-            {
-                c.DefaultControllerType = typeof(MaintenanceModeRenderController);
-            });
-
         }
 
         /// <summary>
