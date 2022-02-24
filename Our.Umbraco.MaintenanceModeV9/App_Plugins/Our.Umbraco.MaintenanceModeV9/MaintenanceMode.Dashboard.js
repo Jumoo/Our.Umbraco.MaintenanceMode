@@ -3,7 +3,7 @@
     'use strict';
 
     function maintenanceModeDashboardController($scope,
-        editorService,
+        editorService, overlayService,
         notificationsService, maintenanceModeService, appState) {
 
         var vm = this;
@@ -28,14 +28,25 @@
 
             var targetMode = !vm.status.IsInMaintenanceMode;
 
-            if (targetMode)
-            {
-                // turning it on, so we should get some confirmation ?
-                var c = confirm('are you sure, if you turn on maintance mode visitors to your site will get a holding page.');
-                if (!c) {
-                    return;
-                }
+            if (targetMode) {
+                overlayService.confirm({
+
+                    title: 'Turn maintence mode on',
+                    content: 'If you turn on maintance mode visitors to your site will get a holding page.',
+                    disableBackdropClick: true,
+                    disableEscKey: true,
+                    submit: function () {
+                        doMaintenceMode(targetMode);
+                        overlayService.close();
+                    }
+                });
             }
+            else {
+                doMaintenceMode(targetMode);
+            }
+        }
+
+        function doMaintenceMode(targetMode) {
 
             maintenanceModeService.toggleMode(targetMode)
                 .then(function (result) {
@@ -53,11 +64,26 @@
 
             var freezeMode = !vm.status.IsContentFrozen;
             if (freezeMode) {
-                var c = confirm('Are you sure? If you freeze content, no one will be able to update content, media or members');
-                if (!c) {
-                    return;
-                }
+
+                overlayService.confirm({
+                    title: 'Confirm Freeze',
+                    content: 'If you freeze content, no one will be able to update content, media or members',
+                    disableBackdropClick: true,
+                    disableEscKey: true,
+                    submit: function () {
+                        // yes
+                        doFreeze(freezeMode);
+                        overlayService.close();
+                    },
+                });
             }
+            else {
+                doFreeze(freezeMode);
+            }
+        }
+
+        function doFreeze(freezeMode)
+        {
 
             maintenanceModeService.toggleFreeze(freezeMode)
                 .then(function (result) {
