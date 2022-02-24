@@ -10,35 +10,35 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
     public class MaintenanceModeBackOfficeApiController
         : UmbracoAuthorizedApiController
     {
-        private readonly MaintenanceModeService maintenanceModeService;
+        private readonly MaintenanceModeService _maintenanceModeService;
 
         public MaintenanceModeBackOfficeApiController(
             MaintenanceModeService maintenanceModeService)
         {
-            this.maintenanceModeService = maintenanceModeService;
+            _maintenanceModeService = maintenanceModeService;
         }
 
         [HttpGet]
         public MaintenanceModeStatus GetStatus()
-            => maintenanceModeService.Status;
+            => _maintenanceModeService.Status;
 
         [HttpPost]
         public void ToggleMode(bool maintenanceMode)
         {
-            maintenanceModeService.ToggleMaintenanceMode(maintenanceMode);
+            _maintenanceModeService.ToggleMaintenanceMode(maintenanceMode);
         }
 
         [HttpPost]
         public void ToggleFreeze(bool contentFreeze)
         {
-            maintenanceModeService.ToggleContentFreeze(contentFreeze);
+            _maintenanceModeService.ToggleContentFreeze(contentFreeze);
         }
 
 
         [HttpPost]
         public void SaveSettings(MaintenanceModeSettings settings)
         {
-            maintenanceModeService.SaveSettings(settings);
+            _maintenanceModeService.SaveSettings(settings);
         }
 
         [HttpGet]

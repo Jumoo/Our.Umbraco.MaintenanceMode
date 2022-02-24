@@ -239,6 +239,7 @@
     <Compile Include="Controllers\MaintenanceModeBackOfficeApiController.cs" />
     <Compile Include="Controllers\MaintenanceModeMvcController.cs" />
     <Compile Include="MaintenanceModeComposer.cs" />
+    <Compile Include="Models\MaintenanceModeSettings.cs" />
     <Compile Include="Models\MaintenanceModeStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MaintenanceModeService.cs" />
