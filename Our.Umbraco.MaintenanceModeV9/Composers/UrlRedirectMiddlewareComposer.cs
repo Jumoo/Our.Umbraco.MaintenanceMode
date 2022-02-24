@@ -1,24 +1,17 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+
 using Our.Umbraco.MaintenanceModeV9.Middleware;
-using Umbraco.Cms.Core.Composing;
+
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
 
 namespace Our.Umbraco.MaintenanceModeV9.Composers
 {
-    public class UrlRedirectMiddlewareComposer : IComposer
+    internal static class UrlRedirectMiddlewareComposerExtensions
     {
-        public void Compose(IUmbracoBuilder builder)
-        {
-            builder.AddMaintenceManager();
-        }
-    }
-
-    public static class UrlRedirectMiddlewareComposerExtensions
-    {
-        public static IUmbracoBuilder AddMaintenceManager(this IUmbracoBuilder builder)
+        public static IUmbracoBuilder AddMaintenceManagerMiddleware(this IUmbracoBuilder builder)
         {
 
             builder.Services.Configure<UmbracoPipelineOptions>(options =>

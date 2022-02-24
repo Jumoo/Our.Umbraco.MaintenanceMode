@@ -4,7 +4,8 @@
 
     function maintenanceModeService($http) {
 
-        var serviceRoot = "/umbraco/backoffice/api/MaintenanceModeBackOfficeApi/";
+        var serviceRoot = Umbraco.Sys.ServerVariables.MaintenanceMode.Service;
+        //var serviceRoot = "/umbraco/backoffice/api/MaintenanceModeBackOfficeApi/";
 
         var service = {
 
