@@ -1,9 +1,9 @@
 const { watch, src, dest } = require('gulp');
 
-const sourceFolder = 'Our.Umbraco.MaintenanceModeV8/App_Plugins/';
+const sourceFolder = 'Our.Umbraco.MaintenanceModeV9/App_Plugins/';
 const source = sourceFolder + '**/*';
 
-const destination = 'MaintenanceMode.SiteV8/App_Plugins';
+const destination = 'MaintenanceMode.SiteV9/App_Plugins';
 
 
 function copy(path) {
