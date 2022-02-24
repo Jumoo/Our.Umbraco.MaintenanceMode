@@ -1,4 +1,4 @@
-﻿<div ng-controller="maintenanceModeDashboardController as vm">
+<div ng-controller="maintenanceModeDashboardController as vm">
 
     <umb-box>
         <umb-box-content class="maintenanceMode-dashboard">
@@ -83,12 +83,12 @@
                         <localize key="maintain_webConfigWarn"></localize>
                     </div>
                     <pre>
-                    <code>
-&lt;appSettings&gt;
-    &lt;add key="MaintenanceMode" value="true" /&gt;
-&lt;appSettings/&gt;
-
-                </code>
+                        <code>
+"MaintenanceMode": {
+    "IsInMaintenanceMode": true,
+    "IsContentFrozen": true
+}
+                        </code>
             </pre>
                 </div>
                 <div class="maintenanceMode-options">
@@ -107,16 +107,14 @@
                     </div>
 
                     <div class="maintenanceMode-options-advanced">
-                            <umb-button action="vm.openAdvanced()"
-                                        type="button"
-                                        button-style="link"
-                                        state="vm.buttonState"
-                                        label-key="maintain_btnAdvanced"
-                                        disabled="vm.buttonState === 'busy'">
-                            </umb-button>
-                        </div>
+                        <umb-button action="vm.openAdvanced()"
+                                    type="button"
+                                    button-style="link"
+                                    state="vm.buttonState"
+                                    label-key="maintain_btnAdvanced"
+                                    disabled="vm.buttonState === 'busy'">
+                        </umb-button>
                     </div>
-
                 </div>
 
             </div>

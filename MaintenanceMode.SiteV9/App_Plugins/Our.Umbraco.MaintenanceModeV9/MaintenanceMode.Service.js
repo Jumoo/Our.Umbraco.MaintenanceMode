@@ -1,10 +1,11 @@
-﻿(function () {
+(function () {
 
     'use strict';
 
     function maintenanceModeService($http) {
 
         var serviceRoot = Umbraco.Sys.ServerVariables.MaintenanceMode.Service;
+        //var serviceRoot = "/umbraco/backoffice/api/MaintenanceModeBackOfficeApi/";
 
         var service = {
 

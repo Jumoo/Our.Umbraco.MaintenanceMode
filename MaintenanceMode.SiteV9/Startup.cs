@@ -52,12 +52,6 @@ namespace MaintenanceMode.SiteV9
             //{
             //    c.DefaultControllerType = typeof(MaintenanceModeRenderController);
             //});
-
-            services.Configure<UmbracoRenderingDefaultsOptions>(c =>
-            {
-                c.DefaultControllerType = typeof(MyRenderController);
-            });
-
         }
 
         /// <summary>
