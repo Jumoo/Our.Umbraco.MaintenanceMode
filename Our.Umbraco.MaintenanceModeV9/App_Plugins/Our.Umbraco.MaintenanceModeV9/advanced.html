@@ -14,14 +14,14 @@
             <umb-box-content>
 
                 <umb-control-group label="@maintain_labelTemplate"
-                                   description="The template will be passed the model of the page, so if it interacts with the content it must work for all content types">
+                                   description="@maintain_labelTemplateDesc">
                     <select ng-model="model.status.Settings.TemplateName"
                             ng-options="t for t in model.templates" no-Dirty-Check
                             class="umb-property-editor"></select>
                 </umb-control-group>
 
                 <umb-control-group label="@maintain_labelUnfreeze"
-                                   description="Ids of users that you don't want to be frozen out of content or media">
+                                   description="@maintain_labelUnfreezeDesc">
                     <input type="text"
                            ng-value="model.status.Settings.UnfrozenUsers"
                            ng-model="model.status.Settings.UnfrozenUsers"
@@ -37,7 +37,7 @@
             <umb-box-content title="Content Settings">
 
                 <umb-control-group label="@maintain_labelBrowserTitle"
-                                   description="The text shown in the browser title"
+                                   description="@maintain_labelBrowserTitleDesc"
                                    required="true">
                     <input type="text"
                            ng-value="model.status.Settings.ViewModel.PageTitle"
@@ -50,7 +50,7 @@
                 </umb-control-group>
 
                 <umb-control-group label="@maintain_labelTitle"
-                                   description="The title text"
+                                   description="@maintain_labelTitleDesc"
                                    required="true"
                                    >
                     <input type="text"
@@ -64,7 +64,7 @@
                 </umb-control-group>
 
 	            <umb-control-group label="@maintain_labelText"
-	                               description="The body text"
+	                               description="@maintain_labelTextDesc"
 	                               required="true">
                     <textarea ng-value="model.status.Settings.ViewModel.Text"
 		                   ng-model="model.status.Settings.ViewModel.Text"
