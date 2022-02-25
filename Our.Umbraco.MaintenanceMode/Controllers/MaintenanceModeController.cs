@@ -19,7 +19,7 @@ namespace Our.Umbraco.MaintenanceMode.Controllers
         {
 
             Response.StatusCode = 503;
-            return View($"~/Views/{_maintenanceModeService.Settings.TemplateName}.cshtml", _maintenanceModeService.Settings.ViewModel);
+            return View($"/views/{_maintenanceModeService.Settings.TemplateName}.cshtml", _maintenanceModeService.Settings.ViewModel);
         }
 
         public MaintenanceModeController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider, IMaintenanceModeService maintenanceModeService) 

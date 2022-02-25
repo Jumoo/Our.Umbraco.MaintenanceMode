@@ -1,5 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
         <ContentTargetFolders>.</ContentTargetFolders>
         <Product>Our.Umbraco.MaintenanceMode</Product>
@@ -9,10 +10,15 @@
         <Product>...</Product>
         <PackageTags>umbraco plugin package</PackageTags>
         <RootNamespace>Our.Umbraco.MaintenanceMode</RootNamespace>
-    </PropertyGroup>
+
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+
+	</PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.3.0" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		
+		<PackageReference Include="Umbraco.Cms.Web.Website" Version="9.3.0" />
         <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.3.0" />
     </ItemGroup>
 
@@ -25,13 +31,5 @@
             <Pack>True</Pack>
             <PackagePath>buildTransitive</PackagePath>
         </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Views\MaintenancePage.cshtml" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Resource Include="Views\MaintenancePage.cshtml" />
     </ItemGroup>
 </Project>
