@@ -313,3 +313,6 @@ $RECYCLE.BIN/
 **/App_Data/cache/
 
 MaintenanceMode.SiteV8/Media/created-packages/
+
+**/dist/*
+!**/dist/buildpackage.ps1

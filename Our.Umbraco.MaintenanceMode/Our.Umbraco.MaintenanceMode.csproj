@@ -3,21 +3,33 @@
 	<PropertyGroup>
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
         <ContentTargetFolders>.</ContentTargetFolders>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+		
         <Product>Our.Umbraco.MaintenanceMode</Product>
         <PackageId>Our.Umbraco.MaintenanceMode</PackageId>
         <Title>Our.Umbraco.MaintenanceModeV9</Title>
-        <Description>...</Description>
-        <Product>...</Product>
-        <PackageTags>umbraco plugin package</PackageTags>
+
+		<Authors>Kevin Jump,Aaron Sadler</Authors>
+        <Description><![CDATA[Put Umbraco Into Maintenance Mode - While you do things]]></Description>
+        
+		<PackageTags>umbraco plugin package</PackageTags>
         <RootNamespace>Our.Umbraco.MaintenanceMode</RootNamespace>
 
-		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+		<PackageLinenseExpressio>MIT</PackageLinenseExpressio>
+		<PackageProjectUrl></PackageProjectUrl>
+		<RepositoryUrl></RepositoryUrl>
+
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+
+		<PackageIcon>maintenance-icon.png</PackageIcon>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 
 	</PropertyGroup>
 
     <ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="9.3.0" />
         <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.3.0" />
     </ItemGroup>
@@ -32,4 +44,9 @@
             <PackagePath>buildTransitive</PackagePath>
         </None>
     </ItemGroup>
+
+	<ItemGroup>
+		<None Include="readme.md" Pack="true" PackagePath="\" />
+		<None Include="maintenance-icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
 </Project>
