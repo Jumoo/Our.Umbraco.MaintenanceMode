@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <ContentTargetFolders>.</ContentTargetFolders>
+        <Product>Our.Umbraco.MaintenanceMode</Product>
+        <PackageId>Our.Umbraco.MaintenanceMode</PackageId>
+        <Title>Our.Umbraco.MaintenanceModeV9</Title>
+        <Description>...</Description>
+        <Product>...</Product>
+        <PackageTags>umbraco plugin package</PackageTags>
+        <RootNamespace>Our.Umbraco.MaintenanceMode</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.3.0" />
+        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="App_Plugins\Our.Umbraco.MaintenanceMode\**\*.*">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+        <None Include="build\**\*.*">
+            <Pack>True</Pack>
+            <PackagePath>buildTransitive</PackagePath>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Views\MaintenancePage.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Views\MaintenancePage.cshtml" />
+    </ItemGroup>
+</Project>

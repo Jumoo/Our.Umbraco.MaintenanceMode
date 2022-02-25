@@ -1,0 +1,100 @@
+﻿<umb-editor-panel>
+    <umb-editor-header name="'Advanced options'"
+                       description="'Additional Settings to tweak maintenance mode'"
+                       description-locked="true"
+                       name-locked="true"
+                       hide-alias="true"
+                       hide-icon="true">
+    </umb-editor-header>
+
+    <umb-editor-container>
+
+        <umb-box>
+
+            <umb-box-content>
+
+                <umb-control-group label="@maintain_labelTemplate"
+                                   description="@maintain_labelTemplateDesc">
+                    <select ng-model="model.status.Settings.TemplateName"
+                            ng-options="t for t in model.templates" no-Dirty-Check
+                            class="umb-property-editor"></select>
+                </umb-control-group>
+
+                <umb-control-group label="@maintain_labelUnfreeze"
+                                   description="@maintain_labelUnfreezeDesc">
+                    <input type="text"
+                           ng-value="model.status.Settings.UnfrozenUsers"
+                           ng-model="model.status.Settings.UnfrozenUsers"
+                           id="unfrozenUsers"
+                           class="umb-property-editor umb-textstring textstring"
+                           placeholder="Id of users not to freeze" />
+                </umb-control-group>
+            </umb-box-content>
+        </umb-box>
+
+	    <umb-box>
+
+            <umb-box-content title="Content Settings">
+
+                <umb-control-group label="@maintain_labelBrowserTitle"
+                                   description="@maintain_labelBrowserTitleDesc"
+                                   required="true">
+                    <input type="text"
+                           ng-value="model.status.Settings.ViewModel.PageTitle"
+                           ng-model="model.status.Settings.ViewModel.PageTitle"
+                           ng-required ="true"
+                           required="required"
+                           id="pageTitle"
+                           class="umb-property-editor umb-textstring textstring"
+                           placeholder="Browser title text" />
+                </umb-control-group>
+
+                <umb-control-group label="@maintain_labelTitle"
+                                   description="@maintain_labelTitleDesc"
+                                   required="true"
+                                   >
+                    <input type="text"
+                           ng-value="model.status.Settings.ViewModel.Title"
+                           ng-model="model.status.Settings.ViewModel.Title"
+                           ng-required ="title"
+                           required="required"
+                           id="title"
+                           class="umb-property-editor umb-textstring textstring"
+                           placeholder="Title text" />
+                </umb-control-group>
+
+	            <umb-control-group label="@maintain_labelText"
+	                               description="@maintain_labelTextDesc"
+	                               required="true">
+                    <textarea ng-value="model.status.Settings.ViewModel.Text"
+		                   ng-model="model.status.Settings.ViewModel.Text"
+		                   id="body"
+                           class="umb-property-editor umb-textstring textstring"
+		                   placeholder="Body text"
+                           rows="5"></textarea>
+	            </umb-control-group>
+
+            </umb-box-content>
+	    </umb-box>
+
+    </umb-editor-container>
+
+    <umb-editor-footer>
+        <umb-editor-footer-content-right>
+            <umb-button type="button"
+                        button-style="link"
+                        label-key="general_close"
+                        action="model.close()">
+            </umb-button>
+
+            <umb-button type="button"
+                        action="model.submit()"
+                        button-style="action"
+                        label-key="buttons_save">
+            </umb-button>
+
+        </umb-editor-footer-content-right>
+    </umb-editor-footer>
+
+
+</umb-editor-panel>
