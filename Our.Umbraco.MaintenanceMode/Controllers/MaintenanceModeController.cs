@@ -14,7 +14,7 @@ namespace Our.Umbraco.MaintenanceMode.Controllers
     public class MaintenanceModeController : SurfaceController
     {
         private readonly IMaintenanceModeService _maintenanceModeService;
-        [Route("e7f7581c6bcd4113954e163ff18cbaba")]
+        [Route(MaintenanceMode.MaintenanceRoot)]
         public IActionResult Index()
         {
 

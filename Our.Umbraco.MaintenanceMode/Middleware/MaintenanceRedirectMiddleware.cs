@@ -31,7 +31,7 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
 
         public async Task InvokeAsync(HttpContext context, IBackofficeUserAccessor backofficeUserAccessor)
         {
-            _logger.LogInformation("Middleware triggered {url}", context.Request.Path);
+            _logger.LogDebug("Maintenance mode middleware triggered {url}", context.Request.Path);
 
             if (_runtimeState.Level == RuntimeLevel.Run &&
                 _maintenanceModeService.IsInMaintenanceMode)
@@ -55,7 +55,7 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
 
         private static HttpContext HandleRequest(HttpContext context)
         {
-            var newPath = new PathString("/e7f7581c6bcd4113954e163ff18cbaba");
+            var newPath = new PathString($"/{MaintenanceMode.MaintenanceRoot}");
 
             context.Features.Set<IStatusCodeReExecuteFeature>(new StatusCodeReExecuteFeature()
             {
