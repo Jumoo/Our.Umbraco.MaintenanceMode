@@ -1,29 +1,42 @@
+/// <binding ProjectOpened='default' />
 const { watch, src, dest } = require('gulp');
+var config = require('./paths.json');
 
-const sourceFolder = 'Our.Umbraco.MaintenanceModeV9/App_Plugins/';
-const source = sourceFolder + '**/*';
+// read in from the paths.json. 
+const sources = config.sources;
+const destinations = config.destinations;
 
-const destination = 'MaintenanceMode.SiteV9/App_Plugins';
+function copy(path, base) {
 
+    destinations.forEach(function (target) {
+        console.log(
+            '[\x1b[32m%s\x1b[0m] \x1b[33m%s\x1b[0m >> \x1b[34m%s\x1b[0m',
+            time(), path.substring(base.length + 1), target);
 
-function copy(path) {
-
-    return src(path, { base: sourceFolder })
-        .pipe(dest(destination));
+        src(path, { base: base })
+            .pipe(dest(target));
+    });
 }
 
 function time() {
-    return '[' + new Date().toISOString().slice(11, -5) + ']';
+    return new Date().toLocaleTimeString();
 }
 
 exports.default = function () {
-    watch(source, { ignoreInitial: false })
-        .on('change', function (path, stats) {
-            console.log(time(), path, 'changed');
-            copy(path);
-        })
-        .on('add', function (path, stats) {
-            console.log(time(), path, 'added');
-            copy(path);
-        });
+
+    sources.forEach(function (source) {
+
+        var searchPath = source + '/**/*';
+
+        watch(searchPath, { ignoreInitial: false })
+            .on('change', function (path, stats) {
+                copy(path, source);
+            })
+            .on('add', function (path, stats) {
+                copy(path, source);
+            });
+    });
 };
+
+
+
