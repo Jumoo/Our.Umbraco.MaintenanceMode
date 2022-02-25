@@ -33,7 +33,8 @@ namespace Our.Umbraco.MaintenanceMode.Composers
         }
 
         // some reserved roots that are umbraco sepecifc and we don't want to 
-        // trigger our middleware for.,
+        // trigger our middleware for.
+        // TODO: These need to be dynamically calculated.
         private static string[] backofficePaths = new string[]
         {
             "/umbraco", "/App_Plugins", "/api", "/media", "/install"
