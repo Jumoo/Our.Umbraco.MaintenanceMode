@@ -316,3 +316,8 @@ MaintenanceMode.SiteV8/Media/created-packages/
 
 **/dist/*
 !**/dist/buildpackage.ps1
+
+**/MaintenanceMode.Site/App_Plugins/
+**/MaintenanceMode.Site/Views/
+**/MaintenanceMode.Site/wwwroot/scripts/
+**/MaintenanceMode.Site/wwwroot/css/

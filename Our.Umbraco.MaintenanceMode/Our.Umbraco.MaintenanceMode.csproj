@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <TargetFrameworks>net6.0</TargetFrameworks>
         <ContentTargetFolders>.</ContentTargetFolders>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 		
         <Product>Our.Umbraco.MaintenanceMode</Product>
         <PackageId>Our.Umbraco.MaintenanceMode</PackageId>
-        <Title>Our.Umbraco.MaintenanceModeV9</Title>
+        <Title>Our.Umbraco.MaintenanceMode</Title>
 
 		<Authors>Kevin Jump,Aaron Sadler</Authors>
         <Description><![CDATA[Put Umbraco Into Maintenance Mode - While you do things]]></Description>
@@ -30,8 +30,8 @@
 
     <ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		<PackageReference Include="Umbraco.Cms.Web.Website" Version="9.3.0" />
-        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.3.0" />
+		<PackageReference Include="Umbraco.Cms.Web.Website" Version="10.0.0" />
+        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.0.0" />
     </ItemGroup>
 
     <ItemGroup>
