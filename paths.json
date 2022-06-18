@@ -1,9 +1,0 @@
-{
-  "sources": [
-    "Our.Umbraco.MaintenanceMode/App_Plugins"
-  ],
-  "destinations": [
-    "MaintenanceMode.Site/App_Plugins"
-  ]
-}
-  
