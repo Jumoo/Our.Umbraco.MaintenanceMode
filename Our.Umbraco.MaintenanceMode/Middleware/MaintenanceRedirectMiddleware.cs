@@ -33,24 +33,40 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
         {
             _logger.LogDebug("Maintenance mode middleware triggered {url}", context.Request.Path);
 
-            if (_runtimeState.Level == RuntimeLevel.Run &&
-                _maintenanceModeService.IsInMaintenanceMode)
+            bool IsAuthenticated = IsBackOfficeAuthenticated(backofficeUserAccessor);
+
+            if (backofficeUserAccessor != null)
             {
-                // todo figure out how to do this check here
-                if (!_maintenanceModeService.Settings.AllowBackOfficeUsersThrough
-                    && backofficeUserAccessor.BackofficeUser.IsAuthenticated)
+                if (_runtimeState.Level == RuntimeLevel.Run &&
+                    _maintenanceModeService.IsInMaintenanceMode)
                 {
-                    context = HandleRequest(context);
-                }
-                else if (!backofficeUserAccessor.BackofficeUser.IsAuthenticated)
-                {
-                    context = HandleRequest(context);
+                    // todo figure out how to do this check here
+                    if (!_maintenanceModeService.Settings.AllowBackOfficeUsersThrough
+                        && IsAuthenticated)
+                    {
+                        context = HandleRequest(context);
+                    }
+                    else if (!IsAuthenticated)
+                    {
+                        context = HandleRequest(context);
+                    }
                 }
             }
 
             await _next(context);
 
 
+        }
+
+        private bool IsBackOfficeAuthenticated(IBackofficeUserAccessor backofficeUserAccessor) {
+            try {
+                return backofficeUserAccessor.BackofficeUser?.IsAuthenticated ?? false;
+            }
+            catch(System.Exception ex) {
+                // in v10 - this thows an erro internally, if there is no backoffice user 🤷‍♀️
+                // _logger.LogWarning(ex, "Error getting back office user");
+                return false;
+            }
         }
 
         private static HttpContext HandleRequest(HttpContext context)
