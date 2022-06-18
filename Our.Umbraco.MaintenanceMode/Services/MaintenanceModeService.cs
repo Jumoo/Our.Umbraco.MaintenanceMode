@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Options;
 
 using Our.Umbraco.MaintenanceMode.Interfaces;
 using Our.Umbraco.MaintenanceMode.Models;
@@ -11,6 +12,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Extensions;
 using Umbraco.Cms.Core.Hosting;
 
 namespace Our.Umbraco.MaintenanceMode.Services
@@ -23,13 +25,13 @@ namespace Our.Umbraco.MaintenanceMode.Services
         public MaintenanceModeStatus Status { get; private set; }
 
         public MaintenanceModeService(ILogger logger,
-            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, IHostingEnvironment hostingEnvironment)
+            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, IWebHostEnvironment webHostingEnvironment)
         {
             _logger = logger;
             _maintenanceModeSettings = maintenanceModeSettings.Value;
 
             // put maintenanceMode config in the 'config folder'
-            var configFolder = new DirectoryInfo(hostingEnvironment.MapPathContentRoot(Constants.SystemDirectories.Config));
+            var configFolder = new DirectoryInfo(webHostingEnvironment.MapPathContentRoot(Constants.SystemDirectories.Config));
             _configFilePath = Path.Combine(configFolder.FullName, "maintenanceMode.json");
 
             Status = LoadStatus().Result;
