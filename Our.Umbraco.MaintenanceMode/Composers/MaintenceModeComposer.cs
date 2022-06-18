@@ -6,11 +6,13 @@ using Our.Umbraco.MaintenanceMode.NotificationHandlers.Content;
 using Our.Umbraco.MaintenanceMode.NotificationHandlers.Media;
 using Our.Umbraco.MaintenanceMode.NotificationHandlers.ServerVariables;
 using Our.Umbraco.MaintenanceMode.Services;
-
+using System.Collections.Generic;
 using System.Linq;
-
+using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Composing;
+using Umbraco.Cms.Core.Dashboards;
 using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core.Manifest;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Extensions;
 
@@ -45,6 +47,9 @@ namespace Our.Umbraco.MaintenanceMode.Composers
 
             builder.AddNotificationHandler<ServerVariablesParsingNotification, ServerVariablesParsingHandler>();
 
+            if (!builder.ManifestFilters().Has<MaintenanceModeManifestFilter>())
+                builder.ManifestFilters().Append<MaintenanceModeManifestFilter>();
+
             return builder;
         }
 
@@ -61,6 +66,40 @@ namespace Our.Umbraco.MaintenanceMode.Composers
                 .AddNotificationHandler<MediaMovingNotification, FreezeMediaMovingNotification>()
                 .AddNotificationHandler<MediaMovingToRecycleBinNotification, FreezeMediaMovingToRecycleBinNotification>()
                 .AddNotificationHandler<MediaSavingNotification, FreezeMediaSavingNotification>();
+        }
+    }
+
+    internal class MaintenanceModeManifestFilter : IManifestFilter
+    {
+        public void Filter(List<PackageManifest> manifests)
+        {
+            manifests.Add(new PackageManifest()
+            {   
+                PackageName = "Our.Umbraco.MaintenanceMode",
+                Version = "",
+                AllowPackageTelemetry = true,
+                Scripts = new [] {
+                    "/App_Plugins/Our.Umbraco.MaintenanceMode/MaintenanceMode.Dashboard.js",
+                    "/App_Plugins/Our.Umbraco.MaintenanceMode/MaintenanceMode.Service.js"
+                },
+                Stylesheets = new [] {
+                    "/App_Plugins/Our.Umbraco.MaintenanceMode/MaintenanceMode.css"
+                },
+                Dashboards = new ManifestDashboard[] {
+                    new ManifestDashboard {
+                        Alias = "maintenanceModeDashboard",
+                        View = "/App_Plugins/Our.Umbraco.MaintenanceMode/MaintenanceModeDashboard.html",
+                        Sections = new [] { Constants.Applications.Content },
+                        Weight = -10,
+                        AccessRules = new IAccessRule[] {
+                            new AccessRule {
+                                Type = AccessRuleType.Grant,
+                                Value = "admin"
+                            }
+                        }
+                    }
+                }
+            });
         }
     }
 

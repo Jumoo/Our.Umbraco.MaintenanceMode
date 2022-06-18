@@ -26,6 +26,8 @@
 		<PackageIcon>maintenance-icon.png</PackageIcon>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 
+		<StaticWebAssetBasePath>App_Plugins/Our.Umbraco.MaintenanceMode</StaticWebAssetBasePath>
+
 	</PropertyGroup>
 
     <ItemGroup>

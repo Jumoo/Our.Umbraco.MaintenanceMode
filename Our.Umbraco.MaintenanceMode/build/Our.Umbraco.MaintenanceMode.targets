@@ -5,25 +5,11 @@
         <OurUmbracoMaintenanceModeContentFilesPath>$(MSBuildThisFileDirectory)..\$(OurUmbracoMaintenanceModeFolder)\**\*.*</OurUmbracoMaintenanceModeContentFilesPath>
     </PropertyGroup>
 
-    <Target Name="CopyOurUmbracoMaintenanceModeAssets" BeforeTargets="Build">
-        <ItemGroup>
-            <OurUmbracoMaintenanceModeContentFiles Include="$(OurUmbracoMaintenanceModeContentFilesPath)" />
-        </ItemGroup>
-		<Message Text="Copying MaintenanceMode files from package -> $(OurUmbracoMaintenanceModeFolder) - #@(OurUmbracoMaintenanceModeContentFiles->Count()) files"  Importance="high" />
-		<Warning Text="No MaintenanceMode Package files found in $(OurUmbracoMaintenanceModeContentFilesPath)" Condition="@(OurUmbracoMaintenanceModeContentFiles->Count()) == 0" />
-
-		<Copy
-            SourceFiles="@(OurUmbracoMaintenanceModeContentFiles)"
-            DestinationFiles="@(OurUmbracoMaintenanceModeContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\Our.Umbraco.MaintenanceMode\%(RecursiveDir)%(Filename)%(Extension)')"
-            SkipUnchangedFiles="true" />
-
-    </Target>
-
     <Target Name="ClearOurUmbracoMaintenanceModeAssets" BeforeTargets="Clean">
         <ItemGroup>
             <OurUmbracoMaintenanceModeDir Include="$(MSBuildProjectDirectory)\App_Plugins\Our.Umbraco.MaintenanceMode\" />
         </ItemGroup>
-        <Message Text="Clear old Our.Umbraco.MaintenanceMode data"  Importance="high" />
+        <Message Text="Clear old Our.Umbraco.MaintenanceMode data" />
         <RemoveDir Directories="@(OurUmbracoMaintenanceModeDir)"  />
     </Target>
 
