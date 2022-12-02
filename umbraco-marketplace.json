@@ -1,0 +1,39 @@
+{
+    "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+    "AuthorDetails": {
+        "Name": "Jumoo",
+        "Description": "Jumoo are a software development company based in the UK",
+        "Url": "https://jumoo.co.uk",
+        "ImageUrl": "https://jumoo.co.uk/img/ju_square.jpg"
+    },
+    "Category": "Developer Tools",
+    "PackageType": "Package",
+    "LicenseTypes": [
+        "Free"
+    ],
+    "Tags": [
+        "Site Maintenance"
+    ],
+    "PackagesByAuthor": [
+        "uSync",
+        "uSync.Complete",
+        "Jumoo.TranslationManger",
+        "Our.Umbraco.BackOfficeThemes",
+        "Our.Umbraco.LinkedPages",
+        "Our.Umbraco.MaintenanceMode"
+    ],
+    "Title": "Maintenance Mode",
+    "Description": "Put your site in Maintenance Mode while you do upgrades",
+    "DiscussionForumUrl": "https://our.umbraco.com/packages/backoffice-extensions/linked-pages/linked-pages-feedback/",
+    "IssueTrackerUrl": "https://github.com/KevinJump/Our.Umbraco.LinkedPages/issues",
+    "Screenshots": [
+        {
+            "ImageUrl": "https://raw.githubusercontent.com/KevinJump/Our.Umbraco.MaintenanceMode/v10/dev/img/dashboard.png",
+            "Caption": "Control access via the dashboard"
+        },
+        {
+            "ImageUrl": "https://raw.githubusercontent.com/KevinJump/Our.Umbraco.MaintenanceMode/v10/dev/img/splash.png",
+            "Caption": "users will then see the Maintenance splash screen (customizable)"
+        }
+    ]
+}
