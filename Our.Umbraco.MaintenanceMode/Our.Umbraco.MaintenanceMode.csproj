@@ -16,8 +16,10 @@
         <RootNamespace>Our.Umbraco.MaintenanceMode</RootNamespace>
 
 		<PackageLinenseExpressio>MIT</PackageLinenseExpressio>
-		<PackageProjectUrl></PackageProjectUrl>
-		<RepositoryUrl></RepositoryUrl>
+		<PackageProjectUrl>https://github.com/KevinJump/Our.Umbraco.MaintenanceMode</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/KevinJump/Our.Umbraco.MaintenanceMode</RepositoryUrl>
+
+		<PackageTags>umbraco umbraco-marketplace</PackageTags>
 
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
