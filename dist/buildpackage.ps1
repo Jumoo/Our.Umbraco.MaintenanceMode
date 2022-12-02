@@ -46,6 +46,8 @@ if (![string]::IsNullOrWhiteSpace($suffix)) {
     $outFolder = ".\$majorFolder\$version\$version-$suffixFolder\$fullVersion"
 }
 
+$buildParams = "ContinuousIntegrationBuild=true,version=$fullVersion"
+
 "----------------------------------"
 Write-Host "Version  :" $fullVersion
 Write-Host "Config   :" $env
@@ -54,7 +56,7 @@ Write-Host "Folder   :" $outFolder
 
 dotnet restore ..
 
-dotnet pack $projPath --no-restore -c $env -o $outFolder /p:ContinuousIntegrationBuild=true,version=$fullVersion 
+dotnet pack $projPath --no-restore -c $env -o $outFolder /p:$buildParams
 
 ""; "##### Copying to LocalGit folder"; "----------------------------------" ; ""
 XCOPY "$outFolder\*.nupkg" "C:\Source\localgit" /Q /Y 
