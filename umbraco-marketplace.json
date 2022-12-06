@@ -24,8 +24,8 @@
     ],
     "Title": "Maintenance Mode",
     "Description": "Put your site in Maintenance Mode while you do upgrades",
-    "DiscussionForumUrl": "https://our.umbraco.com/packages/backoffice-extensions/linked-pages/linked-pages-feedback/",
-    "IssueTrackerUrl": "https://github.com/KevinJump/Our.Umbraco.LinkedPages/issues",
+    "DiscussionForumUrl": "https://our.umbraco.com/forum/",
+    "IssueTrackerUrl": "https://github.com/KevinJump/Our.Umbraco.MaintenanceMode/issues",
     "Screenshots": [
         {
             "ImageUrl": "https://raw.githubusercontent.com/KevinJump/Our.Umbraco.MaintenanceMode/v10/dev/img/dashboard.png",
