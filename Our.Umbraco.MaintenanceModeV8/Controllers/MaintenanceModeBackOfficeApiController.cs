@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Newtonsoft.Json;
 using Our.Umbraco.MaintenanceModeV8.Models;
 using Our.Umbraco.MaintenanceModeV8.Services;
 using Umbraco.Web.WebApi;
@@ -11,6 +12,7 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
         : UmbracoAuthorizedApiController
     {
         private readonly MaintenanceModeService maintenanceModeService;
+        private readonly JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
 
         public MaintenanceModeBackOfficeApiController(
             MaintenanceModeService maintenanceModeService)
@@ -19,8 +21,8 @@ namespace Our.Umbraco.MaintenanceModeV8.Controllers
         }
 
         [HttpGet]
-        public MaintenanceModeStatus GetStatus()
-            => maintenanceModeService.Status;
+        public IHttpActionResult GetStatus()
+            => Json(maintenanceModeService.Status, jsonSerializerSettings);
 
         [HttpPost]
         public void ToggleMode(bool maintenanceMode)
