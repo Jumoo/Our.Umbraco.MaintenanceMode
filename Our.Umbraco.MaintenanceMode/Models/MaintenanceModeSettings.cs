@@ -1,5 +1,9 @@
-﻿namespace Our.Umbraco.MaintenanceMode.Models
+﻿using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+
+namespace Our.Umbraco.MaintenanceMode.Models
 {
+    [JsonObject(NamingStrategyType = typeof(DefaultNamingStrategy))]
     public class MaintenanceModeSettings
     {
         public bool AllowBackOfficeUsersThrough { get; set; } = false;
