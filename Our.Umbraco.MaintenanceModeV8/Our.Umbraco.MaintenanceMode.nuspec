@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>$id</id>
+    <version>$version</version>
+    <title>$title</title>
+    <authors>$author</authors>
+    <icon>maintenance-icon.png</icon>
+    <readme>readme.md</readme>
+    <projectUrl>https://github.com/KevinJump/Our.Umbraco.MaintenanceMode</projectUrl>
+    <description>Put Umbraco Into Maintenance Mode - While you do things</description>
+    <copyright>$copyright</copyright>
+    <tags>umbraco plugin package umbraco-marketplace</tags>
+    <repository url="https://github.com/KevinJump/Our.Umbraco.MaintenanceMode" />
+  </metadata>
+  <files>
+    <file src="maintenance-icon.png" />
+    <file src="readme.md" />
+  </files>
+</package>
