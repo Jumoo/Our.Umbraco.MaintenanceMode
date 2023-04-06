@@ -1,5 +1,9 @@
-﻿namespace Our.Umbraco.MaintenanceModeV8.Models
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace Our.Umbraco.MaintenanceModeV8.Models
 {
+    [JsonObject(NamingStrategyType = typeof(DefaultNamingStrategy))]
     public class MaintenanceModeStatus
     {
         public bool IsInMaintenanceMode { get; set; }
@@ -8,6 +12,7 @@
         public bool IsContentFrozen { get; set; }
     }
 
+    [JsonObject(NamingStrategyType = typeof(DefaultNamingStrategy))]
     public class MaintenanceModeSettings
     {
         public bool AllowBackOfficeUsersThrough { get; set; }
