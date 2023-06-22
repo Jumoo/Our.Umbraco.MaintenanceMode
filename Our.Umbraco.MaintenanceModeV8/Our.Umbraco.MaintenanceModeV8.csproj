@@ -248,6 +248,7 @@
     <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\lang\en-US.xml" />
     <None Include="app.config" />
     <Content Include="App_Plugins\Our.Umbraco.MaintenanceModeV8\package.manifest" />
+    <None Include="Our.Umbraco.MaintenanceMode.nuspec" />
     <None Include="packages.config" />
     <None Include="Views\MaintenancePage.cshtml" />
   </ItemGroup>
