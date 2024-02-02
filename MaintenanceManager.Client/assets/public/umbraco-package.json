@@ -1,0 +1,15 @@
+{
+    "$schema": "../umbraco-package-schema.json",
+    "name": "maintenancemanager",
+    "id": "maintenancemanager",
+    "version": "0.1.0",
+    "allowTelemetry": true,
+    "extensions": [
+        {
+            "name": "maintenancemanager.entrypoint",
+            "alias": "maintenancemanager.EntryPoint",
+            "type": "entryPoint",
+            "js": "/app_plugins/maintenancemanager/assets.js"
+        }
+    ]
+}

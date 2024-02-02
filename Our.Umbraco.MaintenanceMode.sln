@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Our.Umbraco.MaintenanceMode
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintenanceMode.Site", "MaintenanceMode.Site\MaintenanceMode.Site.csproj", "{C5BBB6CC-8230-4A1E-849B-5B4BB6FF33A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.MaintenanceMode.Assets", "Our.Umbraco.MaintenanceMode.Assets\Our.Umbraco.MaintenanceMode.Assets.csproj", "{F378B62E-D2B8-46DE-886E-B75C56D25DE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintenanceMode14.Site", "MaintenanceMode14.Site\MaintenanceMode14.Site.csproj", "{E1AE36E8-7D19-45AA-9ECF-D9D3B99223EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintenanceManager.Client", "MaintenanceManager.Client\MaintenanceManager.Client.csproj", "{B8B398D6-2ADA-4642-A28E-1ACF040031C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +33,14 @@ Global
 		{C5BBB6CC-8230-4A1E-849B-5B4BB6FF33A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5BBB6CC-8230-4A1E-849B-5B4BB6FF33A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5BBB6CC-8230-4A1E-849B-5B4BB6FF33A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F378B62E-D2B8-46DE-886E-B75C56D25DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F378B62E-D2B8-46DE-886E-B75C56D25DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F378B62E-D2B8-46DE-886E-B75C56D25DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F378B62E-D2B8-46DE-886E-B75C56D25DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1AE36E8-7D19-45AA-9ECF-D9D3B99223EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1AE36E8-7D19-45AA-9ECF-D9D3B99223EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1AE36E8-7D19-45AA-9ECF-D9D3B99223EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1AE36E8-7D19-45AA-9ECF-D9D3B99223EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8B398D6-2ADA-4642-A28E-1ACF040031C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B398D6-2ADA-4642-A28E-1ACF040031C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B398D6-2ADA-4642-A28E-1ACF040031C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B398D6-2ADA-4642-A28E-1ACF040031C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
