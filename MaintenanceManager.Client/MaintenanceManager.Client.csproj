@@ -7,4 +7,13 @@
     <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
   </PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Umbraco.Cms.Api.Management" Version="14.0.0--preview005" />
+		<PackageReference Include="Umbraco.Cms.Web.Backoffice" Version="14.0.0--preview005" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Our.Umbraco.MaintenanceMode\Our.Umbraco.MaintenanceMode.csproj" />
+	</ItemGroup>
+
 </Project>

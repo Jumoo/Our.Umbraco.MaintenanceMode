@@ -46,10 +46,10 @@ namespace Our.Umbraco.MaintenanceMode.Composers
             builder.AddMaintenceManagerMiddleware();
 
             builder.AddNotificationHandler<ServerVariablesParsingNotification, ServerVariablesParsingHandler>();
-
+#if NET6_0
             if (!builder.ManifestFilters().Has<MaintenanceModeManifestFilter>())
                 builder.ManifestFilters().Append<MaintenanceModeManifestFilter>();
-
+#endif 
             return builder;
         }
 
@@ -68,7 +68,7 @@ namespace Our.Umbraco.MaintenanceMode.Composers
                 .AddNotificationHandler<MediaSavingNotification, FreezeMediaSavingNotification>();
         }
     }
-
+#if NET6_0
     internal class MaintenanceModeManifestFilter : IManifestFilter
     {
         public void Filter(List<PackageManifest> manifests)
@@ -102,6 +102,6 @@ namespace Our.Umbraco.MaintenanceMode.Composers
             });
         }
     }
-
+#endif
 
 }

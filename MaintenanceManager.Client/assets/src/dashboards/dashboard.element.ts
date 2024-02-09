@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 import { customElement, property, state } from "@umbraco-cms/backoffice/external/lit";
-import MaintenanceContext, { MAINTENANCE_CONTEXT_TOKEN } from "../contexts/context";
+import { MaintenanceContext, MAINTENANCE_CONTEXT_TOKEN } from "../contexts/context";
 
 @customElement('maintenancemanager-dashboard')
 export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
