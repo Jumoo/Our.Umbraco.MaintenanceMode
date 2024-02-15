@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Our.Umbraco.MaintenanceMode.Interfaces;
+using Our.Umbraco.MaintenanceMode.Models;
 
 namespace MaintenanceManager.Client.controllers.mode
 {
@@ -21,11 +22,21 @@ namespace MaintenanceManager.Client.controllers.mode
             _maintenanceModeService = maintenanceModeService;
         }
 
+        [HttpGet("GetStatus")]
+        public MaintenanceModeStatus GetStatus() => _maintenanceModeService.Status;
+
         [HttpGet("ToggleMode")]
         [ProducesResponseType(200)]
         public void ToggleMode(bool maintenanceMode)
         {
             _maintenanceModeService.ToggleMaintenanceMode(maintenanceMode);
+        }
+
+        [HttpGet("ToggleFrozen")]
+        [ProducesResponseType(200)]
+        public void ToggleFrozen(bool maintenanceMode)
+        {
+            _maintenanceModeService.ToggleContentFreeze(maintenanceMode);
         }
     }
 }

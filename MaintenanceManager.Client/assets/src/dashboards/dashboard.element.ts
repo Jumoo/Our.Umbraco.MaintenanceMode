@@ -1,7 +1,8 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css, nothing } from "lit";
 import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 import { customElement, property, state } from "@umbraco-cms/backoffice/external/lit";
 import { MaintenanceContext, MAINTENANCE_CONTEXT_TOKEN } from "../contexts/context";
+import { MaintenanceModeStatus } from "../api";
 
 @customElement('maintenancemanager-dashboard')
 export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
@@ -9,10 +10,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
     #maintenanceContexts? : MaintenanceContext;
 
     @state()
-    protected maintenance: boolean = false;
-
-    @state()
-    protected frozen: boolean = false;
+    protected status?: MaintenanceModeStatus;
 
     @state()
     protected _loaded = true;
@@ -30,15 +28,9 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
         this.consumeContext(MAINTENANCE_CONTEXT_TOKEN, (_thing) => {
             this.#maintenanceContexts = _thing;
 
-            this.observe(_thing.inMaintenanceMode, (_maintenance) => {
-                this.maintenance = _maintenance;
-                console.log("some words 1")
-            });
-
-            this.observe(_thing.isFrozen, (_frozen) => {
-                this.frozen = _frozen;
-                console.log("some words 2")
-            });
+            this.observe(_thing.status, (_status) => {
+                this.status = _status;
+            })
         })
     }
 
@@ -68,34 +60,49 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
 
     #showDashboard() {
         return html`
-        <div>${this._status.isInMaintenanceMode ? this.#showMaintenanceAlert() : ''}</div>
-        <div>${this._status.isContentFrozen ? this.#showContentFrozenAlert() : ''}</div>
+        <div>${this.#showButtons()}</div>
+        <div>${this.#showMaintenanceAlert()}</div>
+        <div>${this.#showContentFrozenAlert()}</div>
         `;
     }
 
-    #showMaintenanceAlert() {
+    #showButtons() {
         return html`
+        <div class="buttons">
             <uui-button label="Toggle Maintenance" id="clickMaintenance" look="secondary" @click=${this.#onMaintenanceToggle}></uui-button>
-        [${this.maintenance}]
+            <uui-button label="Toggle Frozen" id="clickFrozen" look="secondary" @click=${this.#onFrozenToggle}></uui-button>
+        </div>
+        `
+    }
+
+    #showMaintenanceAlert() {
+        if(this.status?.isInMaintenanceMode){
+        return html`
          <div class="alert alert-danger maintenanceMode-alert">
-                    <i class="icon icon-block"></i>
-                    <div>
-                        InMaintenanceMode
-                    </div>
-                </div>
+            <uui-icon name="icon-block"></uui-icon>
+            <div>
+                <umb-localize key="maintain_onMsg"></umb-localize>
+            </div>
+        </div>
                 `;
+            } else {
+                return nothing;
+            }
     }
 
     #showContentFrozenAlert() {
+        if(this.status?.isContentFrozen){
         return html`
-            <uui-button label="Toggle Frozen" id="clickFrozen" look="secondary" @click=${this.#onFrozenToggle}></uui-button>
-        [${this.frozen}]
-        <div class="alert alert-info frozen-alert">
-                <i class="icon icon-snow"></i>
-                    <div>
-                        ContentFrozen
-                    </div>
-                </div>`;
+        <div class="alert alert-info maintenanceMode-alert">
+            <uui-icon name="icon-snow"></uui-icon>
+            <div>
+                <umb-localize key="maintain_frozenMsg"></umb-localize>
+            </div>
+        </div>
+        `;
+        } else {
+            return nothing;
+        }
     }
 
 
@@ -105,6 +112,34 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
             display: block;
             padding: 20px;
         }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        .buttons > uui-button {
+            margin: 10px;
+        }
+
+        .maintenanceMode-alert {
+            padding: 2em;
+            font-size: 125%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+            .maintenanceMode-alert > div {
+                text-align: center;
+            }
+        
+            .maintenanceMode-alert > uui-icon {
+                font-size: 50px;
+                padding: 10px;
+                display: block;
+            }
     `
 }
 

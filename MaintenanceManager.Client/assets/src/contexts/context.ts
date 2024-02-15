@@ -1,18 +1,15 @@
 import { UmbBaseController } from "@umbraco-cms/backoffice/class-api";
 import { UmbContextToken } from "@umbraco-cms/backoffice/context-api";
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
-import { UmbBooleanState } from "@umbraco-cms/backoffice/observable-api";
-import { MaintenanceModeResource, OpenAPI } from "../api";
+import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
+import { MaintenanceModeResource, MaintenanceModeStatus, OpenAPI } from "../api";
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth'
 import { tryExecuteAndNotify } from '@umbraco-cms/backoffice/resources';
 
 export class MaintenanceContext extends UmbBaseController {
-    
-    #inMaintenanceMode = new UmbBooleanState(false);
-    readonly inMaintenanceMode = this.#inMaintenanceMode.asObservable();
 
-    #isFrozen = new UmbBooleanState(false);
-    readonly isFrozen = this.#isFrozen.asObservable();
+    #status = new UmbObjectState<MaintenanceModeStatus|undefined>(undefined);
+    readonly status = this.#status.asObservable();
 
     #host: UmbControllerHost;
 
@@ -31,21 +28,29 @@ export class MaintenanceContext extends UmbBaseController {
             OpenAPI.TOKEN = umbOpenApi;
             //OpenAPI.BASE = umbOpenApi.base;
             OpenAPI.WITH_CREDENTIALS = true;
+            this.getStatus();
         });
     }
 
+    async getStatus() {
+        let status = await tryExecuteAndNotify(this.#host, MaintenanceModeResource.getStatus());
+        console.log(status);
+        if(status.data != null) this.#status.setValue (status.data)
+    }
+
     async toggleMaintenance() {
-        this.#inMaintenanceMode.setValue (!this.#inMaintenanceMode.getValue());
-
         await tryExecuteAndNotify(this.#host, MaintenanceModeResource.toggleMode({
-            maintenanceMode: this.#inMaintenanceMode.getValue()
+            maintenanceMode: !this.#status.getValue()?.isInMaintenanceMode
         }));
-
+        await this.getStatus();
         console.log("eeby");
     }
 
-    toggleFrozen() {
-        this.#isFrozen.setValue (!this.#isFrozen.getValue());
+    async toggleFrozen() {
+        await tryExecuteAndNotify(this.#host, MaintenanceModeResource.toggleFrozen({
+            maintenanceMode: !this.#status.getValue()?.isContentFrozen
+        }));
+        await this.getStatus();
         console.log("deeby");
     }
 }
