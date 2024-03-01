@@ -3,6 +3,8 @@ import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 import { customElement, property, state } from "@umbraco-cms/backoffice/external/lit";
 import { MaintenanceContext, MAINTENANCE_CONTEXT_TOKEN } from "../contexts/context";
 import { MaintenanceModeStatus } from "../api";
+import { UMB_MODAL_MANAGER_CONTEXT, UmbModalManagerContext } from "@umbraco-cms/backoffice/modal";
+import { SETTINGS_MODAL } from "../settings/settings-modal-token";
 
 @customElement('maintenancemanager-dashboard')
 export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
@@ -16,14 +18,22 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
     protected _loaded = true;
 
     @state()
-    protected _status = {
+    protected _status : MaintenanceModeStatus = {
         isInMaintenanceMode: true,
         isContentFrozen: true,
-        usingWebConfig: true
+        usingWebConfig: true,
+        settings: {
+            allowBackOfficeUsersThrough: true
+        }
     };
+
+    private _modalContext?: UmbModalManagerContext;
 
     constructor() {
         super();
+        this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (_instance) => {
+            this._modalContext = _instance;
+        });
 
         this.consumeContext(MAINTENANCE_CONTEXT_TOKEN, (_thing) => {
             this.#maintenanceContexts = _thing;
@@ -45,12 +55,25 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
         this.#maintenanceContexts?.toggleFrozen();
     }
 
+    #onBackofficeToggle = () => {
+        this.#maintenanceContexts?.toggleBackofficeAccess();
+    }
+
+    async #openSettings() {
+        const customContext = this._modalContext?.open(SETTINGS_MODAL);
+
+        const data = await customContext?.onSubmit();
+
+        if (!data) return;
+
+        console.log('data', data);
+    }
+
     render() {
         return html`
         <uui-box>${this._loaded
                 ? this.#showDashboard()
-                : this.#showLoader()}</uui-box>`;
-    }
+                : this.#showLoader()}</uui-box>`;    }
 
     #showLoader() {
         return html`
@@ -63,14 +86,16 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
         <div>${this.#showButtons()}</div>
         <div>${this.#showMaintenanceAlert()}</div>
         <div>${this.#showContentFrozenAlert()}</div>
+        <div>${this.#showAllowBackofficeToggle()}</div>
+        <div>${this.#showSettings()}</div>
         `;
     }
 
     #showButtons() {
         return html`
         <div class="buttons">
-            <uui-button label="Toggle Maintenance" id="clickMaintenance" look="secondary" @click=${this.#onMaintenanceToggle}></uui-button>
-            <uui-button label="Toggle Frozen" id="clickFrozen" look="secondary" @click=${this.#onFrozenToggle}></uui-button>
+            <uui-button label="Toggle Maintenance" id="clickMaintenance" look="primary" color="positive" @click=${this.#onMaintenanceToggle}></uui-button>
+            <uui-button label="Toggle Frozen" id="clickFrozen" look="primary" color="warning" @click=${this.#onFrozenToggle}></uui-button>
         </div>
         `
     }
@@ -105,7 +130,29 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
         }
     }
 
+    #showAllowBackofficeToggle() {
+        return html`
+        <div class="switch">
+            <umb-input-toggle 
+                .checked=${this.status?.settings?.allowBackOfficeUsersThrough ?? false}
+                .showLabels=${true} 
+                labelOn="Allow backoffice users to view site" 
+                labelOff="Don't allow backoffice users to view site"
+                @click=${this.#onBackofficeToggle}>
+            </umb-input-toggle>
+        </div>
+        `
+    }
 
+
+    #showSettings() {
+        return html`
+            <div class="settings">
+                <uui-button label="Settings" look="primary" colour="positive"
+                @click=${this.#openSettings}></uui-button>
+            </div>
+        `
+    }
 
     static styles = css`
         :host {
@@ -122,8 +169,29 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
             margin: 10px;
         }
 
+        .switch {
+            display: flex;
+            justify-content: center;
+        }
+
+        .settings {
+            display: flex;
+            justify-content: end;
+        }
+
+        .alert-danger {
+            background-color: var(--uui-color-danger);
+            color: var(--uui-color-danger-contrast);
+        }
+
+        .alert-info {
+            background-color: var(--uui-palette-malibu);
+            color: var(--uui-color-danger-contrast);
+        }
+
         .maintenanceMode-alert {
             padding: 2em;
+            margin: 2em;
             font-size: 125%;
             display: flex;
             flex-direction: column;

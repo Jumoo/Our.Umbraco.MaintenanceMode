@@ -2,7 +2,7 @@ import { UmbBaseController } from "@umbraco-cms/backoffice/class-api";
 import { UmbContextToken } from "@umbraco-cms/backoffice/context-api";
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
-import { MaintenanceModeResource, MaintenanceModeStatus, OpenAPI } from "../api";
+import { MaintenanceModeResource, MaintenanceModeSettings, MaintenanceModeStatus, OpenAPI } from "../api";
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth'
 import { tryExecuteAndNotify } from '@umbraco-cms/backoffice/resources';
 
@@ -10,6 +10,9 @@ export class MaintenanceContext extends UmbBaseController {
 
     #status = new UmbObjectState<MaintenanceModeStatus|undefined>(undefined);
     readonly status = this.#status.asObservable();
+
+    #settings = new UmbObjectState<MaintenanceModeSettings|undefined>(undefined);
+    readonly settings = this.#settings.asObservable();
 
     #host: UmbControllerHost;
 
@@ -38,6 +41,12 @@ export class MaintenanceContext extends UmbBaseController {
         if(status.data != null) this.#status.setValue (status.data)
     }
 
+    async getSettings() {
+        let settings = await tryExecuteAndNotify(this.#host, MaintenanceModeResource.getSettings());
+        console.log(settings);
+        if(settings.data != null) this.#settings.setValue (settings.data)
+    }
+
     async toggleMaintenance() {
         await tryExecuteAndNotify(this.#host, MaintenanceModeResource.toggleMode({
             maintenanceMode: !this.#status.getValue()?.isInMaintenanceMode
@@ -52,6 +61,26 @@ export class MaintenanceContext extends UmbBaseController {
         }));
         await this.getStatus();
         console.log("deeby");
+    }
+
+    async toggleBackofficeAccess() {
+        
+        console.log(this.#status.getValue());
+        await tryExecuteAndNotify(this.#host, MaintenanceModeResource.toggleAccess({
+            
+            maintenanceMode: !this.#status?.getValue()?.settings?.allowBackOfficeUsersThrough
+        }));
+        await this.getStatus();
+    }
+
+    //////////////
+
+    updateTemplateName(name: string) {
+        this.#settings.update({templateName: name});
+    }
+
+    updateUnfrozenUsers(users: string) {
+        this.#settings.update({unfrozenUsers: users});
     }
 }
 

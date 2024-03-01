@@ -34,8 +34,8 @@
 
     <ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		<PackageReference Include="Umbraco.Cms.Web.Website" Version="14.0.0--preview005" />
-        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="14.0.0--preview005" />
+		<PackageReference Include="Umbraco.Cms.Web.Website" Version="14.0.0--preview006" />
+        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="14.0.0--preview006" />
     </ItemGroup>
 
     <ItemGroup>

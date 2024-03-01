@@ -23,6 +23,7 @@ namespace MaintenanceManager.Client.controllers.mode
         }
 
         [HttpGet("GetStatus")]
+        [ProducesResponseType(200)]
         public MaintenanceModeStatus GetStatus() => _maintenanceModeService.Status;
 
         [HttpGet("ToggleMode")]
@@ -37,6 +38,24 @@ namespace MaintenanceManager.Client.controllers.mode
         public void ToggleFrozen(bool maintenanceMode)
         {
             _maintenanceModeService.ToggleContentFreeze(maintenanceMode);
+        }
+
+        [HttpGet("ToggleAccess")]
+        [ProducesResponseType(200)]
+        public void ToggleAccess(bool maintenanceMode)
+        {
+            _maintenanceModeService.ToggleAccess(maintenanceMode);
+        }
+
+        [HttpGet("GetSettings")]
+        [ProducesResponseType(200)]
+        public MaintenanceModeSettings GetSettings() => _maintenanceModeService.Settings;
+
+        [HttpPost("SaveSettings")]
+        [ProducesResponseType(200)]
+        public void SaveSettings(MaintenanceModeSettings settings)
+        {
+            _maintenanceModeService.SaveSettings(settings);
         }
     }
 }

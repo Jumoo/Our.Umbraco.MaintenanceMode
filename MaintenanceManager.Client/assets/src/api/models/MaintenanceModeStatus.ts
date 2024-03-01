@@ -7,6 +7,7 @@ import type { MaintenanceModeSettings } from './MaintenanceModeSettings';
 
 export type MaintenanceModeStatus = {
     isInMaintenanceMode: boolean;
+    usingWebConfig: boolean;
     settings?: MaintenanceModeSettings | null;
     isContentFrozen: boolean;
 };

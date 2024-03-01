@@ -61,6 +61,15 @@ namespace Our.Umbraco.MaintenanceMode.Services
             await SaveToDisk();
         }
 
+        public async Task ToggleAccess(bool hasAccess)
+        {
+            if (hasAccess == Status.Settings.AllowBackOfficeUsersThrough)
+                return; // already in this state
+
+            Status.Settings.AllowBackOfficeUsersThrough = hasAccess;
+            await SaveToDisk();
+        }
+
         public async Task SaveSettings(MaintenanceModeSettings settings)
         {
             Status.Settings = settings;

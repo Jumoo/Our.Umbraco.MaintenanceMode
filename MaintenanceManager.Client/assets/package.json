@@ -14,9 +14,9 @@
     "lit": "^3.1.0"
   },
   "devDependencies": {
-    "@umbraco-cms/backoffice": "^14.0.0--preview005",
+    "@umbraco-cms/backoffice": "^14.0.0--preview006",
+    "openapi-typescript-codegen": "^0.25.0",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8",
-    "openapi-typescript-codegen": "^0.25.0"
+    "vite": "^5.0.8"
   }
 }

@@ -5,11 +5,13 @@ import { ManifestTypes } from '@umbraco-cms/backoffice/extension-registry';
 import { manifests as dashboardManifests } from './dashboards/manifest.ts';
 import { manifests as contextManifests } from './contexts/manifests.ts';
 import { manifests as langManifests } from './lang/manifest.ts';
+import { manifests as settingManifests } from './settings/manifests.ts';
 
 const manifests: Array<ManifestTypes> = [
     ...dashboardManifests,
     ...contextManifests,
-    ...langManifests
+    ...langManifests,
+    ...settingManifests
 ];
 
 
