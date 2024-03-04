@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+
+		<Product>Umbraco.Community.MaintenanceMode</Product>
+		<PackageId>Umbraco.Community.MaintenanceMode</PackageId>
+		<Title>Umbraco.Community.MaintenanceMode</Title>
+
+		<Authors>Kevin Jump,Aaron Sadler,Henry Jump</Authors>
+		<Description><![CDATA[Put Umbraco Into Maintenance Mode - While you do things]]></Description>
+
+		<PackageTags>umbraco plugin package</PackageTags>
+		<RootNamespace>Our.Umbraco.MaintenanceMode</RootNamespace>
+
+		<PackageLinenseExpressio>MIT</PackageLinenseExpressio>
+		<PackageProjectUrl>https://github.com/KevinJump/Our.Umbraco.MaintenanceMode</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/KevinJump/Our.Umbraco.MaintenanceMode</RepositoryUrl>
+
+		<PackageTags>umbraco umbraco-marketplace</PackageTags>
+
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+
+		<PackageIcon>maintenance-icon.png</PackageIcon>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MaintenanceManager.Client\MaintenanceManager.Client.csproj" />
+		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode\Our.Umbraco.MaintenanceMode.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="readme.md" Pack="true" PackagePath="\" />
+		<None Include="maintenance-icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+</Project>
