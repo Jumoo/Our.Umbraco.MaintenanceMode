@@ -1,6 +1,6 @@
 import { html as g, css as f, state as v, customElement as T } from "@umbraco-cms/backoffice/external/lit";
 import { UmbModalBaseElement as _ } from "@umbraco-cms/backoffice/modal";
-import { M as C } from "./index-W0mpvb8Z.js";
+import { M as C } from "./index-jn-dpPsr.js";
 import "@umbraco-cms/backoffice/element-api";
 import "@umbraco-cms/backoffice/class-api";
 import "@umbraco-cms/backoffice/context-api";
@@ -154,4 +154,4 @@ export {
   u as SettingsModalElement,
   W as default
 };
-//# sourceMappingURL=settings-modal-element-fuy2sTw3.js.map
+//# sourceMappingURL=settings-modal-element-gSc1dS01.js.map

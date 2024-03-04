@@ -9,7 +9,7 @@ var c = (s, t, e) => (Ut(s, t, "read from private field"), e ? e.call(s) : t.get
 }, f = (s, t, e, i) => (Ut(s, t, "write to private field"), i ? i.call(s, e) : t.set(s, e), e);
 import { UmbElementMixin as ce } from "@umbraco-cms/backoffice/element-api";
 import { state as mt, property as le, customElement as he } from "@umbraco-cms/backoffice/external/lit";
-import { UmbBaseController as de } from "@umbraco-cms/backoffice/class-api";
+import { UmbControllerBase as de } from "@umbraco-cms/backoffice/class-api";
 import { UmbContextToken as ue } from "@umbraco-cms/backoffice/context-api";
 import { UmbObjectState as Nt } from "@umbraco-cms/backoffice/observable-api";
 import { UMB_AUTH_CONTEXT as pe } from "@umbraco-cms/backoffice/auth";
@@ -1194,7 +1194,7 @@ const Ye = [
     type: "modal",
     alias: "settings.modal",
     name: "Settings modal",
-    js: () => import("./settings-modal-element-fuy2sTw3.js")
+    js: () => import("./settings-modal-element-gSc1dS01.js")
   }
 ], os = [...rs], as = [
   ...ts,
@@ -1208,4 +1208,4 @@ export {
   At as M,
   ys as o
 };
-//# sourceMappingURL=index-W0mpvb8Z.js.map
+//# sourceMappingURL=index-jn-dpPsr.js.map

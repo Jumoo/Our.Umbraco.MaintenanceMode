@@ -1,4 +1,4 @@
-import { UmbBaseController } from "@umbraco-cms/backoffice/class-api";
+import { UmbControllerBase } from "@umbraco-cms/backoffice/class-api";
 import { UmbContextToken } from "@umbraco-cms/backoffice/context-api";
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
@@ -6,7 +6,7 @@ import { MaintenanceModeResource, MaintenanceModeSettings, MaintenanceModeStatus
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth'
 import { tryExecuteAndNotify } from '@umbraco-cms/backoffice/resources';
 
-export class MaintenanceContext extends UmbBaseController {
+export class MaintenanceContext extends UmbControllerBase {
 
     #status = new UmbObjectState<MaintenanceModeStatus|undefined>(undefined);
     readonly status = this.#status.asObservable();
