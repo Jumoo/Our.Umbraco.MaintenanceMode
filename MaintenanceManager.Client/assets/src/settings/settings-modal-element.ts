@@ -1,4 +1,4 @@
-import { customElement, html, state } from "@umbraco-cms/backoffice/external/lit";
+import { css, customElement, html, state } from "@umbraco-cms/backoffice/external/lit";
 import { UmbModalBaseElement } from "@umbraco-cms/backoffice/modal";
 import { SettingsModalData, SettingsModalValue } from "./settings-modal-token";
 import MaintenanceContext, { MAINTENANCE_CONTEXT_TOKEN } from "../contexts/context";
@@ -33,20 +33,20 @@ export class SettingsModalElement extends
 
     #handleConfirm() {
 		this.modalContext?.submit();
+        this._context?.saveSettings();
 	}
 
 	#handleCancel() {
 		this.modalContext?.reject();
 	}
 
-    #updateTemplateName(e: Event) {
+    #updateSettings(property: string, e: Event) {
         const value = (e.target as HTMLInputElement).value;
-        this._context?.updateTemplateName(value);
-    }
 
-    #updateUnfrozenUsers(e: Event) {
-        const value = (e.target as HTMLInputElement).value;
-        this._context?.updateUnfrozenUsers(value);
+        const update : { [key: string]: any }= {};
+        update[property] = value;
+
+        this._context?.updateSettings(update);
     }
 
 //  "allowBackOfficeUsersThrough": true,
@@ -72,7 +72,7 @@ export class SettingsModalElement extends
                             <uui-input 
                             label="Template" 
                             .value=${this.settings?.templateName}
-                            @input=${this.#updateTemplateName}></uui-input>
+                            @input=${(e : Event) => this.#updateSettings('templateName', e)}></uui-input>
                         </div>
                     </umb-property-layout>
                     <umb-property-layout 
@@ -84,8 +84,45 @@ export class SettingsModalElement extends
                             <uui-input 
                             label="Unfrozen users" 
                             .value=${this.settings?.unfrozenUsers}
-                            @input=${this.#updateUnfrozenUsers}
+                            @input=${(e : Event) => this.#updateSettings('unfrozenUsers', e)}
                             placeholder="Enter Usernames Here..."></uui-input>
+                        </div>
+                    </umb-property-layout>
+                    <umb-property-layout 
+                    alias="PageTitle" 
+                    label="Page Title" 
+                    description="The title of the maintenance page in your browser."
+                    orientation="vertical">
+                        <div slot="editor">
+                            <uui-input 
+                            label="Page Title" 
+                            .value=${this.settings?.pageTitle}
+                            @input=${(e : Event) => this.#updateSettings('pageTitle', e)}></uui-input>
+                        </div>
+                    </umb-property-layout>
+                    <umb-property-layout 
+                    alias="title" 
+                    label="Title" 
+                    description="The title on the maintenance page."
+                    orientation="vertical">
+                        <div slot="editor">
+                            <uui-input 
+                            label="Title" 
+                            .value=${this.settings?.title}
+                            @input=${(e : Event) => this.#updateSettings('title', e)}></uui-input>
+                        </div>
+                    </umb-property-layout>
+                    <umb-property-layout 
+                    alias="text" 
+                    label="Text" 
+                    description="The text on the maintenance page."
+                    orientation="vertical">
+                        <div slot="editor">
+                            <uui-textarea 
+                            label="Text" 
+                            rows=5
+                            .value=${this.settings?.text}
+                            @input=${(e : Event) => this.#updateSettings('text', e)}></uui-textarea>
                         </div>
                     </umb-property-layout>
                 </uui-box>
@@ -101,6 +138,12 @@ export class SettingsModalElement extends
             </umb-body-layout>
         `;
     }
+
+    static styles = css`
+        uui-input {
+            width: 100%;
+        }
+    `
     
 }
 

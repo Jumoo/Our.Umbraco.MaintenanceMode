@@ -1,19 +1,19 @@
-var Pt = (s, t, e) => {
+var Ut = (s, t, e) => {
   if (!t.has(s))
     throw TypeError("Cannot " + e);
 };
-var l = (s, t, e) => (Pt(s, t, "read from private field"), e ? e.call(s) : t.get(s)), $ = (s, t, e) => {
+var c = (s, t, e) => (Ut(s, t, "read from private field"), e ? e.call(s) : t.get(s)), $ = (s, t, e) => {
   if (t.has(s))
     throw TypeError("Cannot add the same private member more than once");
   t instanceof WeakSet ? t.add(s) : t.set(s, e);
-}, f = (s, t, e, i) => (Pt(s, t, "write to private field"), i ? i.call(s, e) : t.set(s, e), e);
+}, f = (s, t, e, i) => (Ut(s, t, "write to private field"), i ? i.call(s, e) : t.set(s, e), e);
 import { UmbElementMixin as ce } from "@umbraco-cms/backoffice/element-api";
 import { state as mt, property as le, customElement as he } from "@umbraco-cms/backoffice/external/lit";
 import { UmbBaseController as de } from "@umbraco-cms/backoffice/class-api";
 import { UmbContextToken as ue } from "@umbraco-cms/backoffice/context-api";
 import { UmbObjectState as Nt } from "@umbraco-cms/backoffice/observable-api";
 import { UMB_AUTH_CONTEXT as pe } from "@umbraco-cms/backoffice/auth";
-import { tryExecuteAndNotify as W } from "@umbraco-cms/backoffice/resources";
+import { tryExecuteAndNotify as H } from "@umbraco-cms/backoffice/resources";
 import { UmbModalToken as fe, UMB_MODAL_MANAGER_CONTEXT as ge } from "@umbraco-cms/backoffice/modal";
 /**
  * @license
@@ -96,16 +96,16 @@ const { is: _e, defineProperty: be, getOwnPropertyDescriptor: Ae, getOwnProperty
       }
   }
   return e;
-} }, Gt = (s, t) => !_e(s, t), zt = { attribute: !0, type: String, converter: ut, reflect: !1, hasChanged: Gt };
+} }, Gt = (s, t) => !_e(s, t), jt = { attribute: !0, type: String, converter: ut, reflect: !1, hasChanged: Gt };
 Symbol.metadata ?? (Symbol.metadata = Symbol("metadata")), x.litPropertyMetadata ?? (x.litPropertyMetadata = /* @__PURE__ */ new WeakMap());
-class z extends HTMLElement {
+class D extends HTMLElement {
   static addInitializer(t) {
     this._$Ei(), (this.l ?? (this.l = [])).push(t);
   }
   static get observedAttributes() {
     return this.finalize(), this._$Eh && [...this._$Eh.keys()];
   }
-  static createProperty(t, e = zt) {
+  static createProperty(t, e = jt) {
     if (e.state && (e.attribute = !1), this._$Ei(), this.elementProperties.set(t, e), !e.noAccessor) {
       const i = Symbol(), n = this.getPropertyDescriptor(t, i, e);
       n !== void 0 && be(this.prototype, t, n);
@@ -120,12 +120,12 @@ class z extends HTMLElement {
     return { get() {
       return n == null ? void 0 : n.call(this);
     }, set(r) {
-      const c = n == null ? void 0 : n.call(this);
-      o.call(this, r), this.requestUpdate(t, c, i);
+      const l = n == null ? void 0 : n.call(this);
+      o.call(this, r), this.requestUpdate(t, l, i);
     }, configurable: !0, enumerable: !0 };
   }
   static getPropertyOptions(t) {
-    return this.elementProperties.get(t) ?? zt;
+    return this.elementProperties.get(t) ?? jt;
   }
   static _$Ei() {
     if (this.hasOwnProperty(V("elementProperties")))
@@ -225,8 +225,8 @@ class z extends HTMLElement {
     var o;
     const i = this.constructor, n = i._$Eh.get(t);
     if (n !== void 0 && this._$Em !== n) {
-      const r = i.getPropertyOptions(n), c = typeof r.converter == "function" ? { fromAttribute: r.converter } : ((o = r.converter) == null ? void 0 : o.fromAttribute) !== void 0 ? r.converter : ut;
-      this._$Em = n, this[n] = c.fromAttribute(e, r.type), this._$Em = null;
+      const r = i.getPropertyOptions(n), l = typeof r.converter == "function" ? { fromAttribute: r.converter } : ((o = r.converter) == null ? void 0 : o.fromAttribute) !== void 0 ? r.converter : ut;
+      this._$Em = n, this[n] = l.fromAttribute(e, r.type), this._$Em = null;
     }
   }
   requestUpdate(t, e, i) {
@@ -309,30 +309,30 @@ class z extends HTMLElement {
   firstUpdated(t) {
   }
 }
-z.elementStyles = [], z.shadowRootOptions = { mode: "open" }, z[V("elementProperties")] = /* @__PURE__ */ new Map(), z[V("finalized")] = /* @__PURE__ */ new Map(), at == null || at({ ReactiveElement: z }), (x.reactiveElementVersions ?? (x.reactiveElementVersions = [])).push("2.0.4");
+D.elementStyles = [], D.shadowRootOptions = { mode: "open" }, D[V("elementProperties")] = /* @__PURE__ */ new Map(), D[V("finalized")] = /* @__PURE__ */ new Map(), at == null || at({ ReactiveElement: D }), (x.reactiveElementVersions ?? (x.reactiveElementVersions = [])).push("2.0.4");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const G = globalThis, rt = G.trustedTypes, jt = rt ? rt.createPolicy("lit-html", { createHTML: (s) => s }) : void 0, Jt = "$lit$", w = `lit$${(Math.random() + "").slice(9)}$`, Kt = "?" + w, Ce = `<${Kt}>`, k = document, K = () => k.createComment(""), X = (s) => s === null || typeof s != "object" && typeof s != "function", Xt = Array.isArray, Te = (s) => Xt(s) || typeof (s == null ? void 0 : s[Symbol.iterator]) == "function", ct = `[ 	
-\f\r]`, F = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, Dt = /-->/g, Bt = />/g, U = RegExp(`>|${ct}(?:([^\\s"'>=/]+)(${ct}*=${ct}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), It = /'/g, Lt = /"/g, Qt = /^(?:script|style|textarea|title)$/i, Me = (s) => (t, ...e) => ({ _$litType$: s, strings: t, values: e }), O = Me(1), I = Symbol.for("lit-noChange"), u = Symbol.for("lit-nothing"), Wt = /* @__PURE__ */ new WeakMap(), P = k.createTreeWalker(k, 129);
+const G = globalThis, rt = G.trustedTypes, zt = rt ? rt.createPolicy("lit-html", { createHTML: (s) => s }) : void 0, Jt = "$lit$", w = `lit$${(Math.random() + "").slice(9)}$`, Kt = "?" + w, Ce = `<${Kt}>`, k = document, K = () => k.createComment(""), X = (s) => s === null || typeof s != "object" && typeof s != "function", Xt = Array.isArray, Te = (s) => Xt(s) || typeof (s == null ? void 0 : s[Symbol.iterator]) == "function", ct = `[ 	
+\f\r]`, q = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, Dt = /-->/g, Bt = />/g, P = RegExp(`>|${ct}(?:([^\\s"'>=/]+)(${ct}*=${ct}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`, "g"), It = /'/g, Lt = /"/g, Qt = /^(?:script|style|textarea|title)$/i, Me = (s) => (t, ...e) => ({ _$litType$: s, strings: t, values: e }), O = Me(1), W = Symbol.for("lit-noChange"), u = Symbol.for("lit-nothing"), Wt = /* @__PURE__ */ new WeakMap(), U = k.createTreeWalker(k, 129);
 function Zt(s, t) {
   if (!Array.isArray(s) || !s.hasOwnProperty("raw"))
     throw Error("invalid template strings array");
-  return jt !== void 0 ? jt.createHTML(t) : t;
+  return zt !== void 0 ? zt.createHTML(t) : t;
 }
 const xe = (s, t) => {
   const e = s.length - 1, i = [];
-  let n, o = t === 2 ? "<svg>" : "", r = F;
-  for (let c = 0; c < e; c++) {
-    const a = s[c];
+  let n, o = t === 2 ? "<svg>" : "", r = q;
+  for (let l = 0; l < e; l++) {
+    const a = s[l];
     let h, p, d = -1, g = 0;
     for (; g < a.length && (r.lastIndex = g, p = r.exec(a), p !== null); )
-      g = r.lastIndex, r === F ? p[1] === "!--" ? r = Dt : p[1] !== void 0 ? r = Bt : p[2] !== void 0 ? (Qt.test(p[2]) && (n = RegExp("</" + p[2], "g")), r = U) : p[3] !== void 0 && (r = U) : r === U ? p[0] === ">" ? (r = n ?? F, d = -1) : p[1] === void 0 ? d = -2 : (d = r.lastIndex - p[2].length, h = p[1], r = p[3] === void 0 ? U : p[3] === '"' ? Lt : It) : r === Lt || r === It ? r = U : r === Dt || r === Bt ? r = F : (r = U, n = void 0);
-    const S = r === U && s[c + 1].startsWith("/>") ? " " : "";
-    o += r === F ? a + Ce : d >= 0 ? (i.push(h), a.slice(0, d) + Jt + a.slice(d) + w + S) : a + w + (d === -2 ? c : S);
+      g = r.lastIndex, r === q ? p[1] === "!--" ? r = Dt : p[1] !== void 0 ? r = Bt : p[2] !== void 0 ? (Qt.test(p[2]) && (n = RegExp("</" + p[2], "g")), r = P) : p[3] !== void 0 && (r = P) : r === P ? p[0] === ">" ? (r = n ?? q, d = -1) : p[1] === void 0 ? d = -2 : (d = r.lastIndex - p[2].length, h = p[1], r = p[3] === void 0 ? P : p[3] === '"' ? Lt : It) : r === Lt || r === It ? r = P : r === Dt || r === Bt ? r = q : (r = P, n = void 0);
+    const S = r === P && s[l + 1].startsWith("/>") ? " " : "";
+    o += r === q ? a + Ce : d >= 0 ? (i.push(h), a.slice(0, d) + Jt + a.slice(d) + w + S) : a + w + (d === -2 ? l : S);
   }
   return [Zt(s, o + (s[e] || "<?>") + (t === 2 ? "</svg>" : "")), i];
 };
@@ -341,18 +341,18 @@ class Q {
     let n;
     this.parts = [];
     let o = 0, r = 0;
-    const c = t.length - 1, a = this.parts, [h, p] = xe(t, e);
-    if (this.el = Q.createElement(h, i), P.currentNode = this.el.content, e === 2) {
+    const l = t.length - 1, a = this.parts, [h, p] = xe(t, e);
+    if (this.el = Q.createElement(h, i), U.currentNode = this.el.content, e === 2) {
       const d = this.el.content.firstChild;
       d.replaceWith(...d.childNodes);
     }
-    for (; (n = P.nextNode()) !== null && a.length < c; ) {
+    for (; (n = U.nextNode()) !== null && a.length < l; ) {
       if (n.nodeType === 1) {
         if (n.hasAttributes())
           for (const d of n.getAttributeNames())
             if (d.endsWith(Jt)) {
               const g = p[r++], S = n.getAttribute(d).split(w), st = /([.?@])?(.*)/.exec(g);
-              a.push({ type: 1, index: o, name: st[2], strings: S, ctor: st[1] === "." ? Ue : st[1] === "?" ? Pe : st[1] === "@" ? Ne : ot }), n.removeAttribute(d);
+              a.push({ type: 1, index: o, name: st[2], strings: S, ctor: st[1] === "." ? Pe : st[1] === "?" ? Ue : st[1] === "@" ? Ne : ot }), n.removeAttribute(d);
             } else
               d.startsWith(w) && (a.push({ type: 6, index: o }), n.removeAttribute(d));
         if (Qt.test(n.tagName)) {
@@ -360,7 +360,7 @@ class Q {
           if (g > 0) {
             n.textContent = rt ? rt.emptyScript : "";
             for (let S = 0; S < g; S++)
-              n.append(d[S], K()), P.nextNode(), a.push({ type: 2, index: ++o });
+              n.append(d[S], K()), U.nextNode(), a.push({ type: 2, index: ++o });
             n.append(d[g], K());
           }
         }
@@ -380,13 +380,13 @@ class Q {
     return i.innerHTML = t, i;
   }
 }
-function L(s, t, e = s, i) {
-  var r, c;
-  if (t === I)
+function F(s, t, e = s, i) {
+  var r, l;
+  if (t === W)
     return t;
   let n = i !== void 0 ? (r = e._$Co) == null ? void 0 : r[i] : e._$Cl;
   const o = X(t) ? void 0 : t._$litDirective$;
-  return (n == null ? void 0 : n.constructor) !== o && ((c = n == null ? void 0 : n._$AO) == null || c.call(n, !1), o === void 0 ? n = void 0 : (n = new o(s), n._$AT(s, e, i)), i !== void 0 ? (e._$Co ?? (e._$Co = []))[i] = n : e._$Cl = n), n !== void 0 && (t = L(s, n._$AS(s, t.values), n, i)), t;
+  return (n == null ? void 0 : n.constructor) !== o && ((l = n == null ? void 0 : n._$AO) == null || l.call(n, !1), o === void 0 ? n = void 0 : (n = new o(s), n._$AT(s, e, i)), i !== void 0 ? (e._$Co ?? (e._$Co = []))[i] = n : e._$Cl = n), n !== void 0 && (t = F(s, n._$AS(s, t.values), n, i)), t;
 }
 class Oe {
   constructor(t, e) {
@@ -400,16 +400,16 @@ class Oe {
   }
   u(t) {
     const { el: { content: e }, parts: i } = this._$AD, n = ((t == null ? void 0 : t.creationScope) ?? k).importNode(e, !0);
-    P.currentNode = n;
-    let o = P.nextNode(), r = 0, c = 0, a = i[0];
+    U.currentNode = n;
+    let o = U.nextNode(), r = 0, l = 0, a = i[0];
     for (; a !== void 0; ) {
       if (r === a.index) {
         let h;
-        a.type === 2 ? h = new Y(o, o.nextSibling, this, t) : a.type === 1 ? h = new a.ctor(o, a.name, a.strings, this, t) : a.type === 6 && (h = new ke(o, this, t)), this._$AV.push(h), a = i[++c];
+        a.type === 2 ? h = new Y(o, o.nextSibling, this, t) : a.type === 1 ? h = new a.ctor(o, a.name, a.strings, this, t) : a.type === 6 && (h = new ke(o, this, t)), this._$AV.push(h), a = i[++l];
       }
-      r !== (a == null ? void 0 : a.index) && (o = P.nextNode(), r++);
+      r !== (a == null ? void 0 : a.index) && (o = U.nextNode(), r++);
     }
-    return P.currentNode = k, n;
+    return U.currentNode = k, n;
   }
   p(t) {
     let e = 0;
@@ -437,7 +437,7 @@ class Y {
     return this._$AB;
   }
   _$AI(t, e = this) {
-    t = L(this, t, e), X(t) ? t === u || t == null || t === "" ? (this._$AH !== u && this._$AR(), this._$AH = u) : t !== this._$AH && t !== I && this._(t) : t._$litType$ !== void 0 ? this.$(t) : t.nodeType !== void 0 ? this.T(t) : Te(t) ? this.k(t) : this._(t);
+    t = F(this, t, e), X(t) ? t === u || t == null || t === "" ? (this._$AH !== u && this._$AR(), this._$AH = u) : t !== this._$AH && t !== W && this._(t) : t._$litType$ !== void 0 ? this.$(t) : t.nodeType !== void 0 ? this.T(t) : Te(t) ? this.k(t) : this._(t);
   }
   S(t) {
     return this._$AA.parentNode.insertBefore(t, this._$AB);
@@ -454,8 +454,8 @@ class Y {
     if (((o = this._$AH) == null ? void 0 : o._$AD) === n)
       this._$AH.p(e);
     else {
-      const r = new Oe(n, this), c = r.u(this.options);
-      r.p(e), this.T(c), this._$AH = r;
+      const r = new Oe(n, this), l = r.u(this.options);
+      r.p(e), this.T(l), this._$AH = r;
     }
   }
   _$AC(t) {
@@ -496,12 +496,12 @@ class ot {
     const o = this.strings;
     let r = !1;
     if (o === void 0)
-      t = L(this, t, e, 0), r = !X(t) || t !== this._$AH && t !== I, r && (this._$AH = t);
+      t = F(this, t, e, 0), r = !X(t) || t !== this._$AH && t !== W, r && (this._$AH = t);
     else {
-      const c = t;
+      const l = t;
       let a, h;
       for (t = o[0], a = 0; a < o.length - 1; a++)
-        h = L(this, c[i + a], e, a), h === I && (h = this._$AH[a]), r || (r = !X(h) || h !== this._$AH[a]), h === u ? t = u : t !== u && (t += (h ?? "") + o[a + 1]), this._$AH[a] = h;
+        h = F(this, l[i + a], e, a), h === W && (h = this._$AH[a]), r || (r = !X(h) || h !== this._$AH[a]), h === u ? t = u : t !== u && (t += (h ?? "") + o[a + 1]), this._$AH[a] = h;
     }
     r && !n && this.j(t);
   }
@@ -509,7 +509,7 @@ class ot {
     t === u ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, t ?? "");
   }
 }
-class Ue extends ot {
+class Pe extends ot {
   constructor() {
     super(...arguments), this.type = 3;
   }
@@ -517,7 +517,7 @@ class Ue extends ot {
     this.element[this.name] = t === u ? void 0 : t;
   }
 }
-class Pe extends ot {
+class Ue extends ot {
   constructor() {
     super(...arguments), this.type = 4;
   }
@@ -530,7 +530,7 @@ class Ne extends ot {
     super(t, e, i, n, o), this.type = 5;
   }
   _$AI(t, e = this) {
-    if ((t = L(this, t, e, 0) ?? u) === I)
+    if ((t = F(this, t, e, 0) ?? u) === W)
       return;
     const i = this._$AH, n = t === u && i !== u || t.capture !== i.capture || t.once !== i.once || t.passive !== i.passive, o = t !== u && (i === u || n);
     n && this.element.removeEventListener(this.name, this, i), o && this.element.addEventListener(this.name, this, t), this._$AH = t;
@@ -548,7 +548,7 @@ class ke {
     return this._$AM._$AU;
   }
   _$AI(t) {
-    L(this, t);
+    F(this, t);
   }
 }
 const lt = G.litHtmlPolyfillSupport;
@@ -567,7 +567,7 @@ const Re = (s, t, e) => {
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-class J extends z {
+class J extends D {
   constructor() {
     super(...arguments), this.renderOptions = { host: this }, this._$Do = void 0;
   }
@@ -589,7 +589,7 @@ class J extends z {
     super.disconnectedCallback(), (t = this._$Do) == null || t.setConnected(!1);
   }
   render() {
-    return I;
+    return W;
   }
 }
 var qt;
@@ -610,8 +610,8 @@ class He extends Error {
     return !0;
   }
 }
-var _, b, y, T, N, Z, B;
-class ze {
+var _, b, y, T, N, Z, L;
+class je {
   constructor(t) {
     $(this, _, void 0);
     $(this, b, void 0);
@@ -619,24 +619,24 @@ class ze {
     $(this, T, void 0);
     $(this, N, void 0);
     $(this, Z, void 0);
-    $(this, B, void 0);
+    $(this, L, void 0);
     f(this, _, !1), f(this, b, !1), f(this, y, !1), f(this, T, []), f(this, N, new Promise((e, i) => {
-      f(this, Z, e), f(this, B, i);
-      const n = (c) => {
+      f(this, Z, e), f(this, L, i);
+      const n = (l) => {
         var a;
-        l(this, _) || l(this, b) || l(this, y) || (f(this, _, !0), (a = l(this, Z)) == null || a.call(this, c));
-      }, o = (c) => {
+        c(this, _) || c(this, b) || c(this, y) || (f(this, _, !0), (a = c(this, Z)) == null || a.call(this, l));
+      }, o = (l) => {
         var a;
-        l(this, _) || l(this, b) || l(this, y) || (f(this, b, !0), (a = l(this, B)) == null || a.call(this, c));
-      }, r = (c) => {
-        l(this, _) || l(this, b) || l(this, y) || l(this, T).push(c);
+        c(this, _) || c(this, b) || c(this, y) || (f(this, b, !0), (a = c(this, L)) == null || a.call(this, l));
+      }, r = (l) => {
+        c(this, _) || c(this, b) || c(this, y) || c(this, T).push(l);
       };
       return Object.defineProperty(r, "isResolved", {
-        get: () => l(this, _)
+        get: () => c(this, _)
       }), Object.defineProperty(r, "isRejected", {
-        get: () => l(this, b)
+        get: () => c(this, b)
       }), Object.defineProperty(r, "isCancelled", {
-        get: () => l(this, y)
+        get: () => c(this, y)
       }), t(n, o, r);
     }));
   }
@@ -644,33 +644,33 @@ class ze {
     return "Cancellable Promise";
   }
   then(t, e) {
-    return l(this, N).then(t, e);
+    return c(this, N).then(t, e);
   }
   catch(t) {
-    return l(this, N).catch(t);
+    return c(this, N).catch(t);
   }
   finally(t) {
-    return l(this, N).finally(t);
+    return c(this, N).finally(t);
   }
   cancel() {
     var t;
-    if (!(l(this, _) || l(this, b) || l(this, y))) {
-      if (f(this, y, !0), l(this, T).length)
+    if (!(c(this, _) || c(this, b) || c(this, y))) {
+      if (f(this, y, !0), c(this, T).length)
         try {
-          for (const e of l(this, T))
+          for (const e of c(this, T))
             e();
         } catch (e) {
           console.warn("Cancellation threw an error", e);
           return;
         }
-      l(this, T).length = 0, (t = l(this, B)) == null || t.call(this, new He("Request aborted"));
+      c(this, T).length = 0, (t = c(this, L)) == null || t.call(this, new He("Request aborted"));
     }
   }
   get isCancelled() {
-    return l(this, y);
+    return c(this, y);
   }
 }
-_ = new WeakMap(), b = new WeakMap(), y = new WeakMap(), T = new WeakMap(), N = new WeakMap(), Z = new WeakMap(), B = new WeakMap();
+_ = new WeakMap(), b = new WeakMap(), y = new WeakMap(), T = new WeakMap(), N = new WeakMap(), Z = new WeakMap(), L = new WeakMap();
 const E = {
   BASE: "",
   VERSION: "Latest",
@@ -681,7 +681,7 @@ const E = {
   PASSWORD: void 0,
   HEADERS: void 0,
   ENCODE_PATH: void 0
-}, _t = (s) => s != null, tt = (s) => typeof s == "string", dt = (s) => tt(s) && s !== "", bt = (s) => typeof s == "object" && typeof s.type == "string" && typeof s.stream == "function" && typeof s.arrayBuffer == "function" && typeof s.constructor == "function" && typeof s.constructor.name == "string" && /^(Blob|File)$/.test(s.constructor.name) && /^(Blob|File)$/.test(s[Symbol.toStringTag]), Yt = (s) => s instanceof FormData, je = (s) => {
+}, _t = (s) => s != null, tt = (s) => typeof s == "string", dt = (s) => tt(s) && s !== "", bt = (s) => typeof s == "object" && typeof s.type == "string" && typeof s.stream == "function" && typeof s.arrayBuffer == "function" && typeof s.constructor == "function" && typeof s.constructor.name == "string" && /^(Blob|File)$/.test(s.constructor.name) && /^(Blob|File)$/.test(s[Symbol.toStringTag]), Yt = (s) => s instanceof FormData, ze = (s) => {
   try {
     return btoa(s);
   } catch {
@@ -693,8 +693,8 @@ const E = {
   }, i = (n, o) => {
     _t(o) && (Array.isArray(o) ? o.forEach((r) => {
       i(n, r);
-    }) : typeof o == "object" ? Object.entries(o).forEach(([r, c]) => {
-      i(`${n}[${r}]`, c);
+    }) : typeof o == "object" ? Object.entries(o).forEach(([r, l]) => {
+      i(`${n}[${r}]`, l);
     }) : e(n, o));
   };
   return Object.entries(s).forEach(([n, o]) => {
@@ -702,8 +702,8 @@ const E = {
   }), t.length > 0 ? `?${t.join("&")}` : "";
 }, Be = (s, t) => {
   const e = s.ENCODE_PATH || encodeURI, i = t.url.replace("{api-version}", s.VERSION).replace(/{(.*?)}/g, (o, r) => {
-    var c;
-    return (c = t.path) != null && c.hasOwnProperty(r) ? e(String(t.path[r])) : o;
+    var l;
+    return (l = t.path) != null && l.hasOwnProperty(r) ? e(String(t.path[r])) : o;
   }), n = `${s.BASE}${i}`;
   return t.query ? `${n}${De(t.query)}` : n;
 }, Ie = (s) => {
@@ -720,13 +720,13 @@ const E = {
     Accept: "application/json",
     ...o,
     ...t.headers
-  }).filter(([c, a]) => _t(a)).reduce((c, [a, h]) => ({
-    ...c,
+  }).filter(([l, a]) => _t(a)).reduce((l, [a, h]) => ({
+    ...l,
     [a]: String(h)
   }), {});
   if (dt(e) && (r.Authorization = `Bearer ${e}`), dt(i) && dt(n)) {
-    const c = je(`${i}:${n}`);
-    r.Authorization = `Basic ${c}`;
+    const l = ze(`${i}:${n}`);
+    r.Authorization = `Basic ${l}`;
   }
   return t.body && (t.mediaType ? r["Content-Type"] = t.mediaType : bt(t.body) ? r["Content-Type"] = t.body.type || "application/octet-stream" : tt(t.body) ? r["Content-Type"] = "text/plain" : Yt(t.body) || (r["Content-Type"] = "application/json")), new Headers(r);
 }, We = (s) => {
@@ -734,13 +734,13 @@ const E = {
   if (s.body !== void 0)
     return (t = s.mediaType) != null && t.includes("/json") ? JSON.stringify(s.body) : tt(s.body) || bt(s.body) || Yt(s.body) ? s.body : JSON.stringify(s.body);
 }, Fe = async (s, t, e, i, n, o, r) => {
-  const c = new AbortController(), a = {
+  const l = new AbortController(), a = {
     headers: o,
     body: i ?? n,
     method: t.method,
-    signal: c.signal
+    signal: l.signal
   };
-  return s.WITH_CREDENTIALS && (a.credentials = s.CREDENTIALS), r(() => c.abort()), await fetch(e, a);
+  return s.WITH_CREDENTIALS && (a.credentials = s.CREDENTIALS), r(() => l.abort()), await fetch(e, a);
 }, qe = (s, t) => {
   if (t) {
     const e = s.headers.get(t);
@@ -783,11 +783,11 @@ const E = {
       `Generic Error: status: ${n}; status text: ${o}; body: ${r}`
     );
   }
-}, H = (s, t) => new ze(async (e, i, n) => {
+}, j = (s, t) => new je(async (e, i, n) => {
   try {
-    const o = Be(s, t), r = Ie(t), c = We(t), a = await Le(s, t);
+    const o = Be(s, t), r = Ie(t), l = We(t), a = await Le(s, t);
     if (!n.isCancelled) {
-      const h = await Fe(s, t, o, c, r, a, n), p = await Ve(h), d = qe(h, t.responseHeader), g = {
+      const h = await Fe(s, t, o, l, r, a, n), p = await Ve(h), d = qe(h, t.responseHeader), g = {
         url: o,
         ok: h.ok,
         status: h.status,
@@ -800,13 +800,13 @@ const E = {
     i(o);
   }
 });
-class q {
+class z {
   /**
    * @returns any Success
    * @throws ApiError
    */
   static getSettings() {
-    return H(E, {
+    return j(E, {
       method: "GET",
       url: "/umbraco/maintenance/api/v1/GetSettings"
     });
@@ -816,7 +816,7 @@ class q {
    * @throws ApiError
    */
   static getStatus() {
-    return H(E, {
+    return j(E, {
       method: "GET",
       url: "/umbraco/maintenance/api/v1/GetStatus"
     });
@@ -828,7 +828,7 @@ class q {
   static saveSettings({
     requestBody: t
   }) {
-    return H(E, {
+    return j(E, {
       method: "POST",
       url: "/umbraco/maintenance/api/v1/SaveSettings",
       body: t,
@@ -842,7 +842,7 @@ class q {
   static toggleAccess({
     maintenanceMode: t
   }) {
-    return H(E, {
+    return j(E, {
       method: "GET",
       url: "/umbraco/maintenance/api/v1/ToggleAccess",
       query: {
@@ -857,7 +857,7 @@ class q {
   static toggleFrozen({
     maintenanceMode: t
   }) {
-    return H(E, {
+    return j(E, {
       method: "GET",
       url: "/umbraco/maintenance/api/v1/ToggleFrozen",
       query: {
@@ -872,7 +872,7 @@ class q {
   static toggleMode({
     maintenanceMode: t
   }) {
-    return H(E, {
+    return j(E, {
       method: "GET",
       url: "/umbraco/maintenance/api/v1/ToggleMode",
       query: {
@@ -888,7 +888,7 @@ class pt extends de {
     $(this, A, void 0);
     $(this, M, void 0);
     $(this, v, void 0);
-    f(this, A, new Nt(void 0)), this.status = l(this, A).asObservable(), f(this, M, new Nt(void 0)), this.settings = l(this, M).asObservable(), f(this, v, e), this.provideContext(At, this), this.consumeContext(pe, (i) => {
+    f(this, A, new Nt(void 0)), this.status = c(this, A).asObservable(), f(this, M, new Nt(void 0)), this.settings = c(this, M).asObservable(), f(this, v, e), this.provideContext(At, this), this.consumeContext(pe, (i) => {
       if (i === void 0)
         return;
       const n = () => i.getLatestToken();
@@ -896,37 +896,40 @@ class pt extends de {
     });
   }
   async getStatus() {
-    let e = await W(l(this, v), q.getStatus());
-    console.log(e), e.data != null && l(this, A).setValue(e.data);
+    let e = await H(c(this, v), z.getStatus());
+    console.log(e), e.data != null && c(this, A).setValue(e.data);
   }
   async getSettings() {
-    let e = await W(l(this, v), q.getSettings());
-    console.log(e), e.data != null && l(this, M).setValue(e.data);
+    let e = await H(c(this, v), z.getSettings());
+    console.log(e), e.data != null && c(this, M).setValue(e.data);
   }
   async toggleMaintenance() {
     var e;
-    await W(l(this, v), q.toggleMode({
-      maintenanceMode: !((e = l(this, A).getValue()) != null && e.isInMaintenanceMode)
+    await H(c(this, v), z.toggleMode({
+      maintenanceMode: !((e = c(this, A).getValue()) != null && e.isInMaintenanceMode)
     })), await this.getStatus(), console.log("eeby");
   }
   async toggleFrozen() {
     var e;
-    await W(l(this, v), q.toggleFrozen({
-      maintenanceMode: !((e = l(this, A).getValue()) != null && e.isContentFrozen)
+    await H(c(this, v), z.toggleFrozen({
+      maintenanceMode: !((e = c(this, A).getValue()) != null && e.isContentFrozen)
     })), await this.getStatus(), console.log("deeby");
   }
   async toggleBackofficeAccess() {
     var e, i, n;
-    console.log(l(this, A).getValue()), await W(l(this, v), q.toggleAccess({
-      maintenanceMode: !((n = (i = (e = l(this, A)) == null ? void 0 : e.getValue()) == null ? void 0 : i.settings) != null && n.allowBackOfficeUsersThrough)
+    console.log(c(this, A).getValue()), await H(c(this, v), z.toggleAccess({
+      maintenanceMode: !((n = (i = (e = c(this, A)) == null ? void 0 : e.getValue()) == null ? void 0 : i.settings) != null && n.allowBackOfficeUsersThrough)
     })), await this.getStatus();
   }
   //////////////
-  updateTemplateName(e) {
-    l(this, M).update({ templateName: e });
+  updateSettings(e) {
+    c(this, M).update(e);
   }
-  updateUnfrozenUsers(e) {
-    l(this, M).update({ unfrozenUsers: e });
+  async saveSettings() {
+    const e = c(this, M).getValue();
+    e != null && await H(c(this, v), z.saveSettings({
+      requestBody: e
+    }));
   }
 }
 A = new WeakMap(), M = new WeakMap(), v = new WeakMap();
@@ -951,14 +954,14 @@ var Xe = Object.defineProperty, Qe = Object.getOwnPropertyDescriptor, et = (s, t
 }, vt = (s, t, e) => {
   if (!t.has(s))
     throw TypeError("Cannot " + e);
-}, D = (s, t, e) => (vt(s, t, "read from private field"), e ? e.call(s) : t.get(s)), m = (s, t, e) => {
+}, I = (s, t, e) => (vt(s, t, "read from private field"), e ? e.call(s) : t.get(s)), m = (s, t, e) => {
   if (t.has(s))
     throw TypeError("Cannot add the same private member more than once");
   t instanceof WeakSet ? t.add(s) : t.set(s, e);
-}, Ze = (s, t, e, i) => (vt(s, t, "write to private field"), i ? i.call(s, e) : t.set(s, e), e), C = (s, t, e) => (vt(s, t, "access private method"), e), j, St, Et, wt, Ct, te, ft, ee, gt, se, Tt, ie, Mt, ne, xt, re, Ot, oe, Ut, ae;
+}, Ze = (s, t, e, i) => (vt(s, t, "write to private field"), i ? i.call(s, e) : t.set(s, e), e), C = (s, t, e) => (vt(s, t, "access private method"), e), B, St, Et, wt, Ct, te, ft, ee, gt, se, Tt, ie, Mt, ne, xt, re, Ot, oe, Pt, ae;
 let R = class extends ce(J) {
   constructor() {
-    super(), m(this, Ct), m(this, ft), m(this, gt), m(this, Tt), m(this, Mt), m(this, xt), m(this, Ot), m(this, Ut), m(this, j, void 0), this._loaded = !0, this._status = {
+    super(), m(this, Ct), m(this, ft), m(this, gt), m(this, Tt), m(this, Mt), m(this, xt), m(this, Ot), m(this, Pt), m(this, B, void 0), this._loaded = !0, this._status = {
       isInMaintenanceMode: !0,
       isContentFrozen: !0,
       usingWebConfig: !0,
@@ -967,17 +970,17 @@ let R = class extends ce(J) {
       }
     }, this.title = "MaintenanceManager dashboard", m(this, St, () => {
       var s;
-      (s = D(this, j)) == null || s.toggleMaintenance();
+      (s = I(this, B)) == null || s.toggleMaintenance();
     }), m(this, Et, () => {
       var s;
-      (s = D(this, j)) == null || s.toggleFrozen();
+      (s = I(this, B)) == null || s.toggleFrozen();
     }), m(this, wt, () => {
       var s;
-      (s = D(this, j)) == null || s.toggleBackofficeAccess();
+      (s = I(this, B)) == null || s.toggleBackofficeAccess();
     }), this.consumeContext(ge, (s) => {
       this._modalContext = s;
     }), this.consumeContext(At, (s) => {
-      Ze(this, j, s), this.observe(s.status, (t) => {
+      Ze(this, B, s), this.observe(s.status, (t) => {
         this.status = t;
       });
     });
@@ -987,7 +990,7 @@ let R = class extends ce(J) {
         <uui-box>${this._loaded ? C(this, gt, se).call(this) : C(this, ft, ee).call(this)}</uui-box>`;
   }
 };
-j = /* @__PURE__ */ new WeakMap();
+B = /* @__PURE__ */ new WeakMap();
 St = /* @__PURE__ */ new WeakMap();
 Et = /* @__PURE__ */ new WeakMap();
 wt = /* @__PURE__ */ new WeakMap();
@@ -1010,15 +1013,15 @@ se = function() {
         <div>${C(this, Mt, ne).call(this)}</div>
         <div>${C(this, xt, re).call(this)}</div>
         <div>${C(this, Ot, oe).call(this)}</div>
-        <div>${C(this, Ut, ae).call(this)}</div>
+        <div>${C(this, Pt, ae).call(this)}</div>
         `;
 };
 Tt = /* @__PURE__ */ new WeakSet();
 ie = function() {
   return O`
         <div class="buttons">
-            <uui-button label="Toggle Maintenance" id="clickMaintenance" look="primary" color="positive" @click=${D(this, St)}></uui-button>
-            <uui-button label="Toggle Frozen" id="clickFrozen" look="primary" color="warning" @click=${D(this, Et)}></uui-button>
+            <uui-button label="Toggle Maintenance" id="clickMaintenance" look="primary" color="positive" @click=${I(this, St)}></uui-button>
+            <uui-button label="Toggle Frozen" id="clickFrozen" look="primary" color="warning" @click=${I(this, Et)}></uui-button>
         </div>
         `;
 };
@@ -1056,12 +1059,12 @@ oe = function() {
                 .showLabels=${!0} 
                 labelOn="Allow backoffice users to view site" 
                 labelOff="Don't allow backoffice users to view site"
-                @click=${D(this, wt)}>
+                @click=${I(this, wt)}>
             </umb-input-toggle>
         </div>
         `;
 };
-Ut = /* @__PURE__ */ new WeakSet();
+Pt = /* @__PURE__ */ new WeakSet();
 ae = function() {
   return O`
             <div class="settings">
@@ -1191,7 +1194,7 @@ const Ye = [
     type: "modal",
     alias: "settings.modal",
     name: "Settings modal",
-    js: () => import("./settings-modal-element-Lcwm3R4Z.js")
+    js: () => import("./settings-modal-element-fuy2sTw3.js")
   }
 ], os = [...rs], as = [
   ...ts,
@@ -1205,4 +1208,4 @@ export {
   At as M,
   ys as o
 };
-//# sourceMappingURL=index-wSYa5mrQ.js.map
+//# sourceMappingURL=index-W0mpvb8Z.js.map

@@ -75,12 +75,18 @@ export class MaintenanceContext extends UmbBaseController {
 
     //////////////
 
-    updateTemplateName(name: string) {
-        this.#settings.update({templateName: name});
+    updateSettings(partialData: Partial<MaintenanceModeSettings>) {
+        this.#settings.update(partialData);
     }
 
-    updateUnfrozenUsers(users: string) {
-        this.#settings.update({unfrozenUsers: users});
+    async saveSettings() {
+        const settings = this.#settings.getValue();
+
+        if(settings != undefined) {
+            await tryExecuteAndNotify(this.#host, MaintenanceModeResource.saveSettings({
+                requestBody: settings
+            }))
+        }
     }
 }
 

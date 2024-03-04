@@ -82,10 +82,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
             {
                 IsInMaintenanceMode = false,
                 UsingWebConfig = false,
-                Settings = new MaintenanceModeSettings
-                {
-                    ViewModel = new Models.MaintenanceMode()
-                }
+                Settings = new MaintenanceModeSettings()
             };
 
             if (_configFilePath != null && File.Exists(_configFilePath))

@@ -3,11 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenanceMode } from './MaintenanceMode';
-
 export type MaintenanceModeSettings = {
     allowBackOfficeUsersThrough: boolean;
     templateName?: string | null;
     unfrozenUsers?: string | null;
-    viewModel?: MaintenanceMode | null;
+    pageTitle?: string | null;
+    title?: string | null;
+    text?: string | null;
 };
