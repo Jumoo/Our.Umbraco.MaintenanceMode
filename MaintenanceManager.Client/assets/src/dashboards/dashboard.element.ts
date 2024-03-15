@@ -60,7 +60,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
     }
 
     async #openSettings() {
-        const customContext = this._modalContext?.open(SETTINGS_MODAL);
+        const customContext = this._modalContext?.open(this, SETTINGS_MODAL);
 
         const data = await customContext?.onSubmit();
 

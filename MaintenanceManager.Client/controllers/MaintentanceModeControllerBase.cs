@@ -8,7 +8,7 @@ namespace MaintenanceManager.Client.controllers
 {
     [ApiController]
     [BackOfficeRoute("maintenance/api/v{version:apiVersion}")]
-    [Authorize(Policy = "New" + AuthorizationPolicies.BackOfficeAccess)]
+    [Authorize(Policy = AuthorizationPolicies.BackOfficeAccess)]
     [MapToApi("maintenance")]
     public class MaintentanceModeControllerBase
     {

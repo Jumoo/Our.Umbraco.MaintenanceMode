@@ -997,7 +997,7 @@ wt = /* @__PURE__ */ new WeakMap();
 Ct = /* @__PURE__ */ new WeakSet();
 te = async function() {
   var e;
-  const s = (e = this._modalContext) == null ? void 0 : e.open(Ke), t = await (s == null ? void 0 : s.onSubmit());
+  const s = (e = this._modalContext) == null ? void 0 : e.open(this, Ke), t = await (s == null ? void 0 : s.onSubmit());
   t && console.log("data", t);
 };
 ft = /* @__PURE__ */ new WeakSet();
@@ -1194,7 +1194,7 @@ const Ye = [
     type: "modal",
     alias: "settings.modal",
     name: "Settings modal",
-    js: () => import("./settings-modal-element-gSc1dS01.js")
+    js: () => import("./settings-modal-element-1AnU2PDU.js")
   }
 ], os = [...rs], as = [
   ...ts,
@@ -1208,4 +1208,4 @@ export {
   At as M,
   ys as o
 };
-//# sourceMappingURL=index-jn-dpPsr.js.map
+//# sourceMappingURL=index-hNXyCcT9.js.map
