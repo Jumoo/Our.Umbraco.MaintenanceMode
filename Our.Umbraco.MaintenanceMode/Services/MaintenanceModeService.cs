@@ -61,6 +61,15 @@ namespace Our.Umbraco.MaintenanceMode.Services
             await SaveToDisk();
         }
 
+        public async Task ToggleAccess(bool hasAccess)
+        {
+            if (hasAccess == Status.Settings.AllowBackOfficeUsersThrough)
+                return; // already in this state
+
+            Status.Settings.AllowBackOfficeUsersThrough = hasAccess;
+            await SaveToDisk();
+        }
+
         public async Task SaveSettings(MaintenanceModeSettings settings)
         {
             Status.Settings = settings;
@@ -73,10 +82,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
             {
                 IsInMaintenanceMode = false,
                 UsingWebConfig = false,
-                Settings = new MaintenanceModeSettings
-                {
-                    ViewModel = new Models.MaintenanceMode()
-                }
+                Settings = new MaintenanceModeSettings()
             };
 
             if (_configFilePath != null && File.Exists(_configFilePath))

@@ -31,8 +31,13 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
 
         public async Task InvokeAsync(HttpContext context, IBackofficeUserAccessor backofficeUserAccessor)
         {
+            if (_runtimeState.Level < RuntimeLevel.Run)
+            {
+                await _next(context);
+                return;
+            }
             _logger.LogDebug("Maintenance mode middleware triggered {url}", context.Request.Path);
-
+            
             bool IsAuthenticated = IsBackOfficeAuthenticated(backofficeUserAccessor);
 
             if (backofficeUserAccessor != null)

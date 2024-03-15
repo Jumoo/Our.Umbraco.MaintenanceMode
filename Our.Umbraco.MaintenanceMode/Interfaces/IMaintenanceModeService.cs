@@ -12,5 +12,6 @@ namespace Our.Umbraco.MaintenanceMode.Interfaces
         MaintenanceModeSettings Settings { get; }
         MaintenanceModeStatus Status { get; }
         Task SaveSettings(MaintenanceModeSettings settings);
+        Task ToggleAccess(bool hasAccess);
     }
 }
