@@ -1,16 +1,15 @@
 import { html as g, css as f, state as v, customElement as T } from "@umbraco-cms/backoffice/external/lit";
 import { UmbModalBaseElement as _ } from "@umbraco-cms/backoffice/modal";
-import { M as C } from "./index-hNXyCcT9.js";
-import "@umbraco-cms/backoffice/element-api";
+import { MAINTENANCE_CONTEXT_TOKEN as C } from "./context-H6KD_sQ7.js";
 import "@umbraco-cms/backoffice/class-api";
 import "@umbraco-cms/backoffice/context-api";
 import "@umbraco-cms/backoffice/observable-api";
 import "@umbraco-cms/backoffice/auth";
 import "@umbraco-cms/backoffice/resources";
 var x = Object.defineProperty, S = Object.getOwnPropertyDescriptor, m = (t, e, i, o) => {
-  for (var a = o > 1 ? void 0 : o ? S(e, i) : e, n = t.length - 1, p; n >= 0; n--)
-    (p = t[n]) && (a = (o ? p(e, i, a) : p(a)) || a);
-  return o && a && x(e, i, a), a;
+  for (var n = o > 1 ? void 0 : o ? S(e, i) : e, a = t.length - 1, p; a >= 0; a--)
+    (p = t[a]) && (n = (o ? p(e, i, n) : p(n)) || n);
+  return o && n && x(e, i, n), n;
 }, $ = (t, e, i) => {
   if (!e.has(t))
     throw TypeError("Cannot " + i);
@@ -38,7 +37,7 @@ let u = class extends _ {
   //  "title": "Under Maintenance",
   //  "text": "The Website is currently undergoing maintenance and will be back shortly."
   render() {
-    var t, e, i, o, a;
+    var t, e, i, o, n;
     return g`
             <umb-body-layout headline="Maintenance Mode Settings">
                 <uui-box>
@@ -52,7 +51,7 @@ let u = class extends _ {
                             <uui-input 
                             label="Template" 
                             .value=${(t = this.settings) == null ? void 0 : t.templateName}
-                            @input=${(n) => s(this, l, r).call(this, "templateName", n)}></uui-input>
+                            @input=${(a) => s(this, l, r).call(this, "templateName", a)}></uui-input>
                         </div>
                     </umb-property-layout>
                     <umb-property-layout 
@@ -64,7 +63,7 @@ let u = class extends _ {
                             <uui-input 
                             label="Unfrozen users" 
                             .value=${(e = this.settings) == null ? void 0 : e.unfrozenUsers}
-                            @input=${(n) => s(this, l, r).call(this, "unfrozenUsers", n)}
+                            @input=${(a) => s(this, l, r).call(this, "unfrozenUsers", a)}
                             placeholder="Enter Usernames Here..."></uui-input>
                         </div>
                     </umb-property-layout>
@@ -77,7 +76,7 @@ let u = class extends _ {
                             <uui-input 
                             label="Page Title" 
                             .value=${(i = this.settings) == null ? void 0 : i.pageTitle}
-                            @input=${(n) => s(this, l, r).call(this, "pageTitle", n)}></uui-input>
+                            @input=${(a) => s(this, l, r).call(this, "pageTitle", a)}></uui-input>
                         </div>
                     </umb-property-layout>
                     <umb-property-layout 
@@ -89,7 +88,7 @@ let u = class extends _ {
                             <uui-input 
                             label="Title" 
                             .value=${(o = this.settings) == null ? void 0 : o.title}
-                            @input=${(n) => s(this, l, r).call(this, "title", n)}></uui-input>
+                            @input=${(a) => s(this, l, r).call(this, "title", a)}></uui-input>
                         </div>
                     </umb-property-layout>
                     <umb-property-layout 
@@ -101,8 +100,8 @@ let u = class extends _ {
                             <uui-textarea 
                             label="Text" 
                             rows=5
-                            .value=${(a = this.settings) == null ? void 0 : a.text}
-                            @input=${(n) => s(this, l, r).call(this, "text", n)}></uui-textarea>
+                            .value=${(n = this.settings) == null ? void 0 : n.text}
+                            @input=${(a) => s(this, l, r).call(this, "text", a)}></uui-textarea>
                         </div>
                     </umb-property-layout>
                 </uui-box>
@@ -131,9 +130,9 @@ y = function() {
 };
 l = /* @__PURE__ */ new WeakSet();
 r = function(t, e) {
-  var a;
+  var n;
   const i = e.target.value, o = {};
-  o[t] = i, (a = this._context) == null || a.updateSettings(o);
+  o[t] = i, (n = this._context) == null || n.updateSettings(o);
 };
 u.styles = f`
         uui-input {
@@ -149,9 +148,9 @@ m([
 u = m([
   T("settings-modal")
 ], u);
-const W = u;
+const k = u;
 export {
   u as SettingsModalElement,
-  W as default
+  k as default
 };
-//# sourceMappingURL=settings-modal-element-1AnU2PDU.js.map
+//# sourceMappingURL=settings-modal-element-p40VMMsL.js.map

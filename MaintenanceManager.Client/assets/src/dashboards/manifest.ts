@@ -1,7 +1,5 @@
 import type { ManifestDashboard } from "@umbraco-cms/backoffice/extension-registry";
 
-import './dashboard.element.js';
-
 const dashboards: Array<ManifestDashboard> = [
     {
         type: 'dashboard',
@@ -9,6 +7,7 @@ const dashboards: Array<ManifestDashboard> = [
         alias: 'maintenancemanager.dashboard',
         elementName: 'maintenancemanager-dashboard',
         weight: -10,
+        js: ()=>import('./dashboard.element'),
         meta: {
             label: 'MaintenanceManager',
             pathname: 'maintenancemanager'

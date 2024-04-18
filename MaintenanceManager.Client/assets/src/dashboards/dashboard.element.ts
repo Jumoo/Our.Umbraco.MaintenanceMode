@@ -216,3 +216,5 @@ declare global {
         'maintenancemanager-dashboard': MaintenanceManagerDashboard
     }
 }
+
+export default MaintenanceManagerDashboard;
