@@ -50,7 +50,7 @@ const n = [
     type: "modal",
     alias: "settings.modal",
     name: "Settings modal",
-    js: () => import("./settings-modal-element-p40VMMsL.js")
+    js: () => import("./settings-modal-element-b__mJetG.js")
   }
 ], c = [...m], l = [
   ...t,
