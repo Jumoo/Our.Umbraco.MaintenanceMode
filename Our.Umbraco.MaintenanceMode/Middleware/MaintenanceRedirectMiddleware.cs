@@ -67,7 +67,7 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
             try {
                 return backofficeUserAccessor.BackofficeUser?.IsAuthenticated ?? false;
             }
-            catch(System.Exception ex) {
+            catch {
                 // in v10 - this thows an erro internally, if there is no backoffice user 🤷‍♀️
                 // _logger.LogWarning(ex, "Error getting back office user");
                 return false;

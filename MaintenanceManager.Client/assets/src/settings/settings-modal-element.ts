@@ -62,7 +62,6 @@ export class SettingsModalElement extends
         return html`
             <umb-body-layout headline="Maintenance Mode Settings">
                 <uui-box>
-                    <pre>${JSON.stringify(this.settings, null, 1)}</pre>
                     <umb-property-layout 
                     alias="templateName" 
                     label="Template" 
