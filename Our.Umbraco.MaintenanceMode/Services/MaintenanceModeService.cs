@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
-
+using Our.Umbraco.MaintenanceMode.Factories;
 using Our.Umbraco.MaintenanceMode.Interfaces;
 using Our.Umbraco.MaintenanceMode.Models;
-
+using Our.Umbraco.MaintenanceMode.Providers;
 using Serilog;
 
 using System;
@@ -20,19 +20,20 @@ namespace Our.Umbraco.MaintenanceMode.Services
     public class MaintenanceModeService : IMaintenanceModeService
     {
         private readonly ILogger _logger;
+        private readonly IStorageProvider _storageProvider; 
+        
         private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
         private readonly string _configFilePath;
         public MaintenanceModeStatus Status { get; private set; }
 
         public MaintenanceModeService(ILogger logger,
-            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, IWebHostEnvironment webHostingEnvironment)
+            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, 
+            IWebHostEnvironment webHostingEnvironment,
+            IStorageProviderFactory storageProviderFactory)
         {
             _logger = logger;
+            _storageProvider = storageProviderFactory.GetProvider();
             _maintenanceModeSettings = maintenanceModeSettings.Value;
-
-            // put maintenanceMode config in the 'config folder'
-            var configFolder = new DirectoryInfo(webHostingEnvironment.MapPathContentRoot(Constants.SystemDirectories.Config));
-            _configFilePath = Path.Combine(configFolder.FullName, "maintenanceMode.json");
 
             Status = LoadStatus().Result;
         }
@@ -49,7 +50,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 return; // already in this state
 
             Status.IsInMaintenanceMode = maintenanceMode;
-            await SaveToDisk();
+            await _storageProvider.Save(Status);
         }
 
         public async Task ToggleContentFreeze(bool isContentFrozen)
@@ -58,13 +59,13 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 return; // already in this state
 
             Status.IsContentFrozen = isContentFrozen;
-            await SaveToDisk();
+            await _storageProvider.Save(Status);
         }
 
         public async Task SaveSettings(MaintenanceModeSettings settings)
         {
             Status.Settings = settings;
-            await SaveToDisk();
+            await _storageProvider.Save(Status);
         }
 
         private async Task<MaintenanceModeStatus> LoadStatus()
@@ -79,43 +80,9 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 }
             };
 
-            if (_configFilePath != null && File.Exists(_configFilePath))
-            {
-                // load from config
-                try
-                {
-                    var file = await File.ReadAllBytesAsync(_configFilePath);
-                    var status = JsonSerializer.Deserialize<MaintenanceModeStatus>(file);
-                    if (status != null)
-                    {
-                        maintenanceModeStatus = status;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.Warning(ex, string.Concat("Failed to load Status ", ex.Message));
-                }
-            }
+            maintenanceModeStatus = await CheckStorage(maintenanceModeStatus);
 
             return CheckAppSettings(maintenanceModeStatus);
-        }
-
-        private async Task SaveToDisk()
-        {
-            try
-            {
-                if (File.Exists(_configFilePath))
-                    File.Delete(_configFilePath);
-
-                Directory.CreateDirectory(Path.GetDirectoryName(_configFilePath));
-
-                string json = JsonSerializer.Serialize(Status);
-                await File.WriteAllTextAsync(_configFilePath, json);
-            }
-            catch (Exception ex)
-            {
-                _logger.Debug(ex, string.Concat("Failed to save config ", ex.Message));
-            }
         }
 
         private MaintenanceModeStatus CheckAppSettings(MaintenanceModeStatus status)
@@ -129,5 +96,8 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
             return status;
         }
+
+        private async Task<MaintenanceModeStatus> CheckStorage(MaintenanceModeStatus status) 
+            => await _storageProvider.Read() ?? status;
     }
 }
