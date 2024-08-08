@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using Our.Umbraco.MaintenanceMode.Models;
+using Our.Umbraco.MaintenanceMode.Notifications;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Extensions;
 
 namespace Our.Umbraco.MaintenanceMode.Providers
@@ -22,13 +24,17 @@ namespace Our.Umbraco.MaintenanceMode.Providers
         private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
 
         private readonly ILogger _logger;
+        private readonly IEventAggregator _eventAggregator;
 
         public FileSystemStorageProvider(
             ILogger logger,
             IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings,
+            IEventAggregator eventAggregator,
             IWebHostEnvironment webHostingEnvironment)
         {
             _maintenanceModeSettings = maintenanceModeSettings.Value;
+            _logger = logger;
+            _eventAggregator = eventAggregator;
 
             // put maintenanceMode config in the 'config folder'
             var configFolder = new DirectoryInfo(webHostingEnvironment.MapPathContentRoot(Constants.SystemDirectories.Config));
@@ -69,6 +75,7 @@ namespace Our.Umbraco.MaintenanceMode.Providers
 
                 string json = JsonSerializer.Serialize(status);
                 await File.WriteAllTextAsync(_configFilePath, json);
+                _eventAggregator.Publish(new MaintenanceModeSavedNotification(status));
             }
             catch (Exception ex)
             {
