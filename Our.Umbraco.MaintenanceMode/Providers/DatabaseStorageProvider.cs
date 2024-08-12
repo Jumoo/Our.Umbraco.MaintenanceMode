@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Our.Umbraco.MaintenanceMode.Models;
 using Our.Umbraco.MaintenanceMode.Models.Schema;
+using Our.Umbraco.MaintenanceMode.Notifications;
 using Serilog;
 using System;
 using System.Text.Json;
@@ -88,6 +89,8 @@ namespace Our.Umbraco.MaintenanceMode.Providers
                 }
 
                 scope.Complete();
+
+                _eventAggregator.Publish(new MaintenanceModeSavedNotification(status));
             }
             catch (Exception ex)
             {
