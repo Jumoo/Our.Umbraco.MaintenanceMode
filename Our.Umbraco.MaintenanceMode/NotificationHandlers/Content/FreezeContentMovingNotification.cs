@@ -17,11 +17,11 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers.Content
 
         public void Handle(ContentMovingNotification notification)
         {
-            if (_maintenanceModeService.IsContentFrozen)
+            if (_maintenanceModeService.Status.IsInMaintenanceMode)
             {
                 if (_backofficeUserAccessor.BackofficeUser == null) return;
 
-                if (_maintenanceModeService.Settings.UnfrozenUsers.Contains(_backofficeUserAccessor.BackofficeUser.GetId().ToString())) return;
+                if (_maintenanceModeService.Status.Settings.UnfrozenUsers.Contains(_backofficeUserAccessor.BackofficeUser.GetId().ToString())) return;
 
 
                 notification.CancelOperation(new EventMessage("Warning", "This site is currently frozen during updates", EventMessageType.Error));

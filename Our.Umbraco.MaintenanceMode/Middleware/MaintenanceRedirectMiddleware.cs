@@ -38,10 +38,10 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
             if (backofficeUserAccessor != null)
             {
                 if (_runtimeState.Level == RuntimeLevel.Run &&
-                    _maintenanceModeService.IsInMaintenanceMode)
+                    _maintenanceModeService.Status.IsInMaintenanceMode)
                 {
                     // todo figure out how to do this check here
-                    if (!_maintenanceModeService.Settings.AllowBackOfficeUsersThrough
+                    if (!_maintenanceModeService.Status.Settings.AllowBackOfficeUsersThrough
                         && IsAuthenticated)
                     {
                         context = HandleRequest(context);
@@ -54,8 +54,6 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
             }
 
             await _next(context);
-
-
         }
 
         private bool IsBackOfficeAuthenticated(IBackofficeUserAccessor backofficeUserAccessor) {

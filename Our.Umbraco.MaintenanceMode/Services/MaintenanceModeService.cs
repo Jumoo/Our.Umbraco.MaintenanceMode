@@ -1,87 +1,99 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
+
+using Our.Umbraco.MaintenanceMode.Configurations;
 using Our.Umbraco.MaintenanceMode.Factories;
 using Our.Umbraco.MaintenanceMode.Interfaces;
 using Our.Umbraco.MaintenanceMode.Models;
 using Our.Umbraco.MaintenanceMode.Providers;
+
 using Serilog;
 
-using System;
-using System.IO;
-using System.Text.Json;
 using System.Threading.Tasks;
-
-using Umbraco.Cms.Core;
-using Umbraco.Cms.Core.Extensions;
-using Umbraco.Cms.Core.Hosting;
 
 namespace Our.Umbraco.MaintenanceMode.Services
 {
     public class MaintenanceModeService : IMaintenanceModeService
     {
         private readonly ILogger _logger;
-        private readonly IStorageProvider _storageProvider; 
+        private readonly IStorageProviderFactory _storageProviderFactory; 
         
         private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
         private readonly string _configFilePath;
-        public MaintenanceModeStatus Status { get; private set; }
+        private MaintenanceModeStatus TrackedStatus { get; set; }
+
+        public MaintenanceModeStatus Status
+        {
+            get
+            {
+                // when in 'Database' storage mode we want to be fetching every time as this
+                // typically will mean Umbraco is deployed in a distributed environment therefore
+                // status can't be tracked in scope, it needs to be read from storage each time
+                return _storageProviderFactory.StorageMode switch
+                {
+                    StorageMode.Database => StorageProvider.Read().Result,
+                    _ => TrackedStatus
+                };
+            }
+        }
 
         public MaintenanceModeService(ILogger logger,
             IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, 
-            IWebHostEnvironment webHostingEnvironment,
             IStorageProviderFactory storageProviderFactory)
         {
             _logger = logger;
-            _storageProvider = storageProviderFactory.GetProvider();
+            _storageProviderFactory = storageProviderFactory;
             _maintenanceModeSettings = maintenanceModeSettings.Value;
 
-            Status = LoadStatus().Result;
+            TrackedStatus = LoadStatus().Result;
         }
 
-        public bool IsInMaintenanceMode => Status.IsInMaintenanceMode;
-
-        public bool IsContentFrozen => Status.IsContentFrozen;
-
-        public MaintenanceModeSettings Settings => Status.Settings;
+        public IStorageProvider StorageProvider => _storageProviderFactory.GetProvider();
 
         public async Task ToggleMaintenanceMode(bool maintenanceMode)
         {
-            if (maintenanceMode == Status.IsInMaintenanceMode)
+            // checking against TrackedStatus is fine even in distributed environments
+            // the toggle will have been executed on the SchedulingPublisher app
+            if (maintenanceMode == TrackedStatus.IsInMaintenanceMode)
                 return; // already in this state
 
-            Status.IsInMaintenanceMode = maintenanceMode;
-            await _storageProvider.Save(Status);
+            TrackedStatus.IsInMaintenanceMode = maintenanceMode;
+            await StorageProvider.Save(TrackedStatus);
         }
 
         public async Task ToggleContentFreeze(bool isContentFrozen)
         {
-            if (isContentFrozen == Status.IsContentFrozen)
+            // checking against TrackedStatus is fine even in distributed environments
+            // the toggle will have been executed on the SchedulingPublisher app
+            if (isContentFrozen == TrackedStatus.IsContentFrozen)
                 return; // already in this state
 
-            Status.IsContentFrozen = isContentFrozen;
-            await _storageProvider.Save(Status);
+            TrackedStatus.IsContentFrozen = isContentFrozen;
+            await StorageProvider.Save(TrackedStatus);
         }
 
-        public async Task SaveSettings(MaintenanceModeSettings settings)
+        public async Task SaveSettings(Models.MaintenanceModeSettings settings)
         {
-            Status.Settings = settings;
-            await _storageProvider.Save(Status);
+            TrackedStatus.Settings = settings;
+            await StorageProvider.Save(TrackedStatus);
         }
 
         private async Task<MaintenanceModeStatus> LoadStatus()
         {
+            // fallback - defaults set in the service code
             var maintenanceModeStatus = new MaintenanceModeStatus
             {
                 IsInMaintenanceMode = false,
                 UsingWebConfig = false,
-                Settings = new MaintenanceModeSettings
+                Settings = new Models.MaintenanceModeSettings
                 {
                     ViewModel = new Models.MaintenanceMode()
                 }
             };
 
+            // read from the storage location, if available
             maintenanceModeStatus = await CheckStorage(maintenanceModeStatus);
 
+            // override from appsettings, if applicable
             return CheckAppSettings(maintenanceModeStatus);
         }
 
@@ -98,6 +110,6 @@ namespace Our.Umbraco.MaintenanceMode.Services
         }
 
         private async Task<MaintenanceModeStatus> CheckStorage(MaintenanceModeStatus status) 
-            => await _storageProvider.Read() ?? status;
+            => await StorageProvider.Read() ?? status;
     }
 }

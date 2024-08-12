@@ -17,7 +17,6 @@ using Umbraco.Cms.Core.Dashboards;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Manifest;
 using Umbraco.Cms.Core.Notifications;
-using Umbraco.Cms.Core.Services;
 using Umbraco.Extensions;
 
 namespace Our.Umbraco.MaintenanceMode.Composers
@@ -42,11 +41,12 @@ namespace Our.Umbraco.MaintenanceMode.Composers
             builder.Services.Configure<MaintenanceModeSettings>
                 (builder.Config.GetSection("MaintenanceMode"));
 
-
             builder.Services.AddTransient<IBackofficeUserAccessor, BackofficeUserAccessor>();
             builder.Services.AddSingleton<IStorageProviderFactory, StorageProviderFactory>();
             builder.Services.AddSingleton<FileSystemStorageProvider>()
                             .AddSingleton<IStorageProvider, FileSystemStorageProvider>(s => s.GetService<FileSystemStorageProvider>());
+            builder.Services.AddSingleton<DatabaseStorageProvider>()
+                            .AddSingleton<IStorageProvider, DatabaseStorageProvider>(s => s.GetService<DatabaseStorageProvider>());
             builder.Services.AddUnique<IMaintenanceModeService, MaintenanceModeService>();
 
             builder.AddNotificationHandlers();
@@ -73,6 +73,8 @@ namespace Our.Umbraco.MaintenanceMode.Composers
                 .AddNotificationHandler<MediaMovingNotification, FreezeMediaMovingNotification>()
                 .AddNotificationHandler<MediaMovingToRecycleBinNotification, FreezeMediaMovingToRecycleBinNotification>()
                 .AddNotificationHandler<MediaSavingNotification, FreezeMediaSavingNotification>();
+
+            builder.AddNotificationHandler<UmbracoApplicationStartingNotification, UmbracoApplicationStartingHandler>();
         }
     }
 
