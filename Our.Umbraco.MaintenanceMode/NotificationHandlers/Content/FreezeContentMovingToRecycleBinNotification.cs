@@ -17,7 +17,7 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers.Content
 
         public void Handle(ContentMovingToRecycleBinNotification notification)
         {
-            if (_maintenanceModeService.Status.IsInMaintenanceMode)
+            if (_maintenanceModeService.Status.IsContentFrozen)
             {
                 if (_backofficeUserAccessor.BackofficeUser == null) return;
 
