@@ -39,6 +39,13 @@ namespace Our.Umbraco.MaintenanceMode.Providers
                 using var scope = _scopeProvider.CreateScope();
 
                 var db = scope.Database;
+
+                //check for table reduces log warnings
+                if (!scope.SqlContext.SqlSyntax.DoesTableExist(db, MaintenanceModeSchema.TableName))
+                {
+                    return null;
+                }
+
                 var dbStatus = await db.QueryAsync<MaintenanceModeSchema>()
                                        .Where(x => x.Id == MaintenanceMode.MaintenanceConfigRootId)
                                        .FirstOrDefault();

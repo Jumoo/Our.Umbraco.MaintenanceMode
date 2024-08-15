@@ -30,7 +30,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 // status can't be tracked in scope, it needs to be read from storage each time
                 return _storageProviderFactory.StorageMode switch
                 {
-                    StorageMode.Database => StorageProvider.Read().Result,
+                    StorageMode.Database => GetFromStorageOrDefault().Result,
                     _ => TrackedStatus
                 };
             }
@@ -77,21 +77,20 @@ namespace Our.Umbraco.MaintenanceMode.Services
             await StorageProvider.Save(TrackedStatus);
         }
 
+        private static MaintenanceModeStatus _defaultStatus = new MaintenanceModeStatus
+        {
+            IsInMaintenanceMode = false,
+            UsingWebConfig = false,
+            Settings = new Models.MaintenanceModeSettings
+            {
+                ViewModel = new Models.MaintenanceMode()
+            }
+        };
+
         private async Task<MaintenanceModeStatus> LoadStatus()
         {
-            // fallback - defaults set in the service code
-            var maintenanceModeStatus = new MaintenanceModeStatus
-            {
-                IsInMaintenanceMode = false,
-                UsingWebConfig = false,
-                Settings = new Models.MaintenanceModeSettings
-                {
-                    ViewModel = new Models.MaintenanceMode()
-                }
-            };
-
             // read from the storage location, if available
-            maintenanceModeStatus = await CheckStorage(maintenanceModeStatus);
+            var maintenanceModeStatus = await GetFromStorageOrDefault();
 
             // override from appsettings, if applicable
             return CheckAppSettings(maintenanceModeStatus);
@@ -109,7 +108,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
             return status;
         }
 
-        private async Task<MaintenanceModeStatus> CheckStorage(MaintenanceModeStatus status) 
-            => await StorageProvider.Read() ?? status;
+        private async Task<MaintenanceModeStatus> GetFromStorageOrDefault() 
+            => await StorageProvider.Read() ?? _defaultStatus;
     }
 }
