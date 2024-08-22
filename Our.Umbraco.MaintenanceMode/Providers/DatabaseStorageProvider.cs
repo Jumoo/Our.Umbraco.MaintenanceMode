@@ -18,6 +18,9 @@ namespace Our.Umbraco.MaintenanceMode.Providers
         private readonly ILogger _logger;
         private readonly IEventAggregator _eventAggregator;
         private readonly IScopeProvider _scopeProvider;
+        private static DateTime _lastChecked;
+        private static MaintenanceModeStatus _lastKnownStatus;
+        private TimeSpan _timeBetweenChecks;
 
         public DatabaseStorageProvider(
             ILogger logger,
@@ -29,12 +32,20 @@ namespace Our.Umbraco.MaintenanceMode.Providers
             _logger = logger;
             _eventAggregator = eventAggregator;
             _scopeProvider = scope;
+            _timeBetweenChecks = TimeSpan.FromSeconds(_maintenanceModeSettings.CacheSeconds);
         }
 
         public async Task<MaintenanceModeStatus> Read()
         {
             try
             {
+                if (DateTime.UtcNow - _lastChecked <= _timeBetweenChecks)
+                {
+                    return _lastKnownStatus;
+                }
+
+                _lastChecked = DateTime.UtcNow;
+
                 // read from the database
                 using var scope = _scopeProvider.CreateScope();
 
@@ -56,11 +67,11 @@ namespace Our.Umbraco.MaintenanceMode.Providers
                     return null;
                 }
 
-                var status = JsonSerializer.Deserialize<MaintenanceModeStatus>(dbStatus.Value);
+                _lastKnownStatus = JsonSerializer.Deserialize<MaintenanceModeStatus>(dbStatus.Value);
              
                 scope.Complete();
                 
-                return status;
+                return _lastKnownStatus;
 
             }
             catch (Exception ex)
@@ -96,6 +107,8 @@ namespace Our.Umbraco.MaintenanceMode.Providers
                 }
 
                 scope.Complete();
+
+                _lastChecked = DateTime.MinValue;
 
                 _eventAggregator.Publish(new MaintenanceModeSavedNotification(status));
             }
