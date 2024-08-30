@@ -1,121 +1,99 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 
+using Our.Umbraco.MaintenanceMode.Configurations;
+using Our.Umbraco.MaintenanceMode.Factories;
 using Our.Umbraco.MaintenanceMode.Interfaces;
 using Our.Umbraco.MaintenanceMode.Models;
+using Our.Umbraco.MaintenanceMode.Providers;
 
 using Serilog;
 
-using System;
-using System.IO;
-using System.Text.Json;
 using System.Threading.Tasks;
-
-using Umbraco.Cms.Core;
-using Umbraco.Cms.Core.Extensions;
-using Umbraco.Cms.Core.Hosting;
 
 namespace Our.Umbraco.MaintenanceMode.Services
 {
     public class MaintenanceModeService : IMaintenanceModeService
     {
         private readonly ILogger _logger;
+        private readonly IStorageProviderFactory _storageProviderFactory; 
+        
         private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
         private readonly string _configFilePath;
-        public MaintenanceModeStatus Status { get; private set; }
+        private MaintenanceModeStatus TrackedStatus { get; set; }
 
-        public MaintenanceModeService(ILogger logger,
-            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, IWebHostEnvironment webHostingEnvironment)
+        public MaintenanceModeStatus Status
         {
-            _logger = logger;
-            _maintenanceModeSettings = maintenanceModeSettings.Value;
-
-            // put maintenanceMode config in the 'config folder'
-            var configFolder = new DirectoryInfo(webHostingEnvironment.MapPathContentRoot(Constants.SystemDirectories.Config));
-            _configFilePath = Path.Combine(configFolder.FullName, "maintenanceMode.json");
-
-            Status = LoadStatus().Result;
+            get
+            {
+                // when in 'Database' storage mode we want to be fetching every time as this
+                // typically will mean Umbraco is deployed in a distributed environment therefore
+                // status can't be tracked in scope, it needs to be read from storage each time
+                return _storageProviderFactory.StorageMode switch
+                {
+                    StorageMode.Database => GetFromStorageOrDefault().Result,
+                    _ => TrackedStatus
+                };
+            }
         }
 
-        public bool IsInMaintenanceMode => Status.IsInMaintenanceMode;
+        public MaintenanceModeService(ILogger logger,
+            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, 
+            IStorageProviderFactory storageProviderFactory)
+        {
+            _logger = logger;
+            _storageProviderFactory = storageProviderFactory;
+            _maintenanceModeSettings = maintenanceModeSettings.Value;
 
-        public bool IsContentFrozen => Status.IsContentFrozen;
+            TrackedStatus = LoadStatus().Result;
+        }
 
-        public MaintenanceModeSettings Settings => Status.Settings;
+        public IStorageProvider StorageProvider => _storageProviderFactory.GetProvider();
 
         public async Task ToggleMaintenanceMode(bool maintenanceMode)
         {
-            if (maintenanceMode == Status.IsInMaintenanceMode)
+            // checking against TrackedStatus is fine even in distributed environments
+            // the toggle will have been executed on the SchedulingPublisher app
+            if (maintenanceMode == TrackedStatus.IsInMaintenanceMode)
                 return; // already in this state
 
-            Status.IsInMaintenanceMode = maintenanceMode;
-            await SaveToDisk();
+            TrackedStatus.IsInMaintenanceMode = maintenanceMode;
+            await StorageProvider.Save(TrackedStatus);
         }
 
         public async Task ToggleContentFreeze(bool isContentFrozen)
         {
-            if (isContentFrozen == Status.IsContentFrozen)
+            // checking against TrackedStatus is fine even in distributed environments
+            // the toggle will have been executed on the SchedulingPublisher app
+            if (isContentFrozen == TrackedStatus.IsContentFrozen)
                 return; // already in this state
 
-            Status.IsContentFrozen = isContentFrozen;
-            await SaveToDisk();
+            TrackedStatus.IsContentFrozen = isContentFrozen;
+            await StorageProvider.Save(TrackedStatus);
         }
 
-        public async Task SaveSettings(MaintenanceModeSettings settings)
+        public async Task SaveSettings(Models.MaintenanceModeSettings settings)
         {
-            Status.Settings = settings;
-            await SaveToDisk();
+            TrackedStatus.Settings = settings;
+            await StorageProvider.Save(TrackedStatus);
         }
+
+        private static MaintenanceModeStatus _defaultStatus = new MaintenanceModeStatus
+        {
+            IsInMaintenanceMode = false,
+            UsingWebConfig = false,
+            Settings = new Models.MaintenanceModeSettings
+            {
+                ViewModel = new Models.MaintenanceMode()
+            }
+        };
 
         private async Task<MaintenanceModeStatus> LoadStatus()
         {
-            var maintenanceModeStatus = new MaintenanceModeStatus
-            {
-                IsInMaintenanceMode = false,
-                UsingWebConfig = false,
-                Settings = new MaintenanceModeSettings
-                {
-                    ViewModel = new Models.MaintenanceMode()
-                }
-            };
+            // read from the storage location, if available
+            var maintenanceModeStatus = await GetFromStorageOrDefault();
 
-            if (_configFilePath != null && File.Exists(_configFilePath))
-            {
-                // load from config
-                try
-                {
-                    var file = await File.ReadAllBytesAsync(_configFilePath);
-                    var status = JsonSerializer.Deserialize<MaintenanceModeStatus>(file);
-                    if (status != null)
-                    {
-                        maintenanceModeStatus = status;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.Warning(ex, string.Concat("Failed to load Status ", ex.Message));
-                }
-            }
-
+            // override from appsettings, if applicable
             return CheckAppSettings(maintenanceModeStatus);
-        }
-
-        private async Task SaveToDisk()
-        {
-            try
-            {
-                if (File.Exists(_configFilePath))
-                    File.Delete(_configFilePath);
-
-                Directory.CreateDirectory(Path.GetDirectoryName(_configFilePath));
-
-                string json = JsonSerializer.Serialize(Status);
-                await File.WriteAllTextAsync(_configFilePath, json);
-            }
-            catch (Exception ex)
-            {
-                _logger.Debug(ex, string.Concat("Failed to save config ", ex.Message));
-            }
         }
 
         private MaintenanceModeStatus CheckAppSettings(MaintenanceModeStatus status)
@@ -129,5 +107,8 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
             return status;
         }
+
+        private async Task<MaintenanceModeStatus> GetFromStorageOrDefault() 
+            => await StorageProvider.Read() ?? _defaultStatus;
     }
 }
