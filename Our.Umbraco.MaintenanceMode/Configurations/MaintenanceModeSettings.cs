@@ -5,6 +5,6 @@
         public bool IsInMaintenanceMode { get; set; }
         public bool IsContentFrozen { get; set; }
         public StorageMode StorageMode { get; set; }
-        public int CacheSeconds { get; set; } = 30;
+        public int WaitTimeBetweenDatabaseCalls { get; set; } = 30;
     }
 }

@@ -32,7 +32,7 @@ namespace Our.Umbraco.MaintenanceMode.Providers
             _logger = logger;
             _eventAggregator = eventAggregator;
             _scopeProvider = scope;
-            _timeBetweenChecks = TimeSpan.FromSeconds(_maintenanceModeSettings.CacheSeconds);
+            _timeBetweenChecks = TimeSpan.FromSeconds(_maintenanceModeSettings.WaitTimeBetweenDatabaseCalls);
         }
 
         public async Task<MaintenanceModeStatus> Read()
