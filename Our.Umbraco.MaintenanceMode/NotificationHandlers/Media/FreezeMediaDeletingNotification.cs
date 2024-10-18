@@ -21,7 +21,7 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers.Media
             {
                 if (_backofficeUserAccessor.BackofficeUser == null) return;
 
-                if (_maintenanceModeService.Status.Settings.UnfrozenUsers.Contains(_backofficeUserAccessor.BackofficeUser.GetId().ToString())) return;
+                if (_maintenanceModeService.Status.Settings.UnfrozenUsersList.Contains(_backofficeUserAccessor.BackofficeUser.GetId().ToString())) return;
 
 
                 notification.CancelOperation(new EventMessage("Warning", "This site is currently frozen during updates", EventMessageType.Error));

@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Our.Umbraco.MaintenanceMode.Models
 {
@@ -13,6 +15,19 @@ namespace Our.Umbraco.MaintenanceMode.Models
         ///  users who can get past the content freeze 
         /// </summary>
         public string UnfrozenUsers { get; set; } = "";
+
+        public List<string> UnfrozenUsersList
+        {
+            get
+            {
+                return UnfrozenUsers?.Split(',')
+                                     .Select(s => s.Trim())
+                                     .Where(s => !string.IsNullOrEmpty(s))
+                                     .Distinct()
+                                     .ToList() ?? new List<string>();
+            }
+        }
+
         public MaintenanceMode ViewModel { get; set; }
     }
 }
