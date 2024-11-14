@@ -93,7 +93,7 @@ Remove-Item ".\last-build-*"
 Out-File ".\last-build-$fullVersion.txt" -InputObject $fullVersion
 Write-Host "Packaged : $fullVersion"
 
-Set-Clipboard -Value "dotnet add package $primary--version $fullVersion"
+Set-Clipboard -Value "dotnet add package $primary --version $fullVersion"
 Write-Host "Dotnet command in clipboard";
 
 
