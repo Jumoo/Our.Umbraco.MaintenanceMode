@@ -321,8 +321,4 @@ MaintenanceMode.SiteV8/Media/created-packages/
 **/MaintenanceMode.Site/Views/
 **/MaintenanceMode.Site/wwwroot/scripts/
 **/MaintenanceMode.Site/wwwroot/css/
-/MaintenanceManager.Client/wwwroot/App_Plugins/maintenancemanager/assets.js
-/MaintenanceManager.Client/wwwroot/App_Plugins/maintenancemanager/context-BaM4y99h.js
-/MaintenanceManager.Client/wwwroot/App_Plugins/maintenancemanager/dashboard.element-eIf0A7Tn.js
-/MaintenanceManager.Client/wwwroot/App_Plugins/maintenancemanager/en-us-BxutQFPA.js
-/MaintenanceManager.Client/wwwroot/App_Plugins/maintenancemanager/settings-modal-element-BvIbFJLR.js
+**/MaintenanceManager.Client/wwwroot/
