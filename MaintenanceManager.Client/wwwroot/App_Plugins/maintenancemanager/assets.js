@@ -5,7 +5,7 @@ const n = [
     alias: "maintenancemanager.dashboard",
     elementName: "maintenancemanager-dashboard",
     weight: -10,
-    js: () => import("./dashboard.element-qLmWkVIw.js"),
+    js: () => import("./dashboard.element-eIf0A7Tn.js"),
     meta: {
       label: "MaintenanceManager",
       pathname: "maintenancemanager"
@@ -22,7 +22,7 @@ const n = [
     type: "globalContext",
     alias: "maintenance.context",
     name: "maintenance context",
-    js: () => import("./context-H6KD_sQ7.js")
+    js: () => import("./context-BaM4y99h.js")
   }
 ], s = [...e], i = [
   {
@@ -33,7 +33,7 @@ const n = [
     meta: {
       culture: "en-us"
     },
-    js: () => import("./en-us-HOHmAWzC.js")
+    js: () => import("./en-us-BxutQFPA.js")
   },
   {
     type: "localization",
@@ -43,14 +43,14 @@ const n = [
     meta: {
       culture: "en-gb"
     },
-    js: () => import("./en-us-HOHmAWzC.js")
+    js: () => import("./en-us-BxutQFPA.js")
   }
 ], o = [...i], m = [
   {
     type: "modal",
     alias: "settings.modal",
     name: "Settings modal",
-    js: () => import("./settings-modal-element-b__mJetG.js")
+    js: () => import("./settings-modal-element-BvIbFJLR.js")
   }
 ], c = [...m], l = [
   ...t,

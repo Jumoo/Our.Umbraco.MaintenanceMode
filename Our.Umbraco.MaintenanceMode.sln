@@ -5,15 +5,15 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{486999F4-3AC9-49FD-9FAE-4F6FC5007E8E}"
 	ProjectSection(SolutionItems) = preProject
-		gulpfile.js = gulpfile.js
 		dist\build-package.ps1 = dist\build-package.ps1
+		gulpfile.js = gulpfile.js
 		Build\package.xml = Build\package.xml
 		paths.json = paths.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Our.Umbraco.MaintenanceMode", "Our.Umbraco.MaintenanceMode\Our.Umbraco.MaintenanceMode.csproj", "{AA01FA1B-F903-4F9D-BAB3-C85065BA749B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintenanceMode14.Site", "MaintenanceMode14.Site\MaintenanceMode14.Site.csproj", "{E1AE36E8-7D19-45AA-9ECF-D9D3B99223EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintenanceMode15.Site", "MaintenanceMode15.Site\MaintenanceMode15.Site.csproj", "{E1AE36E8-7D19-45AA-9ECF-D9D3B99223EF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintenanceManager.Client", "MaintenanceManager.Client\MaintenanceManager.Client.csproj", "{B8B398D6-2ADA-4642-A28E-1ACF040031C7}"
 EndProject

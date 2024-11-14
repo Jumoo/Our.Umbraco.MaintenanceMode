@@ -1,6 +1,4 @@
-import { ManifestLocalization } from '@umbraco-cms/backoffice/extension-registry';
-
-const localizations: Array<ManifestLocalization> = [
+const localizations: Array<UmbExtensionManifest> = [
     {
         type: 'localization',
         alias: 'time.lang.enus',

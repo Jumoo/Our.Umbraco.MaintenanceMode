@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-        <TargetFrameworks>net8.0</TargetFrameworks>
+        <TargetFrameworks>net9.0</TargetFrameworks>
         <ContentTargetFolders>.</ContentTargetFolders>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 		
@@ -34,7 +34,7 @@
 
     <ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		<PackageReference Include="Umbraco.Cms.Web.Website" Version="14.0.0" />
+		<PackageReference Include="Umbraco.Cms.Web.Website" Version="15.0.0" />
     </ItemGroup>
 
     <ItemGroup>

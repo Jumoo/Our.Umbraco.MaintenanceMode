@@ -1,26 +1,16 @@
-import { html as g, css as f, state as v, customElement as T } from "@umbraco-cms/backoffice/external/lit";
-import { UmbModalBaseElement as _ } from "@umbraco-cms/backoffice/modal";
-import { MAINTENANCE_CONTEXT_TOKEN as C } from "./context-H6KD_sQ7.js";
-import "@umbraco-cms/backoffice/class-api";
-import "@umbraco-cms/backoffice/context-api";
-import "@umbraco-cms/backoffice/observable-api";
-import "@umbraco-cms/backoffice/auth";
-import "@umbraco-cms/backoffice/resources";
-var x = Object.defineProperty, S = Object.getOwnPropertyDescriptor, m = (t, e, i, o) => {
-  for (var a = o > 1 ? void 0 : o ? S(e, i) : e, n = t.length - 1, p; n >= 0; n--)
+import { html as b, css as y, state as d, customElement as g } from "@umbraco-cms/backoffice/external/lit";
+import { UmbModalBaseElement as f } from "@umbraco-cms/backoffice/modal";
+import { MAINTENANCE_CONTEXT_TOKEN as _ } from "./context-BaM4y99h.js";
+var T = Object.defineProperty, x = Object.getOwnPropertyDescriptor, h = (t) => {
+  throw TypeError(t);
+}, c = (t, e, i, o) => {
+  for (var a = o > 1 ? void 0 : o ? x(e, i) : e, n = t.length - 1, p; n >= 0; n--)
     (p = t[n]) && (a = (o ? p(e, i, a) : p(a)) || a);
-  return o && a && x(e, i, a), a;
-}, $ = (t, e, i) => {
-  if (!e.has(t))
-    throw TypeError("Cannot " + i);
-}, c = (t, e, i) => {
-  if (e.has(t))
-    throw TypeError("Cannot add the same private member more than once");
-  e instanceof WeakSet ? e.add(t) : e.set(t, i);
-}, l = (t, e, i) => ($(t, e, "access private method"), i), d, b, h, y, s, r;
-let u = class extends _ {
+  return o && a && T(e, i, a), a;
+}, C = (t, e, i) => e.has(t) || h("Cannot " + i), $ = (t, e, i) => e.has(t) ? h("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), l = (t, e, i) => (C(t, e, "access private method"), i), s, m, v, r;
+let u = class extends f {
   constructor() {
-    super(), c(this, d), c(this, h), c(this, s), this.content = "", this.consumeContext(C, (t) => {
+    super(), $(this, s), this.content = "", this.consumeContext(_, (t) => {
       this._context = t, t.getSettings(), this.observe(t.settings, (e) => {
         this.settings = e;
       });
@@ -38,7 +28,7 @@ let u = class extends _ {
   //  "text": "The Website is currently undergoing maintenance and will be back shortly."
   render() {
     var t, e, i, o, a;
-    return g`
+    return b`
             <umb-body-layout headline="Maintenance Mode Settings">
                 <uui-box>
                     <umb-property-layout 
@@ -105,51 +95,49 @@ let u = class extends _ {
                     </umb-property-layout>
                 </uui-box>
                 <div slot="actions">
-                        <uui-button id="cancel" label="Cancel" @click="${l(this, h, y)}">Cancel</uui-button>
+                        <uui-button id="cancel" label="Cancel" @click="${l(this, s, v)}">Cancel</uui-button>
                         <uui-button
                             id="submit"
                             color='positive'
                             look="primary"
                             label="Submit"
-                            @click=${l(this, d, b)}></uui-button>
+                            @click=${l(this, s, m)}></uui-button>
             </div>
             </umb-body-layout>
         `;
   }
 };
-d = /* @__PURE__ */ new WeakSet();
-b = function() {
+s = /* @__PURE__ */ new WeakSet();
+m = function() {
   var t, e;
   (t = this.modalContext) == null || t.submit(), (e = this._context) == null || e.saveSettings();
 };
-h = /* @__PURE__ */ new WeakSet();
-y = function() {
+v = function() {
   var t;
   (t = this.modalContext) == null || t.reject();
 };
-s = /* @__PURE__ */ new WeakSet();
 r = function(t, e) {
   var a;
   const i = e.target.value, o = {};
   o[t] = i, (a = this._context) == null || a.updateSettings(o);
 };
-u.styles = f`
+u.styles = y`
         uui-input {
             width: 100%;
         }
     `;
-m([
-  v()
+c([
+  d()
 ], u.prototype, "settings", 2);
-m([
-  v()
+c([
+  d()
 ], u.prototype, "content", 2);
-u = m([
-  T("settings-modal")
+u = c([
+  g("settings-modal")
 ], u);
-const k = u;
+const U = u;
 export {
   u as SettingsModalElement,
-  k as default
+  U as default
 };
-//# sourceMappingURL=settings-modal-element-b__mJetG.js.map
+//# sourceMappingURL=settings-modal-element-BvIbFJLR.js.map

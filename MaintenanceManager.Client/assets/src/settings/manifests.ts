@@ -1,6 +1,4 @@
-import { ManifestModal } from "@umbraco-cms/backoffice/extension-registry";
-
-const modals: Array<ManifestModal> = [
+const modals: Array<UmbExtensionManifest> = [
     {
         type: 'modal',
         alias: 'settings.modal',
