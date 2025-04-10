@@ -1,1 +1,1 @@
-{"IsInMaintenanceMode":true,"UsingWebConfig":false,"Settings":{"AllowBackOfficeUsersThrough":true,"TemplateName":"MaintenancePage","UnfrozenUsers":"-1","PageTitle":"geh","Title":"weh","Text":"beh"},"IsContentFrozen":true}
+{"IsInMaintenanceMode":true,"UsingWebConfig":false,"Settings":{"AllowBackOfficeUsersThrough":false,"TemplateName":"MaintenancePage","UrlWhitelist":"\\goopy-jr, /goopy-jr-the-second","UnfrozenUsers":"-1","PageTitle":"geh","Title":"weh","Text":"beh"},"IsContentFrozen":false}

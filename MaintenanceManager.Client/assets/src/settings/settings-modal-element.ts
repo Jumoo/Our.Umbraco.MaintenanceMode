@@ -124,6 +124,18 @@ export class SettingsModalElement extends
                             @input=${(e : Event) => this.#updateSettings('text', e)}></uui-textarea>
                         </div>
                     </umb-property-layout>
+                    <umb-property-layout 
+                    alias="UrlWhitelist" 
+                    label="Url Whitelist" 
+                    description="File paths that do not trigger maintenance page override."
+                    orientation="vertical">
+                        <div slot="editor">
+                            <uui-input 
+                            label="Url Whitelist" 
+                            .value=${this.settings?.urlWhitelist}
+                            @input=${(e : Event) => this.#updateSettings('urlWhitelist', e)}></uui-input>
+                        </div>
+                    </umb-property-layout>
                 </uui-box>
                 <div slot="actions">
                         <uui-button id="cancel" label="Cancel" @click="${this.#handleCancel}">Cancel</uui-button>

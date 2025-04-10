@@ -10,4 +10,5 @@ export type MaintenanceModeSettings = {
     pageTitle?: string | null;
     title?: string | null;
     text?: string | null;
+    urlWhitelist?: string | null;
 };
