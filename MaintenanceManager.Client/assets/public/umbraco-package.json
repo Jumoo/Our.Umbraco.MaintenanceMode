@@ -9,7 +9,7 @@
             "name": "maintenancemanager.entrypoint",
             "alias": "maintenancemanager.EntryPoint",
             "type": "entryPoint",
-            "js": "/app_plugins/maintenancemanager/assets.js"
+            "js": "/App_Plugins/maintenancemanager/assets.js"
         }
     ]
 }
