@@ -5,11 +5,11 @@
     "version": "0.1.0",
     "allowTelemetry": true,
     "extensions": [
-        {
-            "name": "maintenancemanager.entrypoint",
-            "alias": "maintenancemanager.EntryPoint",
-            "type": "entryPoint",
-            "js": "/App_Plugins/maintenancemanager/assets.js"
-        }
+      {
+        "name": "maintenancemanager.entrypoint",
+        "alias": "maintenancemanager.EntryPoint",
+        "type": "backofficeEntryPoint",
+        "js": "/App_Plugins/maintenancemanager/assets.js"
+      }
     ]
 }
