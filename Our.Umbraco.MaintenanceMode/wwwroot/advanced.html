@@ -42,7 +42,7 @@
                     <input type="text"
                            ng-value="model.status.Settings.ViewModel.PageTitle"
                            ng-model="model.status.Settings.ViewModel.PageTitle"
-                           ng-required ="true"
+                           ng-required="true"
                            required="required"
                            id="pageTitle"
                            class="umb-property-editor umb-textstring textstring"
@@ -51,28 +51,38 @@
 
                 <umb-control-group label="@maintain_labelTitle"
                                    description="@maintain_labelTitleDesc"
-                                   required="true"
-                                   >
+                                   required="true">
                     <input type="text"
                            ng-value="model.status.Settings.ViewModel.Title"
                            ng-model="model.status.Settings.ViewModel.Title"
-                           ng-required ="title"
+                           ng-required="title"
                            required="required"
                            id="title"
                            class="umb-property-editor umb-textstring textstring"
                            placeholder="Title text" />
                 </umb-control-group>
 
-	            <umb-control-group label="@maintain_labelText"
-	                               description="@maintain_labelTextDesc"
-	                               required="true">
+                <umb-control-group label="@maintain_labelText"
+                                   description="@maintain_labelTextDesc"
+                                   required="true">
                     <textarea ng-value="model.status.Settings.ViewModel.Text"
-		                   ng-model="model.status.Settings.ViewModel.Text"
-		                   id="body"
+                              ng-model="model.status.Settings.ViewModel.Text"
+                              id="body"
+                              class="umb-property-editor umb-textstring textstring"
+                              placeholder="Body text"
+                              rows="5"></textarea>
+                </umb-control-group>
+
+                <umb-control-group label="@maintain_labelUrlWhitelist"
+                                   description="@maintain_labelUrlWhitelistDesc"
+                                   required="true">
+                    <input type="text"
+                           ng-value="model.status.Settings.UrlWhitelist"
+                           ng-model="model.status.Settings.UrlWhitelist"
+                           id="urlWhitelist"
                            class="umb-property-editor umb-textstring textstring"
-		                   placeholder="Body text"
-                           rows="5"></textarea>
-	            </umb-control-group>
+                           placeholder="Url Whitelist" />
+                </umb-control-group>
 
             </umb-box-content>
 	    </umb-box>

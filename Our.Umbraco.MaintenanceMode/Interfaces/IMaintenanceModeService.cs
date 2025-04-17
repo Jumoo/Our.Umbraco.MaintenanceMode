@@ -7,6 +7,7 @@ namespace Our.Umbraco.MaintenanceMode.Interfaces
     {
         Task ToggleMaintenanceMode(bool maintenanceMode);
         Task ToggleContentFreeze(bool isContentFrozen);
+        MaintenanceModeSettings Settings { get; }
         MaintenanceModeStatus Status { get; }
         Task SaveSettings(MaintenanceModeSettings settings);
     }

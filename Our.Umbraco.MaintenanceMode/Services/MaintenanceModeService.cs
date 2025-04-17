@@ -20,6 +20,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
         private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
         private readonly string _configFilePath;
         private MaintenanceModeStatus TrackedStatus { get; set; }
+        public Models.MaintenanceModeSettings Settings => TrackedStatus.Settings;
 
         public MaintenanceModeStatus Status
         {

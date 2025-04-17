@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 using Our.Umbraco.MaintenanceMode.Interfaces;
-
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Umbraco.Cms.Core;
@@ -32,6 +33,12 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
         public async Task InvokeAsync(HttpContext context, IBackofficeUserAccessor backofficeUserAccessor)
         {
             _logger.LogDebug("Maintenance mode middleware triggered {url}", context.Request.Path);
+
+            if (IsAllowedPath(context) == true)
+            {
+                await _next(context);
+                return;
+            }
 
             bool IsAuthenticated = IsBackOfficeAuthenticated(backofficeUserAccessor);
 
@@ -82,6 +89,18 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
 
             context.Request.Path = newPath;
             return context;
+        }
+
+        private bool IsAllowedPath(HttpContext context)
+        {
+            var urlList = _maintenanceModeService.Settings.UrlWhitelist
+                .Split(',', System.StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim(' ', '/', '\\'));
+            if (urlList.Contains(context.Request.Path.Value.Trim('/'), StringComparer.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

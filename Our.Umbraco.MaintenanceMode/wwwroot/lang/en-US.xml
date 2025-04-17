@@ -27,18 +27,21 @@
 		<key alias="webConfigWarn"><![CDATA[Maintenance Mode has been enabled in appsettings.json, so you cannot turn it on or off via the dashboard.]]></key>
 
 		<key alias="labelTemplate">Template Name</key>
-		<key alias="labelTemplateDesc"><![CDATA[The template will be passed the model of the page, so if it interacts with the content it must work for all content types]]></key>
+		<key alias="labelTemplateDesc"><![CDATA[The template will be passed the model of the page, so if it interacts with the content it must work for all content types.]]></key>
 
 		<key alias="labelUnfreeze">Unfrozen userIds</key>
-		<key alias="labelUnFreezeDesc"><![CDATA[Ids of users that you don't want to be frozen out of content or media]]></key>
+		<key alias="labelUnFreezeDesc"><![CDATA[Ids of users that you don't want to be frozen out of content or media.]]></key>
 
 		<key alias="labelBrowserTitle">Browser title</key>
-		<key alias="labelBrowserTitleDesc"><![CDATA[The text shown in the browser title]]></key>
+		<key alias="labelBrowserTitleDesc"><![CDATA[The text shown in the browser title.]]></key>
 
 		<key alias="labelTitle">Title</key>
-		<key alias="labelTitleDesc"><![CDATA[The title text]]></key>
+		<key alias="labelTitleDesc"><![CDATA[The title text.]]></key>
 
 		<key alias="labelText">Body</key>
-		<key alias="labelTextDesc"><![CDATA[The body text]]></key>
+		<key alias="labelTextDesc"><![CDATA[The body text.]]></key>
+
+		<key alias="labelUrlWhitelist">Url Whitelist</key>
+		<key alias="labelUrlWhitelistDesc"><![CDATA[File paths that do not trigger maintenance page override.]]></key>
 	</area>
 </language>
