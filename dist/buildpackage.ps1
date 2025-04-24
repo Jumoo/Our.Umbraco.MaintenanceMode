@@ -1,6 +1,6 @@
 <#
 SYNOPSIS
-    Buils the optionally pushes the packages to the azure feed
+    Builds the optionally pushes the packages to the azure feed
 #>
 param (
 
