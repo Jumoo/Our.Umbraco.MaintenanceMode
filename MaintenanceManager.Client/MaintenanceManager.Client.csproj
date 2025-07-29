@@ -8,7 +8,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Umbraco.Cms.Api.Management" Version="15.0.0" />
+		<PackageReference Include="Umbraco.Cms.Api.Management" Version="[16.0.0, 16.9999.9999)" />
 	</ItemGroup>
 
 	<ItemGroup>

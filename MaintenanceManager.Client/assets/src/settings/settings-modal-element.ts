@@ -17,8 +17,8 @@ export class SettingsModalElement extends
         super();
         this.consumeContext(MAINTENANCE_CONTEXT_TOKEN, (_context) => {
             this._context=_context;
-            _context.getSettings();
-            this.observe(_context.settings,(_settings) => {
+            _context?.getSettings();
+            this.observe(_context?.settings,(_settings) => {
                 this.settings = _settings;
             })
         });
@@ -70,7 +70,7 @@ export class SettingsModalElement extends
                         <div slot="editor">
                             <uui-input 
                             label="Template" 
-                            .value=${this.settings?.templateName}
+                            .value=${this.settings?.templateName ?? ''}
                             @input=${(e : Event) => this.#updateSettings('templateName', e)}></uui-input>
                         </div>
                     </umb-property-layout>
@@ -82,7 +82,7 @@ export class SettingsModalElement extends
                         <div slot="editor">
                             <uui-input 
                             label="Unfrozen users" 
-                            .value=${this.settings?.unfrozenUsers}
+                            .value=${this.settings?.unfrozenUsers ?? ''}
                             @input=${(e : Event) => this.#updateSettings('unfrozenUsers', e)}
                             placeholder="Enter Usernames Here..."></uui-input>
                         </div>
@@ -95,7 +95,7 @@ export class SettingsModalElement extends
                         <div slot="editor">
                             <uui-input 
                             label="Page Title" 
-                            .value=${this.settings?.pageTitle}
+                            .value=${this.settings?.pageTitle ?? ''}
                             @input=${(e : Event) => this.#updateSettings('pageTitle', e)}></uui-input>
                         </div>
                     </umb-property-layout>
@@ -107,7 +107,7 @@ export class SettingsModalElement extends
                         <div slot="editor">
                             <uui-input 
                             label="Title" 
-                            .value=${this.settings?.title}
+                            .value=${this.settings?.title ?? ''}
                             @input=${(e : Event) => this.#updateSettings('title', e)}></uui-input>
                         </div>
                     </umb-property-layout>
@@ -132,7 +132,7 @@ export class SettingsModalElement extends
                         <div slot="editor">
                             <uui-input 
                             label="Url Whitelist" 
-                            .value=${this.settings?.urlWhitelist}
+                            .value=${this.settings?.urlWhitelist ?? ''}
                             @input=${(e : Event) => this.#updateSettings('urlWhitelist', e)}></uui-input>
                         </div>
                     </umb-property-layout>

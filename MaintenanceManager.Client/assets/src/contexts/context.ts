@@ -4,7 +4,7 @@ import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
 import { MaintenanceModeResource, MaintenanceModeSettings, MaintenanceModeStatus, OpenAPI } from "../api";
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth'
-import { tryExecuteAndNotify } from '@umbraco-cms/backoffice/resources';
+import { tryExecute } from '@umbraco-cms/backoffice/resources';
 
 export class MaintenanceContext extends UmbControllerBase {
 
@@ -36,19 +36,19 @@ export class MaintenanceContext extends UmbControllerBase {
     }
 
     async getStatus() {
-        let status = await tryExecuteAndNotify(this.#host, MaintenanceModeResource.getStatus());
+        let status = await tryExecute(this.#host, MaintenanceModeResource.getStatus());
         console.log(status);
-        if(status.data != null) this.#status.setValue (status.data)
+        if(status != null) this.#status.setValue (status)
     }
 
     async getSettings() {
-        let settings = await tryExecuteAndNotify(this.#host, MaintenanceModeResource.getSettings());
+        let settings = await tryExecute(this.#host, MaintenanceModeResource.getSettings());
         console.log(settings);
-        if(settings.data != null) this.#settings.setValue (settings.data)
+        if(settings != null) this.#settings.setValue (settings)
     }
 
     async toggleMaintenance() {
-        await tryExecuteAndNotify(this.#host, MaintenanceModeResource.toggleMode({
+        await tryExecute(this.#host, MaintenanceModeResource.toggleMode({
             maintenanceMode: !this.#status.getValue()?.isInMaintenanceMode
         }));
         await this.getStatus();
@@ -56,7 +56,7 @@ export class MaintenanceContext extends UmbControllerBase {
     }
 
     async toggleFrozen() {
-        await tryExecuteAndNotify(this.#host, MaintenanceModeResource.toggleFrozen({
+        await tryExecute(this.#host, MaintenanceModeResource.toggleFrozen({
             maintenanceMode: !this.#status.getValue()?.isContentFrozen
         }));
         await this.getStatus();
@@ -66,7 +66,7 @@ export class MaintenanceContext extends UmbControllerBase {
     async toggleBackofficeAccess() {
         
         console.log(this.#status.getValue());
-        await tryExecuteAndNotify(this.#host, MaintenanceModeResource.toggleAccess({
+        await tryExecute(this.#host, MaintenanceModeResource.toggleAccess({
             
             maintenanceMode: !this.#status?.getValue()?.settings?.allowBackOfficeUsersThrough
         }));
@@ -83,7 +83,7 @@ export class MaintenanceContext extends UmbControllerBase {
         const settings = this.#settings.getValue();
 
         if(settings != undefined) {
-            await tryExecuteAndNotify(this.#host, MaintenanceModeResource.saveSettings({
+            await tryExecute(this.#host, MaintenanceModeResource.saveSettings({
                 requestBody: settings
             }))
         }

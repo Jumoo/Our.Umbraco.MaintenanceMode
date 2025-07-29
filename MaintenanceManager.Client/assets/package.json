@@ -11,12 +11,16 @@
     "generate": "openapi --input http://localhost:21023/umbraco/swagger/maintenance/swagger.json?urls.primaryName=Maintenance%20Mode%20Api --output src/api --useOptions --postfixServices Resource"
   },
   "dependencies": {
-    "lit": "^3.2.1"
+    "lit": "^3.3.1"
   },
   "devDependencies": {
-    "@umbraco-cms/backoffice": "^15.0.0",
-    "openapi-typescript-codegen": "^0.25.0",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "@hey-api/client-fetch": "^0.12.0",
+    "@hey-api/openapi-ts": "^0.66.7",
+    "@umbraco-cms/backoffice": "^16.0.0",
+    "chalk": "^5.4.1",
+    "cross-env": "^7.0.3",
+    "node-fetch": "^3.3.2",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.4"
   }
 }

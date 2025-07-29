@@ -38,7 +38,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
         this.consumeContext(MAINTENANCE_CONTEXT_TOKEN, (_thing) => {
             this.#maintenanceContexts = _thing;
 
-            this.observe(_thing.status, (_status) => {
+            this.observe(_thing?.status, (_status) => {
                 this.status = _status;
             })
         })
