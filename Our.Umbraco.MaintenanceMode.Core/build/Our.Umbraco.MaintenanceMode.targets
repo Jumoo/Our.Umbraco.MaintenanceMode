@@ -1,0 +1,16 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+		<OurUmbracoMaintenanceModeFolder>App_Plugins\Our.Umbraco.MaintenanceMode</OurUmbracoMaintenanceModeFolder>
+        <OurUmbracoMaintenanceModeContentFilesPath>$(MSBuildThisFileDirectory)..\$(OurUmbracoMaintenanceModeFolder)\**\*.*</OurUmbracoMaintenanceModeContentFilesPath>
+    </PropertyGroup>
+
+    <Target Name="ClearOurUmbracoMaintenanceModeAssets" BeforeTargets="Clean">
+        <ItemGroup>
+            <OurUmbracoMaintenanceModeDir Include="$(MSBuildProjectDirectory)\App_Plugins\Our.Umbraco.MaintenanceMode\" />
+        </ItemGroup>
+        <Message Text="Clear old Our.Umbraco.MaintenanceMode data" />
+        <RemoveDir Directories="@(OurUmbracoMaintenanceModeDir)"  />
+    </Target>
+
+</Project>
