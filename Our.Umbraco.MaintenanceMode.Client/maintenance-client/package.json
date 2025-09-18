@@ -1,0 +1,22 @@
+{
+  "name": "assets",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "watch": "vite build --watch",
+    "generate": "rm-rs -r -f ./src/api && openapi-ts"
+  },
+  "devDependencies": {
+    "@hey-api/openapi-ts": "^0.66.7",
+    "@umbraco-cms/backoffice": "^16.2.0",
+    "lit": "^3.2.1",
+    "rm-rs": "^0.2.3",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "@hey-api/client-fetch": "^0.10.0"
+  }
+}

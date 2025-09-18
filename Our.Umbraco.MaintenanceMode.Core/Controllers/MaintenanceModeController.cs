@@ -11,9 +11,12 @@ using Umbraco.Cms.Web.Website.Controllers;
 
 namespace Our.Umbraco.MaintenanceMode.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class MaintenanceModeController : SurfaceController
     {
         private readonly IMaintenanceModeService _maintenanceModeService;
+
+        [HttpGet("Index")]
         [Route(MaintenanceMode.MaintenanceRoot)]
         public IActionResult Index()
         {

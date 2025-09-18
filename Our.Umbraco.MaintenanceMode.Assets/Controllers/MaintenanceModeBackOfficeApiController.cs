@@ -6,7 +6,7 @@ using Our.Umbraco.MaintenanceMode.Models;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 
-namespace Our.Umbraco.MaintenanceMode.Controllers
+namespace Our.Umbraco.MaintenanceMode.Assets.Controllers
 {
     public class MaintenanceModeBackOfficeApiController : UmbracoAuthorizedApiController
     {

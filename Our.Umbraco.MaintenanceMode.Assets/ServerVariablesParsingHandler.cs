@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Routing;
-
-using Our.Umbraco.MaintenanceMode.Controllers;
-
+using Our.Umbraco.MaintenanceMode.Assets.Controllers;
 using System.Collections.Generic;
 
 using Umbraco.Cms.Core.Events;
@@ -9,7 +7,7 @@ using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Extensions;
 
-namespace Our.Umbraco.MaintenanceMode.NotificationHandlers.ServerVariables
+namespace Our.Umbraco.MaintenanceMode.Assets
 {
     public class ServerVariablesParsingHandler : INotificationHandler<ServerVariablesParsingNotification>
     {

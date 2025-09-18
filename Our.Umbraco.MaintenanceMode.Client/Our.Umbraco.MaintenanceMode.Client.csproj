@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Umbraco.Cms.Api.Management" Version="16.0.0" />
+		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode.Core\Our.Umbraco.MaintenanceMode.Core.csproj" />
+	</ItemGroup>
+
+</Project>

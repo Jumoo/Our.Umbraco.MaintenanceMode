@@ -48,6 +48,11 @@ namespace Our.Umbraco.MaintenanceMode.Services
             TrackedStatus = LoadStatus().Result;
         }
 
+        public bool IsInMaintenanceMode => Status.IsInMaintenanceMode;
+
+        public bool IsContentFrozen => Status.IsContentFrozen;
+
+
         public IStorageProvider StorageProvider => _storageProviderFactory.GetProvider();
 
         public async Task ToggleMaintenanceMode(bool maintenanceMode)
@@ -72,9 +77,21 @@ namespace Our.Umbraco.MaintenanceMode.Services
             await StorageProvider.Save(TrackedStatus);
         }
 
+        public async Task ToggleAccess(bool hasAccess)
+        {
+            if (hasAccess == Status.Settings.AllowBackOfficeUsersThrough)
+                return; // already in this state
+
+            Status.Settings.AllowBackOfficeUsersThrough = hasAccess;
+            await StorageProvider.Save(TrackedStatus);
+        }
+
+
+
         public async Task SaveSettings(Models.MaintenanceModeSettings settings)
         {
             TrackedStatus.Settings = settings;
+            if (TrackedStatus.Settings.TemplateName == "undefined") TrackedStatus.Settings.TemplateName = "MaintenancePage";
             await StorageProvider.Save(TrackedStatus);
         }
 

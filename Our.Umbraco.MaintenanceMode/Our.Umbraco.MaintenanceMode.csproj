@@ -1,19 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-        <TargetFrameworks>net6.0</TargetFrameworks>
-        <ContentTargetFolders>.</ContentTargetFolders>
-		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-		
-        <Product>Our.Umbraco.MaintenanceMode</Product>
-        <PackageId>Our.Umbraco.MaintenanceMode</PackageId>
-        <Title>Our.Umbraco.MaintenanceMode</Title>
+		<TargetFrameworks>net6.0; net9.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<Product>Our.Umbraco.MaintenanceMode</Product>
+		<PackageId>Our.Umbraco.MaintenanceMode</PackageId>
+		<Title>Our.Umbraco.MaintenanceMode</Title>
 
 		<Authors>Kevin Jump,Aaron Sadler</Authors>
-        <Description><![CDATA[Put Umbraco Into Maintenance Mode - While you do things]]></Description>
-        
+		<Description><![CDATA[Put Umbraco Into Maintenance Mode - While you do things]]></Description>
+
 		<PackageTags>umbraco plugin package</PackageTags>
-        <RootNamespace>Our.Umbraco.MaintenanceMode</RootNamespace>
+		<RootNamespace>Our.Umbraco.MaintenanceMode</RootNamespace>
 
 		<PackageLinenseExpressio>MIT</PackageLinenseExpressio>
 		<PackageProjectUrl>https://github.com/KevinJump/Our.Umbraco.MaintenanceMode</PackageProjectUrl>
@@ -24,33 +24,25 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-
 		<PackageIcon>maintenance-icon.png</PackageIcon>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
-
-		<StaticWebAssetBasePath>App_Plugins/Our.Umbraco.MaintenanceMode</StaticWebAssetBasePath>
-
 	</PropertyGroup>
-
-    <ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		<PackageReference Include="Umbraco.Cms.Web.Website" Version="10.0.0" />
-        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="App_Plugins\Our.Umbraco.MaintenanceMode\**\*.*">
-            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-        </Content>
-        <None Include="build\**\*.*">
-            <Pack>True</Pack>
-            <PackagePath>buildTransitive</PackagePath>
-        </None>
-    </ItemGroup>
 
 	<ItemGroup>
 		<None Include="readme.md" Pack="true" PackagePath="\" />
-		<None Include="maintenance-icon.png" Pack="true" PackagePath="\" />
+		<None Include="maintenance-icon.png" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode.Core\Our.Umbraco.MaintenanceMode.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode.Assets\Our.Umbraco.MaintenanceMode.Assets.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
+		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode.Client\Our.Umbraco.MaintenanceMode.Client.csproj" />
+	</ItemGroup>
+
 </Project>
