@@ -42,7 +42,7 @@ namespace Our.Umbraco.MaintenanceMode.Composers
                             .AddSingleton<IStorageProvider, FileSystemStorageProvider>(s => s.GetService<FileSystemStorageProvider>());
             builder.Services.AddSingleton<DatabaseStorageProvider>()
                             .AddSingleton<IStorageProvider, DatabaseStorageProvider>(s => s.GetService<DatabaseStorageProvider>());
-            builder.Services.AddUnique<IMaintenanceModeService, MaintenanceModeService>();
+            builder.Services.AddSingleton<IMaintenanceModeService, MaintenanceModeService>();
 
             builder.AddNotificationHandlers();
             builder.AddMaintenceManagerMiddleware();

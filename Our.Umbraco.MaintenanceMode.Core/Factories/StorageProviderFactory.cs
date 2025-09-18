@@ -8,18 +8,23 @@ namespace Our.Umbraco.MaintenanceMode.Factories
 {
     public class StorageProviderFactory : IStorageProviderFactory
     {
-        private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
+        private Configurations.MaintenanceModeSettings _maintenanceModeSettings;
         private readonly IServiceProvider _serviceProvider;
         private readonly IServerRoleAccessor _serverRoleAccessor;
 
         public StorageProviderFactory(
-            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings,
+            IOptionsMonitor<Configurations.MaintenanceModeSettings> maintenanceModeSettings,
             IServiceProvider serviceProvider,
             IServerRoleAccessor serverRoleAccessor)
         {
-            _maintenanceModeSettings = maintenanceModeSettings.Value;
+            _maintenanceModeSettings = maintenanceModeSettings.CurrentValue;
             _serviceProvider = serviceProvider;
             _serverRoleAccessor = serverRoleAccessor;
+
+            maintenanceModeSettings.OnChange(options =>
+            {
+                _maintenanceModeSettings = options;
+            });
         }
 
         //public StorageMode StorageMode => this._maintenanceModeSettings?.StorageMode ?? StorageMode.FileSystem;
@@ -27,12 +32,19 @@ namespace Our.Umbraco.MaintenanceMode.Factories
         {
             get
             {
-                return _maintenanceModeSettings?.StorageMode ?? _serverRoleAccessor.CurrentServerRole switch
+                if (_maintenanceModeSettings.StorageMode != StorageMode.Auto)
                 {
-                    // check server role to see if umbraco thinks it's load balanced
-                    ServerRole.Subscriber or ServerRole.SchedulingPublisher => StorageMode.Database,
-                    _ => StorageMode.FileSystem,
-                };
+                    return _maintenanceModeSettings.StorageMode;
+                }
+                else
+                {
+                    return _serverRoleAccessor.CurrentServerRole switch
+                    {
+                        // check server role to see if umbraco thinks it's load balanced
+                        ServerRole.Subscriber or ServerRole.SchedulingPublisher => StorageMode.Database,
+                        _ => StorageMode.FileSystem,
+                    };
+                }
             }
         }
 

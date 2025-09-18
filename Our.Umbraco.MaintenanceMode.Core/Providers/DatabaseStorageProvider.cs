@@ -18,6 +18,7 @@ namespace Our.Umbraco.MaintenanceMode.Providers
         private readonly ILogger _logger;
         private readonly IEventAggregator _eventAggregator;
         private readonly IScopeProvider _scopeProvider;
+        private readonly IScopeAccessor _scopeAccessor;
         private static DateTime _lastChecked;
         private static MaintenanceModeStatus _lastKnownStatus;
         private TimeSpan _timeBetweenChecks;
@@ -26,13 +27,15 @@ namespace Our.Umbraco.MaintenanceMode.Providers
             ILogger logger,
             IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings,
             IEventAggregator eventAggregator,
-            IScopeProvider scope)
+            IScopeProvider scope,
+            IScopeAccessor scopeAccessor)
         {
             _maintenanceModeSettings = maintenanceModeSettings.Value;
             _logger = logger;
             _eventAggregator = eventAggregator;
             _scopeProvider = scope;
             _timeBetweenChecks = TimeSpan.FromSeconds(_maintenanceModeSettings.WaitTimeBetweenDatabaseCalls);
+            _scopeAccessor = scopeAccessor;
         }
 
         public async Task<MaintenanceModeStatus> Read()
@@ -47,32 +50,32 @@ namespace Our.Umbraco.MaintenanceMode.Providers
                 _lastChecked = DateTime.UtcNow;
 
                 // read from the database
-                using var scope = _scopeProvider.CreateScope();
-
-                var db = scope.Database;
-
-                //check for table reduces log warnings
-                if (!scope.SqlContext.SqlSyntax.DoesTableExist(db, MaintenanceModeSchema.TableName))
+                using (var scope = _scopeProvider.CreateCoreScope(autoComplete: true))
                 {
-                    return null;
+
+                    var db = _scopeAccessor.AmbientScope.Database;
+                    var sqlContext = _scopeAccessor.AmbientScope.SqlContext;
+
+                    //check for table reduces log warnings
+                    if (!sqlContext.SqlSyntax.DoesTableExist(db, MaintenanceModeSchema.TableName))
+                    {
+                        return null;
+                    }
+
+                    var dbStatus = await db.QueryAsync<MaintenanceModeSchema>()
+                                           .Where(x => x.Id == MaintenanceMode.MaintenanceConfigRootId)
+                                           .FirstOrDefault();
+
+                    if (dbStatus is null)
+                    {
+                        _logger.Warning("Maintenance mode status table was queried but is empty.");
+                        return null;
+                    }
+
+                    _lastKnownStatus = JsonSerializer.Deserialize<MaintenanceModeStatus>(dbStatus.Value);
+
+                    return _lastKnownStatus;
                 }
-
-                var dbStatus = await db.QueryAsync<MaintenanceModeSchema>()
-                                       .Where(x => x.Id == MaintenanceMode.MaintenanceConfigRootId)
-                                       .FirstOrDefault();
-
-                if (dbStatus is null)
-                {
-                    _logger.Warning("Maintenance mode status table was queried but is empty.");
-                    return null;
-                }
-
-                _lastKnownStatus = JsonSerializer.Deserialize<MaintenanceModeStatus>(dbStatus.Value);
-             
-                scope.Complete();
-                
-                return _lastKnownStatus;
-
             }
             catch (Exception ex)
             {

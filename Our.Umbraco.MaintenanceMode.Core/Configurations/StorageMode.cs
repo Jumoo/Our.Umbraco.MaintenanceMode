@@ -8,7 +8,8 @@ namespace Our.Umbraco.MaintenanceMode.Configurations
 {
     public enum StorageMode
     {
-        FileSystem = 0,
-        Database = 1
+        Auto = 0,
+        FileSystem = 1,
+        Database = 2
     }
 }
