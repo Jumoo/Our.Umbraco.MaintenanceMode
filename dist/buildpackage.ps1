@@ -21,7 +21,8 @@ param (
     $push=$false #push to devops nightly feed
 )
 
-$projPath = '..\Our.Umbraco.MaintenanceMode\Our.Umbraco.MaintenanceMode.csproj';
+$package = "Our.Umbraco.MaintenanceMode"
+$projPath = "..\$package\$package.csproj";
 
 
 if ($version.IndexOf('-') -ne -1) {
@@ -56,7 +57,18 @@ Write-Host "Folder   :" $outFolder
 
 dotnet restore ..
 
-dotnet pack $projPath --no-restore -c $env -o $outFolder /p:$buildParams
+  $packages = @(
+    "Our.Umbraco.MaintenanceMode"
+    "Our.Umbraco.MaintenanceMode.Core"
+    "Our.Umbraco.MaintenanceMode.Assets"
+    "Our.Umbraco.MaintenanceMode.Client"
+  )
+
+
+foreach($p in $packages) {
+	"## Packing $p";
+	dotnet pack "..\$p\$p.csproj" -c $env -o $outFolder --no-restore /p:$buildParams 
+}
 
 ""; "##### Copying to LocalGit folder"; "----------------------------------" ; ""
 XCOPY "$outFolder\*.nupkg" "C:\Source\localgit" /Q /Y 
@@ -73,3 +85,9 @@ Write-Host "Packaged : $fullVersion"
 
 Remove-Item ".\last-build-*" 
 Out-File -FilePath ".\last-build-$fullVersion.txt" -InputObject $fullVersion
+
+Set-Clipboard -Value "dotnet add package $package --version $fullVersion"
+Write-Host "Dotnet command in clipboard";
+
+
+[Console]::Beep(2048,500);
