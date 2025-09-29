@@ -9,7 +9,7 @@
             "name": "maintenancemanager.entrypoint",
             "alias": "maintenancemanager.EntryPoint",
             "type": "entryPoint",
-            "js": "/App_Plugins/Our.Umbraco.MaintenanceMode/assets.js"
+            "js": "/App_Plugins/Our.Umbraco.MaintenanceMode/assets.js?v=16.0.1"
         }
     ]
 }

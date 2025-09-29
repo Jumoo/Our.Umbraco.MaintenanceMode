@@ -15,8 +15,8 @@ namespace Our.Umbraco.MaintenanceMode.Services
     public class MaintenanceModeService : IMaintenanceModeService
     {
         private readonly ILogger _logger;
-        private readonly IStorageProviderFactory _storageProviderFactory; 
-        
+        private readonly IStorageProviderFactory _storageProviderFactory;
+
         private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
         private readonly string _configFilePath;
         private MaintenanceModeStatus TrackedStatus { get; set; }
@@ -38,7 +38,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
         }
 
         public MaintenanceModeService(ILogger logger,
-            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings, 
+            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings,
             IStorageProviderFactory storageProviderFactory)
         {
             _logger = logger;
@@ -126,7 +126,9 @@ namespace Our.Umbraco.MaintenanceMode.Services
             return status;
         }
 
-        private async Task<MaintenanceModeStatus> GetFromStorageOrDefault() 
-            => await StorageProvider.Read() ?? _defaultStatus;
+        private async Task<MaintenanceModeStatus> GetFromStorageOrDefault()
+        {
+            return await StorageProvider.Read() ?? _defaultStatus;
+        }
     }
 }
