@@ -52,6 +52,7 @@ namespace Our.Umbraco.MaintenanceMode.Providers
                     var status = JsonSerializer.Deserialize<MaintenanceModeStatus>(file);
                     if (status != null)
                     {
+                        status.Settings.ViewModel ??= new Models.MaintenanceMode();
                         return status;
                     }
                 }
