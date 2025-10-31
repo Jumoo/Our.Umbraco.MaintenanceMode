@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0; net9.0</TargetFrameworks>
+		<TargetFrameworks>net6.0; net9.0; net10.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
@@ -42,6 +42,10 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
+		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode.Client\Our.Umbraco.MaintenanceMode.Client.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
 		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode.Client\Our.Umbraco.MaintenanceMode.Client.csproj" />
 	</ItemGroup>
 

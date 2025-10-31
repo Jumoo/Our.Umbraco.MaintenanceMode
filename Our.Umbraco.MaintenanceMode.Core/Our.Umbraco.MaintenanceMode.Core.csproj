@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0; net9.0</TargetFrameworks>
+		<TargetFrameworks>net6.0; net9.0; net10.0</TargetFrameworks>
 		<ContentTargetFolders>.</ContentTargetFolders>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	</PropertyGroup>
@@ -17,5 +17,9 @@
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="16.0.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
+		<PackageReference Include="Umbraco.Cms.Web.Website" Version="17.0.0-rc1" />
 	</ItemGroup>
 </Project>
