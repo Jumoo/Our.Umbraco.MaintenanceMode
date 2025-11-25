@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,12 @@ using Umbraco.Cms.Api.Common.OpenApi;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 
+
+#if NET10_0
+using Microsoft.OpenApi;
+#else
+using Microsoft.OpenApi.Models;
+#endif
 namespace Our.Umbraco.MaintenanceMode.Client
 {
     public class MaintenanceModeComposer : IComposer
