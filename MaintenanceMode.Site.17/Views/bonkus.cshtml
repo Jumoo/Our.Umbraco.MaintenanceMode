@@ -1,0 +1,50 @@
+﻿@using Umbraco.Cms.Web.Common.Views
+@using Microsoft.AspNetCore.Html
+@using Microsoft.AspNetCore.Http
+@using Our.Umbraco.MaintenanceMode.Models
+@inherits UmbracoViewPage<MaintenanceMode>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Model.PageTitle</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            /* background-image: url('/App_Plugins/Our.Umbraco.MaintenanceMode/img/duggfest_tshirt.jpg'); */
+            background-image: url('/App_Plugins/Our.Umbraco.MaintenanceMode/img/nasa_console.jpg');
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+        }
+
+        .wrapper {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(25,19,51,0.9);
+            color: #fff;
+            padding: 5em 0;
+            font-size: 200%;
+        }
+
+        .text-wrap {
+            margin: auto;
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="text-wrap">
+            <h1>@Model.Title</h1>
+            <p>
+                @Model.Text
+            </p>
+        </div>
+    </div>
+</body>
+</html>
