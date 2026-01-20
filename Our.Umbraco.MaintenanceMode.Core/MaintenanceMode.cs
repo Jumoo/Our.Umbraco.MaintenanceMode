@@ -22,7 +22,7 @@ namespace Our.Umbraco.MaintenanceMode
 
         public static List<string> WellKnownUrls = new List<string>()
         {
-            "/umbraco-signin-oidc"
+            "umbraco-signin-oidc"
         };
     }
 }
