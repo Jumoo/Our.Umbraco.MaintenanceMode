@@ -19,5 +19,10 @@ namespace Our.Umbraco.MaintenanceMode
         /// Identifier for accessing record in the DB, currently only setting this at global level (-1) is supported 
         /// </summary>
         public const int MaintenanceConfigRootId = -1;
+
+        public static List<string> WellKnownUrls = new List<string>()
+        {
+            "/umbraco-signin-oidc"
+        };
     }
 }
