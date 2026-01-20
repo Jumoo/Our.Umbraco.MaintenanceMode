@@ -9,6 +9,7 @@ using Our.Umbraco.MaintenanceMode.Providers;
 using Serilog;
 
 using System.Threading.Tasks;
+using Umbraco.Extensions;
 
 namespace Our.Umbraco.MaintenanceMode.Services
 {
@@ -86,7 +87,10 @@ namespace Our.Umbraco.MaintenanceMode.Services
             await StorageProvider.Save(TrackedStatus);
         }
 
+        public bool AllowBackofficeUsersThrough(int? id) 
+            => id is not null && Status.Settings.UnfrozenUsers.ToDelimitedList().Contains(id.ToString());
 
+        //Status.Settings.UnfrozenUsers.Contains
 
         public async Task SaveSettings(Models.MaintenanceModeSettings settings)
         {

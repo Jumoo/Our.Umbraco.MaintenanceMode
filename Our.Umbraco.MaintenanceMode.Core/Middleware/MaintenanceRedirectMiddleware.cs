@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 
 using Our.Umbraco.MaintenanceMode.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
         private readonly ILogger<MaintenanceRedirectMiddleware> _logger;
         private readonly IMaintenanceModeService _maintenanceModeService;
         private readonly IRuntimeState _runtimeState;
-
+        
         public MaintenanceRedirectMiddleware(RequestDelegate next,
             ILogger<MaintenanceRedirectMiddleware> logger,
             IMaintenanceModeService maintenanceService,
@@ -91,11 +92,14 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
             return context;
         }
 
+        
+
         private bool IsAllowedPath(HttpContext context)
         {
             var urlList = _maintenanceModeService.Settings.UrlWhitelist
                 .Split(',', System.StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => x.Trim(' ', '/', '\\'));
+                .Select(x => x.Trim(' ', '/', '\\')).ToList();
+            urlList.AddRange(MaintenanceMode.WellKnownUrls);
             if (urlList.Contains(context.Request.Path.Value.Trim('/'), StringComparer.OrdinalIgnoreCase))
             {
                 return true;

@@ -13,5 +13,6 @@ namespace Our.Umbraco.MaintenanceMode.Interfaces
         MaintenanceModeStatus Status { get; }
         Task SaveSettings(MaintenanceModeSettings settings);
         Task ToggleAccess(bool hasAccess);
+        bool AllowBackofficeUsersThrough(int? id);
     }
 }
