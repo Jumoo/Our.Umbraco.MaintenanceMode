@@ -1,1 +1,1 @@
-{"IsInMaintenanceMode":true,"Settings":{"AllowBackOfficeUsersThrough":false,"TemplateName":"bonkus","UrlWhitelist":"/jhgtfre/","IpWhitelist":"192.0.0.0/8","UnfrozenUsers":"","ViewModel":{"PageTitle":"page title","Title":"title","Text":"text"}},"IsContentFrozen":false}
+{"IsInMaintenanceMode":true,"Settings":{"AllowBackOfficeUsersThrough":false,"TemplateName":"bonkus","UrlWhitelist":"/jhgtfre/","UnfrozenUsers":"-1","ViewModel":{"PageTitle":"page title","Title":"title","Text":"text"}},"IsContentFrozen":true}
