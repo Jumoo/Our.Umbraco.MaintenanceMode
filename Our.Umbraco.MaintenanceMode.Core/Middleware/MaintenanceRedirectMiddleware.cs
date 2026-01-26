@@ -6,10 +6,12 @@ using Our.Umbraco.MaintenanceMode.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Services;
+using Umbraco.Extensions;
 
 namespace Our.Umbraco.MaintenanceMode.Middleware
 {
@@ -36,6 +38,12 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
             _logger.LogDebug("Maintenance mode middleware triggered {url}", context.Request.Path);
 
             if (IsAllowedPath(context) == true)
+            {
+                await _next(context);
+                return;
+            }
+
+            if (IsAllowedIp(context) == true)
             {
                 await _next(context);
                 return;
@@ -105,6 +113,28 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
                 return true;
             }
             else return false;
+        }
+
+        private bool IsAllowedIp(HttpContext context)
+        {
+            var ipList = _maintenanceModeService.Settings.IpWhitelist.ToDelimitedList();
+            var clientIp = context.Connection.RemoteIpAddress?.MapToIPv4();
+            if (clientIp == null) return false;
+            foreach (var ip in ipList)
+            {
+                if (!ip.Contains("/"))
+                {
+                    if (ip.Equals(clientIp.ToString())) return true;
+                    continue;
+                }
+
+                if (IPNetwork2.TryParse(ip, out var ipnetwork))
+                {
+                    if (ipnetwork.Contains(clientIp)) return true;
+                }
+                
+            }
+            return false;
         }
     }
 }

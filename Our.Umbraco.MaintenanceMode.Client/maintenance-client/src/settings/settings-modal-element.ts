@@ -95,7 +95,7 @@ export class SettingsModalElement extends UmbModalBaseElement<
             <div slot="editor">
               <uui-input
                 label="Template"
-                .value=${this.settings?.templateName}
+                .value=${this.settings?.templateName ?? ""}
                 @input=${(e: Event) => this.#updateSettings("templateName", e)}
               ></uui-input>
             </div>
@@ -109,7 +109,7 @@ export class SettingsModalElement extends UmbModalBaseElement<
             <div slot="editor">
               <uui-input
                 label="Unfrozen users"
-                .value=${this.settings?.unfrozenUsers}
+                .value=${this.settings?.unfrozenUsers ?? ""}
                 @input=${(e: Event) => this.#updateSettings("unfrozenUsers", e)}
                 placeholder="Enter Usernames Here..."
               ></uui-input>
@@ -172,8 +172,22 @@ export class SettingsModalElement extends UmbModalBaseElement<
             <div slot="editor">
               <uui-input
                 label="Url Whitelist"
-                .value=${this.settings?.urlWhitelist}
+                .value=${this.settings?.urlWhitelist ?? ""}
                 @input=${(e: Event) => this.#updateSettings("urlWhitelist", e)}
+              ></uui-input>
+            </div>
+          </umb-property-layout>
+          <umb-property-layout
+            alias="IpWhitelist"
+            label="IP Whitelist"
+            description="IP adresses that do not trigger maintenance page override."
+            orientation="vertical"
+          >
+            <div slot="editor">
+              <uui-input
+                label="IP Whitelist"
+                .value=${this.settings?.ipWhitelist ?? ""}
+                @input=${(e: Event) => this.#updateSettings("ipWhitelist", e)}
               ></uui-input>
             </div>
           </umb-property-layout>
