@@ -2,7 +2,7 @@ import { defineConfig } from "@hey-api/openapi-ts";
 import { defaultPlugins } from "@hey-api/openapi-ts";
 
 export default defineConfig({
-  input: "http://localhost:24368/umbraco/swagger/maintenance/swagger.json",
+  input: "http://localhost:31222/umbraco/swagger/maintenance/swagger.json",
   output: {
     format: "prettier",
     path: "src/api",
@@ -22,6 +22,7 @@ export default defineConfig({
     {
       name: "@hey-api/sdk",
       asClass: true,
+      classNameBuilder: "{{name}}Service",
     },
   ],
 });

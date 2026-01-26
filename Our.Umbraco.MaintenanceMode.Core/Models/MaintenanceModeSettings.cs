@@ -16,6 +16,7 @@ namespace Our.Umbraco.MaintenanceMode.Models
         /// <summary>
         ///  users who can get past the content freeze 
         /// </summary>
+        public string IpWhitelist { get; set; } = "";
         public string UnfrozenUsers { get; set; } = "";
         public MaintenanceMode ViewModel { get; set; }
     }
