@@ -177,7 +177,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
         <uui-button
           label="Settings"
           look="primary"
-          colour="positive"
+          color="default"
           @click=${this.#openSettings}
         ></uui-button>
       </div>
