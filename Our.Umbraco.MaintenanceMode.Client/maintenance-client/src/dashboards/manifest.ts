@@ -7,7 +7,7 @@ const dashboards: Array<UmbExtensionManifest> = [
         weight: -10,
         js: ()=>import('./dashboard.element'),
         meta: {
-            label: 'MaintenanceManager',
+            label: 'Maintenance Manager',
             pathname: 'maintenancemanager'
         },
         conditions: [
