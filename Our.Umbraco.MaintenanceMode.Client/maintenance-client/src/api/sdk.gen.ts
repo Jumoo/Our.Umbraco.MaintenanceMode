@@ -2,9 +2,9 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetSettingsData, GetSettingsResponses, GetStatusData, GetStatusResponses, SaveSettingsData, SaveSettingsResponses, ToggleAccessData, ToggleAccessResponses, ToggleFrozenData, ToggleFrozenResponses, ToggleModeData, ToggleModeResponses } from './types.gen';
+import type { GetSettingsData, GetSettingsErrors, GetSettingsResponses, GetStatusData, GetStatusErrors, GetStatusResponses, GetToggleAccessData, GetToggleAccessErrors, GetToggleAccessResponses, GetToggleFrozenData, GetToggleFrozenErrors, GetToggleFrozenResponses, GetToggleModeData, GetToggleModeErrors, GetToggleModeResponses, PostSaveSettingsData, PostSaveSettingsErrors, PostSaveSettingsResponses } from './types.gen';
 
-export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
+export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
      * You can provide a client instance returned by `createClient()` instead of
      * individual options. This might be also useful if you want to implement a
@@ -18,35 +18,42 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
     meta?: Record<string, unknown>;
 };
 
-export class MaintenanceModeService {
-    public static getSettings<ThrowOnError extends boolean = true>(options?: Options<GetSettingsData, ThrowOnError>) {
-        return (options?.client ?? client).get<GetSettingsResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/GetSettings', ...options });
+export const postSaveSettings = <ThrowOnError extends boolean = false>(options: Options<PostSaveSettingsData, ThrowOnError>) => (options.client ?? client).post<PostSaveSettingsResponses, PostSaveSettingsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/umbraco/maintenance/api/v1/SaveSettings',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
     }
-    
-    public static getStatus<ThrowOnError extends boolean = true>(options?: Options<GetStatusData, ThrowOnError>) {
-        return (options?.client ?? client).get<GetStatusResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/GetStatus', ...options });
-    }
-    
-    public static saveSettings<ThrowOnError extends boolean = true>(options?: Options<SaveSettingsData, ThrowOnError>) {
-        return (options?.client ?? client).post<SaveSettingsResponses, unknown, ThrowOnError>({
-            url: '/umbraco/maintenance/api/v1/SaveSettings',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options?.headers
-            }
-        });
-    }
-    
-    public static toggleAccess<ThrowOnError extends boolean = true>(options?: Options<ToggleAccessData, ThrowOnError>) {
-        return (options?.client ?? client).get<ToggleAccessResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/ToggleAccess', ...options });
-    }
-    
-    public static toggleFrozen<ThrowOnError extends boolean = true>(options?: Options<ToggleFrozenData, ThrowOnError>) {
-        return (options?.client ?? client).get<ToggleFrozenResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/ToggleFrozen', ...options });
-    }
-    
-    public static toggleMode<ThrowOnError extends boolean = true>(options?: Options<ToggleModeData, ThrowOnError>) {
-        return (options?.client ?? client).get<ToggleModeResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/ToggleMode', ...options });
-    }
-}
+});
+
+export const getSettings = <ThrowOnError extends boolean = false>(options?: Options<GetSettingsData, ThrowOnError>) => (options?.client ?? client).get<GetSettingsResponses, GetSettingsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/umbraco/maintenance/api/v1/Settings',
+    ...options
+});
+
+export const getStatus = <ThrowOnError extends boolean = false>(options?: Options<GetStatusData, ThrowOnError>) => (options?.client ?? client).get<GetStatusResponses, GetStatusErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/umbraco/maintenance/api/v1/Status',
+    ...options
+});
+
+export const getToggleAccess = <ThrowOnError extends boolean = false>(options?: Options<GetToggleAccessData, ThrowOnError>) => (options?.client ?? client).get<GetToggleAccessResponses, GetToggleAccessErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/umbraco/maintenance/api/v1/ToggleAccess',
+    ...options
+});
+
+export const getToggleFrozen = <ThrowOnError extends boolean = false>(options?: Options<GetToggleFrozenData, ThrowOnError>) => (options?.client ?? client).get<GetToggleFrozenResponses, GetToggleFrozenErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/umbraco/maintenance/api/v1/ToggleFrozen',
+    ...options
+});
+
+export const getToggleMode = <ThrowOnError extends boolean = false>(options?: Options<GetToggleModeData, ThrowOnError>) => (options?.client ?? client).get<GetToggleModeResponses, GetToggleModeErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/umbraco/maintenance/api/v1/ToggleMode',
+    ...options
+});

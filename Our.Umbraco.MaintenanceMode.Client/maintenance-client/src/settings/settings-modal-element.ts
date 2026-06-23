@@ -193,7 +193,11 @@ export class SettingsModalElement extends UmbModalBaseElement<
           </umb-property-layout>
         </uui-box>
         <div slot="actions">
-          <uui-button id="cancel" label="Cancel" @click="${this.#handleCancel}"
+          <uui-button
+            id="cancel"
+            look="outline"
+            label="Cancel"
+            @click="${this.#handleCancel}"
             >Cancel</uui-button
           >
           <uui-button

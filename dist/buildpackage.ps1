@@ -18,7 +18,7 @@ param (
 
     [Parameter()]
     [switch]
-    $push=$false #push to devops nightly feed
+    $push = $false #push to devops nightly feed
 )
 
 $package = "Our.Umbraco.MaintenanceMode"
@@ -33,7 +33,7 @@ if ($version.IndexOf('-') -ne -1) {
 $fullVersion = $version;
 
 if (![string]::IsNullOrWhiteSpace($suffix)) {
-   $fullVersion = -join($version, '-', $suffix)
+    $fullVersion = -join ($version, '-', $suffix)
 }
 
 $majorFolder = $version.Substring(0, $version.LastIndexOf('.'))
@@ -57,17 +57,16 @@ Write-Host "Folder   :" $outFolder
 
 dotnet restore ..
 
-  $packages = @(
+$packages = @(
     "Our.Umbraco.MaintenanceMode"
     "Our.Umbraco.MaintenanceMode.Core"
-    "Our.Umbraco.MaintenanceMode.Assets"
     "Our.Umbraco.MaintenanceMode.Client"
-  )
+)
 
 
-foreach($p in $packages) {
-	"## Packing $p";
-	dotnet pack "..\$p\$p.csproj" -c $env -o $outFolder --no-restore /p:$buildParams 
+foreach ($p in $packages) {
+    "## Packing $p";
+    dotnet pack "..\$p\$p.csproj" -c $env -o $outFolder --no-restore /p:$buildParams 
 }
 
 ""; "##### Copying to LocalGit folder"; "----------------------------------" ; ""
@@ -90,4 +89,4 @@ Set-Clipboard -Value "dotnet add package $package --version $fullVersion"
 Write-Host "Dotnet command in clipboard";
 
 
-[Console]::Beep(2048,500);
+[Console]::Beep(2048, 500);

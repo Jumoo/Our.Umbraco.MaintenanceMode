@@ -25,9 +25,9 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
             _maintenanceModeService = maintenanceModeService;
         }
 
-        [HttpGet("GetStatus")]
+        [HttpGet("Status")]
         [ProducesResponseType<MaintenanceModeStatus>(StatusCodes.Status200OK)]
-        public MaintenanceModeStatus GetStatus() => _maintenanceModeService.Status;
+        public MaintenanceModeStatus Status() => _maintenanceModeService.Status;
 
         [HttpGet("ToggleMode")]
         [ProducesResponseType(200)]
@@ -50,9 +50,9 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
             _maintenanceModeService.ToggleAccess(maintenanceMode);
         }
 
-        [HttpGet("GetSettings")]
+        [HttpGet("Settings")]
         [ProducesResponseType<MaintenanceModeSettings>(StatusCodes.Status200OK)]
-        public MaintenanceModeSettings GetSettings() => _maintenanceModeService.Settings;
+        public MaintenanceModeSettings Settings() => _maintenanceModeService.Settings;
 
         [HttpPost("SaveSettings")]
         [ProducesResponseType(200)]

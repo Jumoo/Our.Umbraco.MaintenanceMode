@@ -8,13 +8,17 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "watch": "vite build --watch",
-    "generate": "rm-rs -r -f ./src/api && openapi-ts"
+    "generate-client": "node scripts/generate-openapi.js https://localhost:44328/umbraco/openapi/maintenance.json"
   },
   "devDependencies": {
     "@hey-api/client-fetch": "^0.10.0",
-    "@hey-api/openapi-ts": "^0.90.4",
-    "@umbraco-cms/backoffice": "^17.0.0",
+    "@hey-api/openapi-ts": "^0.97.0",
+    "@umbraco-cms/backoffice": "^18.0.0-rc3",
+    "chalk": "^5.6.2",
+    "cross-env": "^10.1.0",
     "lit": "^3.2.1",
+    "node-fetch": "^3.3.2",
+    "prettier": "^3.8.4",
     "rm-rs": "^0.2.3",
     "typescript": "^5.6.3",
     "vite": "^5.4.11"

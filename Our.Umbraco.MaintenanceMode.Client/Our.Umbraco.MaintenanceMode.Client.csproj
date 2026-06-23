@@ -1,18 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+		<TargetFrameworks>net10.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
 	</PropertyGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-		<PackageReference Include="Umbraco.Cms.Api.Management" Version="16.0.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
-		<PackageReference Include="Umbraco.Cms.Api.Management" Version="17.0.0" />
+	
+	<ItemGroup>
+		<PackageReference Include="Umbraco.Cms" Version="18.0.0-rc3" />
+		<PackageReference Include="Umbraco.Cms.Api.Management" Version="18.0.0-rc3" />
 	</ItemGroup>
 
 	<ItemGroup>

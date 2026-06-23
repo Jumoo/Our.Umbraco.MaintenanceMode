@@ -7,10 +7,12 @@ using Umbraco.Cms.Infrastructure.Migrations.Upgrade;
 using Umbraco.Cms.Infrastructure.Migrations;
 using Our.Umbraco.MaintenanceMode.Migrations;
 using Umbraco.Cms.Infrastructure.Scoping;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Our.Umbraco.MaintenanceMode.NotificationHandlers.Application
 {
-    public class UmbracoApplicationStartingHandler : INotificationHandler<UmbracoApplicationStartingNotification>
+    public class UmbracoApplicationStartingHandler : INotificationAsyncHandler<UmbracoApplicationStartingNotification>
     {
         private readonly IScopeProvider _scopeProvider;
         private readonly IMigrationPlanExecutor _migrationPlanExecutor;
@@ -28,7 +30,7 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers.Application
             _runtimeState = runtimeState;
         }
 
-        public void Handle(UmbracoApplicationStartingNotification notification)
+        public async Task HandleAsync(UmbracoApplicationStartingNotification notification, CancellationToken cancellationToken)
         {
             if (_runtimeState.Level < RuntimeLevel.Run) return;
 
@@ -39,7 +41,7 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers.Application
 
             var upgrader = new Upgrader(plan);
 
-            upgrader.Execute(_migrationPlanExecutor, _scopeProvider, _keyValueService);
+            await upgrader.ExecuteAsync(_migrationPlanExecutor, _scopeProvider, _keyValueService);
         }
     }
 }

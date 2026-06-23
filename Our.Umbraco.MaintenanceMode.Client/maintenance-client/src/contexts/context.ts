@@ -3,9 +3,14 @@ import { UmbContextToken } from "@umbraco-cms/backoffice/context-api";
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
 import {
-  MaintenanceModeService,
+  getSettings,
+  getStatus,
+  getToggleAccess,
+  getToggleFrozen,
+  getToggleMode,
   MaintenanceModeSettings,
   MaintenanceModeStatus,
+  postSaveSettings,
 } from "../api";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
 
@@ -14,7 +19,7 @@ export class MaintenanceContext extends UmbControllerBase {
   readonly status = this.#status.asObservable();
 
   #settings = new UmbObjectState<MaintenanceModeSettings | undefined>(
-    undefined
+    undefined,
   );
   readonly settings = this.#settings.asObservable();
 
@@ -27,18 +32,12 @@ export class MaintenanceContext extends UmbControllerBase {
   }
 
   async getStatus() {
-    let status = await tryExecute(
-      this.#host,
-      MaintenanceModeService.getStatus()
-    );
+    let status = await tryExecute(this.#host, getStatus());
     if (status.data != null) this.#status.setValue(status.data);
   }
 
   async getSettings() {
-    let settings = await tryExecute(
-      this.#host,
-      MaintenanceModeService.getSettings()
-    );
+    let settings = await tryExecute(this.#host, getSettings());
     if (settings.data != null) this.#settings.setValue(settings.data);
   }
 
@@ -46,11 +45,11 @@ export class MaintenanceContext extends UmbControllerBase {
     console.log("Value:", this.#status.getValue());
     await tryExecute(
       this.#host,
-      MaintenanceModeService.toggleMode({
+      getToggleMode({
         query: {
           maintenanceMode: !this.#status.getValue()?.isInMaintenanceMode,
         },
-      })
+      }),
     );
     await this.getStatus();
     console.log("eeby");
@@ -59,11 +58,11 @@ export class MaintenanceContext extends UmbControllerBase {
   async toggleFrozen() {
     await tryExecute(
       this.#host,
-      MaintenanceModeService.toggleFrozen({
+      getToggleFrozen({
         query: {
           maintenanceMode: !this.#status.getValue()?.isContentFrozen,
         },
-      })
+      }),
     );
     await this.getStatus();
     console.log("deeby");
@@ -73,12 +72,12 @@ export class MaintenanceContext extends UmbControllerBase {
     console.log(this.#status.getValue());
     await tryExecute(
       this.#host,
-      MaintenanceModeService.toggleAccess({
+      getToggleAccess({
         query: {
           maintenanceMode:
             !this.#status?.getValue()?.settings?.allowBackOfficeUsersThrough,
         },
-      })
+      }),
     );
     await this.getStatus();
   }
@@ -96,9 +95,9 @@ export class MaintenanceContext extends UmbControllerBase {
     if (settings != undefined) {
       await tryExecute(
         this.#host,
-        MaintenanceModeService.saveSettings({
+        postSaveSettings({
           body: settings,
-        })
+        }),
       );
     }
   }

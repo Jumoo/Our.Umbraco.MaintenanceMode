@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0; net9.0; net10.0</TargetFrameworks>
+		<TargetFrameworks>net10.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
@@ -30,22 +30,15 @@
 
 	<ItemGroup>
 		<None Include="readme.md" Pack="true" PackagePath="\" />
-		<None Include="maintenance-icon.png"  Pack="true" PackagePath="\" />
+		<None Include="maintenance-icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Umbraco.Cms" Version="18.0.0-rc3" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode.Core\Our.Umbraco.MaintenanceMode.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode.Assets\Our.Umbraco.MaintenanceMode.Assets.csproj" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode.Client\Our.Umbraco.MaintenanceMode.Client.csproj" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
 		<ProjectReference Include="..\Our.Umbraco.MaintenanceMode.Client\Our.Umbraco.MaintenanceMode.Client.csproj" />
 	</ItemGroup>
 

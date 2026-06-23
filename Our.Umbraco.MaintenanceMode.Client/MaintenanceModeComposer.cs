@@ -1,21 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Umbraco.Cms.Api.Common.OpenApi;
+﻿using Umbraco.Cms.Api.Common.OpenApi;
+using Umbraco.Cms.Api.Management.OpenApi;
 using Umbraco.Cms.Core.Composing;
-using Umbraco.Cms.Core.DependencyInjection;
+
 
 
 #if NET10_0
-using Microsoft.OpenApi;
 #else
 using Microsoft.OpenApi.Models;
 #endif
@@ -25,42 +14,26 @@ namespace Our.Umbraco.MaintenanceMode.Client
     {
         public void Compose(IUmbracoBuilder builder)
         {
-            builder.Services.AddSingleton<IOperationIdHandler, MaintenanceModeCustomOperationHandler>();
-            builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
+            builder.AddMaintenanceOpenApi();
         }
     }
 
-    internal class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
+    public static class MaintenanceOpenApiExtensions
     {
-        public void Configure(SwaggerGenOptions options)
-        {
-            options.SwaggerDoc(
+        public static IUmbracoBuilder AddMaintenanceOpenApi(this IUmbracoBuilder builder)
+            => builder.AddBackOfficeOpenApiDocument(
                 "maintenance",
-                new OpenApiInfo
-                {
-                    Title = "Maintenance Mode API",
-                    Version = "Latest",
-                    Description = "it's maintenance mode methods"
-                });
-
-        }
-    }
-
-    public class MaintenanceModeCustomOperationHandler : IOperationIdHandler
-    {
-        public bool CanHandle(ApiDescription apiDescription)
-        {
-            if (apiDescription.ActionDescriptor is not
-                ControllerActionDescriptor controllerActionDescriptor)
-                return false;
-
-            return CanHandle(apiDescription, controllerActionDescriptor);
-        }
-
-        public bool CanHandle(ApiDescription apiDescription, ControllerActionDescriptor controllerActionDescriptor)
-            => controllerActionDescriptor.ControllerTypeInfo.Namespace?.StartsWith("Our.Umbraco.MaintenanceMode") is true;
-
-        public string Handle(ApiDescription apiDescription)
-            => $"{apiDescription.ActionDescriptor.RouteValues["action"]}";
+                document => document
+                    .WithTitle("Maintenance Mode API")
+                    .WithBackOfficeAuthentication()
+                    .ConfigureOpenApiOptions(options =>
+                    {
+                        options.AddDocumentTransformer((doc, _, _) =>
+                        {
+                            doc.Info.Version = "Latest";
+                            return Task.CompletedTask;
+                        });
+                    })
+                );
     }
 }

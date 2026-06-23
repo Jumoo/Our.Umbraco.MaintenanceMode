@@ -64,7 +64,7 @@ namespace Our.Umbraco.MaintenanceMode.Composers
                 .AddNotificationHandler<MediaMovingToRecycleBinNotification, FreezeMediaMovingToRecycleBinNotification>()
                 .AddNotificationHandler<MediaSavingNotification, FreezeMediaSavingNotification>();
 
-            builder.AddNotificationHandler<UmbracoApplicationStartingNotification, UmbracoApplicationStartingHandler>();
+            builder.AddNotificationAsyncHandler<UmbracoApplicationStartingNotification, UmbracoApplicationStartingHandler>();
         }
     }
 }
