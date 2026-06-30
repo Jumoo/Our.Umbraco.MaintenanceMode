@@ -111,7 +111,7 @@ export class SettingsModalElement extends UmbModalBaseElement<
                 label="Unfrozen users"
                 .value=${this.settings?.unfrozenUsers ?? ""}
                 @input=${(e: Event) => this.#updateSettings("unfrozenUsers", e)}
-                placeholder="Enter Usernames Here..."
+                placeholder="Enter User IDs Here..."
               ></uui-input>
             </div>
           </umb-property-layout>
