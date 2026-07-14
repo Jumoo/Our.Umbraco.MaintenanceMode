@@ -31,6 +31,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
     isInMaintenanceMode: true,
     isContentFrozen: true,
     isSiteLocked: true,
+    hasLockPassword: false,
     settings: {
       allowBackOfficeUsersThrough: true,
     },
