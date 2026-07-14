@@ -172,7 +172,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
   #showSiteLockedAlert() {
     if (this.status?.isSiteLocked) {
       return html`
-        <div class="alert alert-danger maintenanceMode-alert">
+        <div class="alert alert-info maintenanceMode-alert">
           <uui-icon name="icon-lock"></uui-icon>
           <div>
             <umb-localize key="maintain_siteLockedMsg"></umb-localize>
