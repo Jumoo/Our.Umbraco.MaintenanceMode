@@ -6,6 +6,7 @@ using Our.Umbraco.MaintenanceMode.Interfaces;
 using Our.Umbraco.MaintenanceMode.NotificationHandlers.Application;
 using Our.Umbraco.MaintenanceMode.NotificationHandlers.Content;
 using Our.Umbraco.MaintenanceMode.NotificationHandlers.Media;
+using Our.Umbraco.MaintenanceMode.NotificationHandlers.Settings;
 using Our.Umbraco.MaintenanceMode.Providers;
 using Our.Umbraco.MaintenanceMode.Services;
 using System.Linq;
@@ -62,7 +63,26 @@ namespace Our.Umbraco.MaintenanceMode.Composers
                 .AddNotificationHandler<MediaDeletingNotification, FreezeMediaDeletingNotification>()
                 .AddNotificationHandler<MediaMovingNotification, FreezeMediaMovingNotification>()
                 .AddNotificationHandler<MediaMovingToRecycleBinNotification, FreezeMediaMovingToRecycleBinNotification>()
-                .AddNotificationHandler<MediaSavingNotification, FreezeMediaSavingNotification>();
+                .AddNotificationHandler<MediaSavingNotification, FreezeMediaSavingNotification>()
+                .AddNotificationHandler<ContentTypeSavingNotification, FreezeContentTypeSavingNotification>()
+                .AddNotificationHandler<ContentTypeDeletingNotification, FreezeContentTypeDeletingNotification>()
+                .AddNotificationHandler<ContentTypeMovingNotification, FreezeContentTypeMovingNotification>()
+                .AddNotificationHandler<MediaTypeSavingNotification, FreezeMediaTypeSavingNotification>()
+                .AddNotificationHandler<MediaTypeDeletingNotification, FreezeMediaTypeDeletingNotification>()
+                .AddNotificationHandler<MediaTypeMovingNotification, FreezeMediaTypeMovingNotification>()
+                .AddNotificationHandler<DataTypeSavingNotification, FreezeDataTypeSavingNotification>()
+                .AddNotificationHandler<DataTypeDeletingNotification, FreezeDataTypeDeletingNotification>()
+                .AddNotificationHandler<DataTypeMovingNotification, FreezeDataTypeMovingNotification>()
+                .AddNotificationHandler<MemberTypeSavingNotification, FreezeMemberTypeSavingNotification>()
+                .AddNotificationHandler<MemberTypeDeletingNotification, FreezeMemberTypeDeletingNotification>()
+                .AddNotificationHandler<LanguageSavingNotification, FreezeLanguageSavingNotification>()
+                .AddNotificationHandler<LanguageDeletingNotification, FreezeLanguageDeletingNotification>()
+                .AddNotificationHandler<TemplateSavingNotification, FreezeTemplateSavingNotification>()
+                .AddNotificationHandler<TemplateDeletingNotification, FreezeTemplateDeletingNotification>()
+                .AddNotificationHandler<DictionaryItemSavingNotification, FreezeDictionaryItemSavingNotification>()
+                .AddNotificationHandler<DictionaryItemDeletingNotification, FreezeDictionaryItemDeletingNotification>()
+                .AddNotificationHandler<RelationTypeSavingNotification, FreezeRelationTypeSavingNotification>()
+                .AddNotificationHandler<RelationTypeDeletingNotification, FreezeRelationTypeDeletingNotification>();
 
             builder.AddNotificationAsyncHandler<UmbracoApplicationStartingNotification, UmbracoApplicationStartingHandler>();
         }

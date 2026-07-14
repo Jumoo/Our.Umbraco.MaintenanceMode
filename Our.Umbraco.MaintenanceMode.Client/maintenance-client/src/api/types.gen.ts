@@ -23,6 +23,7 @@ export type MaintenanceModeStatus = {
     isInMaintenanceMode: boolean;
     settings?: MaintenanceModeSettings;
     isContentFrozen: boolean;
+    isSiteLocked: boolean;
 };
 
 export type PostSaveSettingsData = {
@@ -132,6 +133,30 @@ export type GetToggleFrozenErrors = {
 };
 
 export type GetToggleFrozenResponses = {
+    /**
+     * OK
+     */
+    200: unknown;
+};
+
+// NOTE: manually mirrored to match the backend ToggleSiteLock endpoint; regenerate via openapi-ts when the backend is available.
+export type GetToggleSiteLockData = {
+    body?: never;
+    path?: never;
+    query?: {
+        siteLocked?: boolean;
+    };
+    url: '/umbraco/maintenance/api/v1/ToggleSiteLock';
+};
+
+export type GetToggleSiteLockErrors = {
+    /**
+     * The resource is protected and requires an authentication token
+     */
+    401: unknown;
+};
+
+export type GetToggleSiteLockResponses = {
     /**
      * OK
      */

@@ -30,6 +30,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
   protected _status: MaintenanceModeStatus = {
     isInMaintenanceMode: true,
     isContentFrozen: true,
+    isSiteLocked: true,
     settings: {
       allowBackOfficeUsersThrough: true,
     },
@@ -63,6 +64,10 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
 
   #onFrozenToggle = () => {
     this.#maintenanceContexts?.toggleFrozen();
+  };
+
+  #onSiteLockToggle = () => {
+    this.#maintenanceContexts?.toggleSiteLock();
   };
 
   #onBackofficeToggle = () => {
@@ -99,6 +104,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
       <div>${this.#showButtons()}</div>
       <div>${this.#showMaintenanceAlert()}</div>
       <div>${this.#showContentFrozenAlert()}</div>
+      <div>${this.#showSiteLockedAlert()}</div>
       <div>${this.#showAllowBackofficeToggle()}</div>
       <div>${this.#showSettings()}</div>
     `;
@@ -120,6 +126,13 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
           look="primary"
           color="warning"
           @click=${this.#onFrozenToggle}
+        ></uui-button>
+        <uui-button
+          label="Lock Site"
+          id="clickSiteLock"
+          look="primary"
+          color="danger"
+          @click=${this.#onSiteLockToggle}
         ></uui-button>
       </div>
     `;
@@ -147,6 +160,21 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
           <uui-icon name="icon-snow"></uui-icon>
           <div>
             <umb-localize key="maintain_frozenMsg"></umb-localize>
+          </div>
+        </div>
+      `;
+    } else {
+      return nothing;
+    }
+  }
+
+  #showSiteLockedAlert() {
+    if (this.status?.isSiteLocked) {
+      return html`
+        <div class="alert alert-danger maintenanceMode-alert">
+          <uui-icon name="icon-lock"></uui-icon>
+          <div>
+            <umb-localize key="maintain_siteLockedMsg"></umb-localize>
           </div>
         </div>
       `;

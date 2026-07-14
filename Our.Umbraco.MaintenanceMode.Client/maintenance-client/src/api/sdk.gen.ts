@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetSettingsData, GetSettingsErrors, GetSettingsResponses, GetStatusData, GetStatusErrors, GetStatusResponses, GetToggleAccessData, GetToggleAccessErrors, GetToggleAccessResponses, GetToggleFrozenData, GetToggleFrozenErrors, GetToggleFrozenResponses, GetToggleModeData, GetToggleModeErrors, GetToggleModeResponses, PostSaveSettingsData, PostSaveSettingsErrors, PostSaveSettingsResponses } from './types.gen';
+import type { GetSettingsData, GetSettingsErrors, GetSettingsResponses, GetStatusData, GetStatusErrors, GetStatusResponses, GetToggleAccessData, GetToggleAccessErrors, GetToggleAccessResponses, GetToggleFrozenData, GetToggleFrozenErrors, GetToggleFrozenResponses, GetToggleModeData, GetToggleModeErrors, GetToggleModeResponses, GetToggleSiteLockData, GetToggleSiteLockErrors, GetToggleSiteLockResponses, PostSaveSettingsData, PostSaveSettingsErrors, PostSaveSettingsResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -49,6 +49,13 @@ export const getToggleAccess = <ThrowOnError extends boolean = false>(options?: 
 export const getToggleFrozen = <ThrowOnError extends boolean = false>(options?: Options<GetToggleFrozenData, ThrowOnError>) => (options?.client ?? client).get<GetToggleFrozenResponses, GetToggleFrozenErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/umbraco/maintenance/api/v1/ToggleFrozen',
+    ...options
+});
+
+// NOTE: manually mirrored to match the backend ToggleSiteLock endpoint; regenerate via openapi-ts when the backend is available.
+export const getToggleSiteLock = <ThrowOnError extends boolean = false>(options?: Options<GetToggleSiteLockData, ThrowOnError>) => (options?.client ?? client).get<GetToggleSiteLockResponses, GetToggleSiteLockErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/umbraco/maintenance/api/v1/ToggleSiteLock',
     ...options
 });
 

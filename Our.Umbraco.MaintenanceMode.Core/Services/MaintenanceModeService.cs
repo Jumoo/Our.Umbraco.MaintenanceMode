@@ -53,6 +53,8 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
         public bool IsContentFrozen => Status.IsContentFrozen;
 
+        public bool IsSiteLocked => Status.IsSiteLocked;
+
 
         public IStorageProvider StorageProvider => _storageProviderFactory.GetProvider();
 
@@ -75,6 +77,17 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 return; // already in this state
 
             TrackedStatus.IsContentFrozen = isContentFrozen;
+            await StorageProvider.Save(TrackedStatus);
+        }
+
+        public async Task ToggleSiteLock(bool isSiteLocked)
+        {
+            // checking against TrackedStatus is fine even in distributed environments
+            // the toggle will have been executed on the SchedulingPublisher app
+            if (isSiteLocked == TrackedStatus.IsSiteLocked)
+                return; // already in this state
+
+            TrackedStatus.IsSiteLocked = isSiteLocked;
             await StorageProvider.Save(TrackedStatus);
         }
 
@@ -125,6 +138,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
             status.IsInMaintenanceMode = _maintenanceModeSettings.IsInMaintenanceMode;
             status.IsContentFrozen = _maintenanceModeSettings.IsContentFrozen;
+            status.IsSiteLocked = _maintenanceModeSettings.IsSiteLocked;
             status.UsingWebConfig = true;
 
             return status;

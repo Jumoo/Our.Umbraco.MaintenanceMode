@@ -8,6 +8,7 @@ import {
   getToggleAccess,
   getToggleFrozen,
   getToggleMode,
+  getToggleSiteLock,
   MaintenanceModeSettings,
   MaintenanceModeStatus,
   postSaveSettings,
@@ -66,6 +67,18 @@ export class MaintenanceContext extends UmbControllerBase {
     );
     await this.getStatus();
     console.log("deeby");
+  }
+
+  async toggleSiteLock() {
+    await tryExecute(
+      this.#host,
+      getToggleSiteLock({
+        query: {
+          siteLocked: !this.#status.getValue()?.isSiteLocked,
+        },
+      }),
+    );
+    await this.getStatus();
   }
 
   async toggleBackofficeAccess() {
