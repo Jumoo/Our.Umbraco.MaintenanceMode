@@ -4,12 +4,16 @@ export default {
 
 		onMsg: "The site is currently in maintenance mode<br /> Visitors will be seeing the in maintenance page for all pages.",
 		frozenMsg: "Content and Media updates on this site are currently frozen<br /> no one can save/update or delete content or media.",
+		siteLockedMsg: "This site is locked<br /> no one can save, update, move, or delete content, media, or settings.",
 
 		btnModeOn: "Turn on maintenance mode",
 		btnModeOff: "Turn off maintenance mode",
 
 		btnFreezeOn: "Freeze Content/Media",
 		btnFreezeOff: "Unfreeze Content/Media",
+
+		btnLockSiteOn: "Lock Site",
+		btnLockSiteOff: "Unlock Site",
 
 		btnAdvanced: "Advanced options",
 

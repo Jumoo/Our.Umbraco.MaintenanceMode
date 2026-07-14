@@ -43,6 +43,13 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
             _maintenanceModeService.ToggleContentFreeze(maintenanceMode);
         }
 
+        [HttpGet("ToggleSiteLock")]
+        [ProducesResponseType(200)]
+        public void ToggleSiteLock(bool siteLocked)
+        {
+            _maintenanceModeService.ToggleSiteLock(siteLocked);
+        }
+
         [HttpGet("ToggleAccess")]
         [ProducesResponseType(200)]
         public void ToggleAccess(bool maintenanceMode)
