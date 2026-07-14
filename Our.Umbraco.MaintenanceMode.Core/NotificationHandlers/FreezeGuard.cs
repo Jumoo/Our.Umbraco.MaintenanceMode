@@ -13,7 +13,7 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers
     internal static class FreezeGuard
     {
         public const string DefaultContentFrozenMessage = "This site is currently frozen during updates";
-        public const string DefaultSiteLockedMessage = "This site is locked during updates - content, media, and settings cannot be changed";
+        public const string DefaultSiteLockedMessage = "This site is currently locked during updates";
 
         public static void CancelIfLocked<TEntity>(
             CancelableObjectNotification<TEntity> notification,
@@ -28,6 +28,26 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers
             if (backofficeUserAccessor.BackofficeUser == null) return;
 
             if (maintenanceModeService.AllowBackofficeUsersThrough(backofficeUserAccessor.BackofficeUser.GetId())) return;
+
+            notification.CancelOperation(new EventMessage("Warning", message, EventMessageType.Error));
+        }
+
+        public static void CancelIfLockedOrFrozen<TEntity>(
+            CancelableObjectNotification<TEntity> notification,
+            bool isFrozen,
+            bool isLocked,
+            IMaintenanceModeService maintenanceModeService,
+            IBackofficeUserAccessor backofficeUserAccessor,
+            string frozenMessage)
+            where TEntity : class
+        {
+            if (!isFrozen && !isLocked) return;
+
+            if (backofficeUserAccessor.BackofficeUser == null) return;
+
+            if (maintenanceModeService.AllowBackofficeUsersThrough(backofficeUserAccessor.BackofficeUser.GetId())) return;
+
+            var message = isLocked ? DefaultSiteLockedMessage : frozenMessage;
 
             notification.CancelOperation(new EventMessage("Warning", message, EventMessageType.Error));
         }

@@ -17,7 +17,7 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers.Media
 
         public void Handle(MediaMovingToRecycleBinNotification notification)
         {
-            FreezeGuard.CancelIfLocked(notification, _maintenanceModeService.Status.IsContentFrozen, _maintenanceModeService, _backofficeUserAccessor, FreezeGuard.DefaultContentFrozenMessage);
+            FreezeGuard.CancelIfLockedOrFrozen(notification, _maintenanceModeService.Status.IsContentFrozen, _maintenanceModeService.Status.IsSiteLocked, _maintenanceModeService, _backofficeUserAccessor, FreezeGuard.DefaultContentFrozenMessage);
         }
     }
 }
