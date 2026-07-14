@@ -9,6 +9,7 @@ import {
   getToggleFrozen,
   getToggleMode,
   getToggleSiteLock,
+  postUnlockSite,
   MaintenanceModeSettings,
   MaintenanceModeStatus,
   postSaveSettings,
@@ -70,15 +71,51 @@ export class MaintenanceContext extends UmbControllerBase {
   }
 
   async toggleSiteLock() {
-    await tryExecute(
-      this.#host,
-      getToggleSiteLock({
-        query: {
-          siteLocked: !this.#status.getValue()?.isSiteLocked,
-        },
-      }),
-    );
-    await this.getStatus();
+    const currentStatus = this.#status.getValue();
+
+    // If currently locked and about to unlock, check if password is required
+    if (currentStatus?.isSiteLocked && currentStatus?.hasLockPassword) {
+      // Prompt for password
+      const password = window.prompt("Enter password to unlock the site:");
+
+      if (!password) {
+        // User cancelled or entered empty password
+        return;
+      }
+
+      // Try to unlock with password
+      try {
+        const result = await tryExecute(
+          this.#host,
+          postUnlockSite({
+            body: { password },
+          })
+        );
+
+        if (result.error) {
+          // Password was incorrect or other error
+          alert("Failed to unlock site. Please check the password and try again.");
+          return;
+        }
+
+        // Success - refresh status
+        await this.getStatus();
+      } catch (error) {
+        alert("Failed to unlock site. Please check the password and try again.");
+        console.error("Unlock error:", error);
+      }
+    } else {
+      // Locking the site (no password required)
+      await tryExecute(
+        this.#host,
+        getToggleSiteLock({
+          query: {
+            siteLocked: !currentStatus?.isSiteLocked,
+          },
+        })
+      );
+      await this.getStatus();
+    }
   }
 
   async toggleBackofficeAccess() {

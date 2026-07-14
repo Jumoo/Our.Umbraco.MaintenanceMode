@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetSettingsData, GetSettingsErrors, GetSettingsResponses, GetStatusData, GetStatusErrors, GetStatusResponses, GetToggleAccessData, GetToggleAccessErrors, GetToggleAccessResponses, GetToggleFrozenData, GetToggleFrozenErrors, GetToggleFrozenResponses, GetToggleModeData, GetToggleModeErrors, GetToggleModeResponses, GetToggleSiteLockData, GetToggleSiteLockErrors, GetToggleSiteLockResponses, PostSaveSettingsData, PostSaveSettingsErrors, PostSaveSettingsResponses } from './types.gen';
+import type { GetSettingsData, GetSettingsErrors, GetSettingsResponses, GetStatusData, GetStatusErrors, GetStatusResponses, GetToggleAccessData, GetToggleAccessErrors, GetToggleAccessResponses, GetToggleFrozenData, GetToggleFrozenErrors, GetToggleFrozenResponses, GetToggleModeData, GetToggleModeErrors, GetToggleModeResponses, GetToggleSiteLockData, GetToggleSiteLockErrors, GetToggleSiteLockResponses, PostSaveSettingsData, PostSaveSettingsErrors, PostSaveSettingsResponses, PostUnlockSiteData, PostUnlockSiteErrors, PostUnlockSiteResponses, GetHasLockPasswordData, GetHasLockPasswordErrors, GetHasLockPasswordResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -62,5 +62,21 @@ export const getToggleSiteLock = <ThrowOnError extends boolean = false>(options?
 export const getToggleMode = <ThrowOnError extends boolean = false>(options?: Options<GetToggleModeData, ThrowOnError>) => (options?.client ?? client).get<GetToggleModeResponses, GetToggleModeErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/umbraco/maintenance/api/v1/ToggleMode',
+    ...options
+});
+
+export const postUnlockSite = <ThrowOnError extends boolean = false>(options: Options<PostUnlockSiteData, ThrowOnError>) => (options.client ?? client).post<PostUnlockSiteResponses, PostUnlockSiteErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/umbraco/maintenance/api/v1/UnlockSite',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const getHasLockPassword = <ThrowOnError extends boolean = false>(options?: Options<GetHasLockPasswordData, ThrowOnError>) => (options?.client ?? client).get<GetHasLockPasswordResponses, GetHasLockPasswordErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/umbraco/maintenance/api/v1/HasLockPassword',
     ...options
 });

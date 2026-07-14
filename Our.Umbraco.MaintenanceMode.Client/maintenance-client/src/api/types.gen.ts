@@ -24,6 +24,7 @@ export type MaintenanceModeStatus = {
     settings?: MaintenanceModeSettings;
     isContentFrozen: boolean;
     isSiteLocked: boolean;
+    hasLockPassword: boolean;
 };
 
 export type PostSaveSettingsData = {
@@ -185,3 +186,53 @@ export type GetToggleModeResponses = {
      */
     200: unknown;
 };
+
+export type UnlockSiteRequest = {
+    password: string;
+};
+
+export type PostUnlockSiteData = {
+    body: UnlockSiteRequest;
+    path?: never;
+    query?: never;
+    url: '/umbraco/maintenance/api/v1/UnlockSite';
+};
+
+export type PostUnlockSiteErrors = {
+    /**
+     * Internal Server Error - Invalid password
+     */
+    500: unknown;
+};
+
+export type PostUnlockSiteResponses = {
+    /**
+     * OK - Site unlocked successfully
+     */
+    200: unknown;
+};
+
+export type PostUnlockSiteResponse = PostUnlockSiteResponses[keyof PostUnlockSiteResponses];
+
+export type GetHasLockPasswordData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/umbraco/maintenance/api/v1/HasLockPassword';
+};
+
+export type GetHasLockPasswordErrors = {
+    /**
+     * The resource is protected and requires an authentication token
+     */
+    401: unknown;
+};
+
+export type GetHasLockPasswordResponses = {
+    /**
+     * OK
+     */
+    200: boolean;
+};
+
+export type GetHasLockPasswordResponse = GetHasLockPasswordResponses[keyof GetHasLockPasswordResponses];
