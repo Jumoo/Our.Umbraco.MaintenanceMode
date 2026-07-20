@@ -5,6 +5,7 @@ import { manifests as dashboardManifests } from "./dashboards/manifest.ts";
 import { manifests as contextManifests } from "./contexts/manifests.ts";
 import { manifests as langManifests } from "./lang/manifest.ts";
 import { manifests as settingManifests } from "./settings/manifests.ts";
+import { manifests as modalManifests } from "./modals/manifests.ts";
 import { UMB_AUTH_CONTEXT } from "@umbraco-cms/backoffice/auth";
 import { client } from "./api/index.ts";
 
@@ -13,6 +14,7 @@ const manifests: Array<UmbExtensionManifest> = [
   ...contextManifests,
   ...langManifests,
   ...settingManifests,
+  ...modalManifests,
 ];
 
 export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
