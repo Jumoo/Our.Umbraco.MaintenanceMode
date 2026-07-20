@@ -181,9 +181,9 @@ export class SettingsModalElement extends UmbModalBaseElement<
           </umb-property-layout>
           <umb-property-layout
             alias="IpWhitelist"
-            label=${this.localize.term("maintenance_labelUrlWhitelist")}
+            label=${this.localize.term("maintenance_labelIpWhitelist")}
             description=${this.localize.term(
-              "maintenance_labelUrlWhitelistDesc",
+              "maintenance_labelIpWhitelistDesc",
             )}
             orientation="vertical"
           >
