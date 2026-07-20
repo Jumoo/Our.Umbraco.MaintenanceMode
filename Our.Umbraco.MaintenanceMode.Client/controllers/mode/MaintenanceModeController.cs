@@ -63,7 +63,7 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
             {
                 throw new InvalidOperationException("Use the UnlockSite endpoint to unlock the site with a password.");
             }
-            _maintenanceModeService.ToggleSiteLock(siteLocked);
+            _maintenanceModeService.ToggleSiteLock(siteLocked, User?.Identity?.Name);
         }
 
         [HttpPost("UnlockSite")]
@@ -78,7 +78,7 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Password is required" });
             }
 
-            bool success = await _maintenanceModeService.TryUnlockSite(request?.Password ?? string.Empty);
+            bool success = await _maintenanceModeService.TryUnlockSite(request?.Password ?? string.Empty, User?.Identity?.Name);
 
             if (success)
             {

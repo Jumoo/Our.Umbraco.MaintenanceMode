@@ -88,7 +88,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
             await StorageProvider.Save(TrackedStatus);
         }
 
-        public async Task ToggleSiteLock(bool isSiteLocked)
+        public async Task ToggleSiteLock(bool isSiteLocked, string? username = null)
         {
             // checking against TrackedStatus is fine even in distributed environments
             // the toggle will have been executed on the SchedulingPublisher app
@@ -97,14 +97,19 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
             TrackedStatus.IsSiteLocked = isSiteLocked;
             await StorageProvider.Save(TrackedStatus);
+
+            _logger.Information(
+                "Maintenance Mode: site was {LockState} by {Username}",
+                isSiteLocked ? "locked" : "unlocked",
+                string.IsNullOrWhiteSpace(username) ? "unknown user" : username);
         }
 
-        public async Task<bool> TryUnlockSite(string password)
+        public async Task<bool> TryUnlockSite(string password, string? username = null)
         {
             // If no password is configured, always allow unlock (backward-compatible)
             if (string.IsNullOrWhiteSpace(_maintenanceModeSettings?.LockPassword))
             {
-                await ToggleSiteLock(false);
+                await ToggleSiteLock(false, username);
                 return true;
             }
 
@@ -117,6 +122,11 @@ namespace Our.Umbraco.MaintenanceMode.Services
             // Password is correct, unlock the site
             TrackedStatus.IsSiteLocked = false;
             await StorageProvider.Save(TrackedStatus);
+
+            _logger.Information(
+                "Maintenance Mode: site was unlocked by {Username}",
+                string.IsNullOrWhiteSpace(username) ? "unknown user" : username);
+
             return true;
         }
 

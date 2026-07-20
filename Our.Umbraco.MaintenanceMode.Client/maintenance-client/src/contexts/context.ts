@@ -3,6 +3,11 @@ import { UmbContextToken } from "@umbraco-cms/backoffice/context-api";
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
 import {
+  UMB_MODAL_MANAGER_CONTEXT,
+  UmbModalManagerContext,
+} from "@umbraco-cms/backoffice/modal";
+import { PASSWORD_MODAL } from "../modals/password-modal-token";
+import {
   getSettings,
   getStatus,
   getToggleAccess,
@@ -26,11 +31,15 @@ export class MaintenanceContext extends UmbControllerBase {
   readonly settings = this.#settings.asObservable();
 
   #host: UmbControllerHost;
+  #modalManager?: UmbModalManagerContext;
 
   constructor(host: UmbControllerHost) {
     super(host);
     this.#host = host;
     this.provideContext(MAINTENANCE_CONTEXT_TOKEN, this);
+    this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (_instance) => {
+      this.#modalManager = _instance;
+    });
   }
 
   async getStatus() {
@@ -76,11 +85,29 @@ export class MaintenanceContext extends UmbControllerBase {
     if (currentStatus?.isSiteLocked) {
       // Unlocking the site
       if (currentStatus?.hasLockPassword) {
-        // Prompt for password
-        const password = window.prompt("Enter password to unlock the site:");
+        // Prompt for password using an Umbraco modal
+        const modalContext = this.#modalManager?.open(
+          this.#host,
+          PASSWORD_MODAL,
+          {
+            data: {
+              headline: "Unlock site",
+              message: "Enter password to unlock the site:",
+            },
+          },
+        );
+
+        let password: string | undefined;
+        try {
+          const result = await modalContext?.onSubmit();
+          password = result?.password;
+        } catch {
+          // User cancelled the modal
+          return;
+        }
 
         if (!password) {
-          // User cancelled or entered empty password
+          // User entered empty password
           return;
         }
 
