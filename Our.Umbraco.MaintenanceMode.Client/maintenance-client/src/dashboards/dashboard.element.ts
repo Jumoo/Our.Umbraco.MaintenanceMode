@@ -145,7 +145,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
         <div class="alert alert-danger maintenanceMode-alert">
           <uui-icon name="icon-block"></uui-icon>
           <div>
-            <umb-localize key="maintain_onMsg"></umb-localize>
+            <umb-localize key="maintenance_onMsg"></umb-localize>
           </div>
         </div>
       `;
@@ -160,7 +160,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
         <div class="alert alert-info maintenanceMode-alert">
           <uui-icon name="icon-snow"></uui-icon>
           <div>
-            <umb-localize key="maintain_frozenMsg"></umb-localize>
+            <umb-localize key="maintenance_frozenMsg"></umb-localize>
           </div>
         </div>
       `;
@@ -175,7 +175,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
         <div class="alert alert-info maintenanceMode-alert">
           <uui-icon name="icon-lock"></uui-icon>
           <div>
-            <umb-localize key="maintain_siteLockedMsg"></umb-localize>
+            <umb-localize key="maintenance_siteLockedMsg"></umb-localize>
           </div>
         </div>
       `;
