@@ -7,6 +7,7 @@ import {
   UmbModalManagerContext,
 } from "@umbraco-cms/backoffice/modal";
 import { PASSWORD_MODAL } from "../modals/password-modal-token";
+import { INFO_MODAL } from "../modals/info-modal-token";
 import {
   getSettings,
   getStatus,
@@ -40,6 +41,19 @@ export class MaintenanceContext extends UmbControllerBase {
     this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (_instance) => {
       this.#modalManager = _instance;
     });
+  }
+
+  async #showError(headline: string, message: string) {
+    const modalContext = this.#modalManager?.open(this.#host, INFO_MODAL, {
+      data: {
+        headline,
+        message,
+        color: "danger",
+        confirmLabel: "OK",
+      },
+    });
+
+    await modalContext?.onSubmit();
   }
 
   async getStatus() {
@@ -117,19 +131,25 @@ export class MaintenanceContext extends UmbControllerBase {
             this.#host,
             postUnlockSite({
               body: { password },
-            })
+            }),
           );
 
           if (result.error) {
             // Password was incorrect or other error
-            alert("Failed to unlock site. Please check the password and try again.");
+            await this.#showError(
+              "Unable to unlock",
+              "Failed to unlock site. Please check the password and try again.",
+            );
             return;
           }
 
           // Success - refresh status
           await this.getStatus();
         } catch (error) {
-          alert("Failed to unlock site. Please check the password and try again.");
+          await this.#showError(
+            "Unable to unlock",
+            "Failed to unlock site. Please check the password and try again.",
+          );
           console.error("Unlock error:", error);
         }
       } else {
@@ -139,17 +159,17 @@ export class MaintenanceContext extends UmbControllerBase {
             this.#host,
             postUnlockSite({
               body: { password: "" },
-            })
+            }),
           );
 
           if (result.error) {
-            alert("Failed to unlock site.");
+            await this.#showError("Unable to unlock", "Failed to unlock site.");
             return;
           }
 
           await this.getStatus();
         } catch (error) {
-          alert("Failed to unlock site.");
+          await this.#showError("Unable to unlock", "Failed to unlock site.");
           console.error("Unlock error:", error);
         }
       }
@@ -161,7 +181,7 @@ export class MaintenanceContext extends UmbControllerBase {
           query: {
             siteLocked: !currentStatus?.isSiteLocked,
           },
-        })
+        }),
       );
       await this.getStatus();
     }
