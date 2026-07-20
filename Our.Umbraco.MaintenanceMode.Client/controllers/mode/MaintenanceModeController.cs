@@ -71,12 +71,14 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
         [ProducesResponseType(500)]
         public async Task<IActionResult> UnlockSite([FromBody] UnlockSiteRequest request)
         {
-            if (request == null || string.IsNullOrEmpty(request.Password))
+            // Only require a password when one has actually been configured.
+            // When no lock password is configured, unlocking should happen automatically.
+            if (_maintenanceModeService.HasLockPassword && (request == null || string.IsNullOrEmpty(request.Password)))
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Password is required" });
             }
 
-            bool success = await _maintenanceModeService.TryUnlockSite(request.Password);
+            bool success = await _maintenanceModeService.TryUnlockSite(request?.Password ?? string.Empty);
 
             if (success)
             {
