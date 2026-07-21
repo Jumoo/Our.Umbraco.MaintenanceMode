@@ -8,6 +8,7 @@ using Our.Umbraco.MaintenanceMode.Providers;
 
 using Serilog;
 
+using System;
 using System.Threading.Tasks;
 using Umbraco.Extensions;
 
@@ -18,7 +19,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
         private readonly ILogger _logger;
         private readonly IStorageProviderFactory _storageProviderFactory;
 
-        private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
+        private Configurations.MaintenanceModeSettings _maintenanceModeSettings;
         private readonly string _configFilePath;
         private MaintenanceModeStatus TrackedStatus { get; set; }
         public Models.MaintenanceModeSettings Settings => TrackedStatus.Settings;
@@ -30,21 +31,30 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 // when in 'Database' storage mode we want to be fetching every time as this
                 // typically will mean Umbraco is deployed in a distributed environment therefore
                 // status can't be tracked in scope, it needs to be read from storage each time
-                return _storageProviderFactory.StorageMode switch
+                var status = _storageProviderFactory.StorageMode switch
                 {
                     StorageMode.Database => GetFromStorageOrDefault().Result,
                     _ => TrackedStatus
                 };
+
+                // Always populate HasLockPassword from configuration
+                status.HasLockPassword = HasLockPassword;
+
+                return status;
             }
         }
 
         public MaintenanceModeService(ILogger logger,
-            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings,
+            IOptionsMonitor<Configurations.MaintenanceModeSettings> maintenanceModeSettings,
             IStorageProviderFactory storageProviderFactory)
         {
             _logger = logger;
             _storageProviderFactory = storageProviderFactory;
-            _maintenanceModeSettings = maintenanceModeSettings.Value;
+            _maintenanceModeSettings = maintenanceModeSettings.CurrentValue;
+            maintenanceModeSettings.OnChange((option) =>
+            {
+                _maintenanceModeSettings = option;
+            });
 
             TrackedStatus = LoadStatus().Result;
         }
@@ -52,6 +62,10 @@ namespace Our.Umbraco.MaintenanceMode.Services
         public bool IsInMaintenanceMode => Status.IsInMaintenanceMode;
 
         public bool IsContentFrozen => Status.IsContentFrozen;
+
+        public bool IsSiteLocked => Status.IsSiteLocked;
+
+        public bool HasLockPassword => !string.IsNullOrWhiteSpace(_maintenanceModeSettings?.LockPassword);
 
 
         public IStorageProvider StorageProvider => _storageProviderFactory.GetProvider();
@@ -76,6 +90,48 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
             TrackedStatus.IsContentFrozen = isContentFrozen;
             await StorageProvider.Save(TrackedStatus);
+        }
+
+        public async Task ToggleSiteLock(bool isSiteLocked, string? username = null)
+        {
+            // checking against TrackedStatus is fine even in distributed environments
+            // the toggle will have been executed on the SchedulingPublisher app
+            if (isSiteLocked == TrackedStatus.IsSiteLocked)
+                return; // already in this state
+
+            TrackedStatus.IsSiteLocked = isSiteLocked;
+            await StorageProvider.Save(TrackedStatus);
+
+            _logger.Information(
+                "Maintenance Mode: site was {LockState} by {Username}",
+                isSiteLocked ? "locked" : "unlocked",
+                string.IsNullOrWhiteSpace(username) ? "unknown user" : username);
+        }
+
+        public async Task<bool> TryUnlockSite(string password, string? username = null)
+        {
+            // If no password is configured, always allow unlock (backward-compatible)
+            if (string.IsNullOrWhiteSpace(_maintenanceModeSettings?.LockPassword))
+            {
+                await ToggleSiteLock(false, username);
+                return true;
+            }
+
+            // Validate password (plain-text comparison with ordinal)
+            if (!string.Equals(password, _maintenanceModeSettings.LockPassword, StringComparison.Ordinal))
+            {
+                return false; // Invalid password
+            }
+
+            // Password is correct, unlock the site
+            TrackedStatus.IsSiteLocked = false;
+            await StorageProvider.Save(TrackedStatus);
+
+            _logger.Information(
+                "Maintenance Mode: site was unlocked by {Username}",
+                string.IsNullOrWhiteSpace(username) ? "unknown user" : username);
+
+            return true;
         }
 
         public async Task ToggleAccess(bool hasAccess)
@@ -120,11 +176,18 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
         private MaintenanceModeStatus CheckAppSettings(MaintenanceModeStatus status)
         {
+            // If a lock password is configured, force the site to be locked on startup
+            if (!string.IsNullOrWhiteSpace(_maintenanceModeSettings?.LockPassword))
+            {
+                status.IsSiteLocked = true;
+            }
+
             if (_maintenanceModeSettings is null or { IsInMaintenanceMode: false })
                 return status;
 
             status.IsInMaintenanceMode = _maintenanceModeSettings.IsInMaintenanceMode;
             status.IsContentFrozen = _maintenanceModeSettings.IsContentFrozen;
+            status.IsSiteLocked = _maintenanceModeSettings.IsSiteLocked;
             status.UsingWebConfig = true;
 
             return status;
