@@ -19,7 +19,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
         private readonly ILogger _logger;
         private readonly IStorageProviderFactory _storageProviderFactory;
 
-        private readonly Configurations.MaintenanceModeSettings _maintenanceModeSettings;
+        private Configurations.MaintenanceModeSettings _maintenanceModeSettings;
         private readonly string _configFilePath;
         private MaintenanceModeStatus TrackedStatus { get; set; }
         public Models.MaintenanceModeSettings Settings => TrackedStatus.Settings;
@@ -45,12 +45,16 @@ namespace Our.Umbraco.MaintenanceMode.Services
         }
 
         public MaintenanceModeService(ILogger logger,
-            IOptions<Configurations.MaintenanceModeSettings> maintenanceModeSettings,
+            IOptionsMonitor<Configurations.MaintenanceModeSettings> maintenanceModeSettings,
             IStorageProviderFactory storageProviderFactory)
         {
             _logger = logger;
             _storageProviderFactory = storageProviderFactory;
-            _maintenanceModeSettings = maintenanceModeSettings.Value;
+            _maintenanceModeSettings = maintenanceModeSettings.CurrentValue;
+            maintenanceModeSettings.OnChange((option) =>
+            {
+                _maintenanceModeSettings = option;
+            });
 
             TrackedStatus = LoadStatus().Result;
         }
