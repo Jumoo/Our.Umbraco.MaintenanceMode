@@ -1,0 +1,148 @@
+name: Release to NuGet
+
+# Publishing is triggered by pushing a version tag:
+#
+#   git tag v18.1.0 && git push origin v18.1.0
+#
+# NOTE: "branches" and "tags" under push: are OR'd, not AND'd - a tag filter cannot
+# be restricted to a branch in the trigger itself. The tag has to be on a release
+# branch (v17/main, v18/main, ...), so that is enforced as a step below instead.
+
+permissions:
+  contents: read
+
+on:
+  push:
+    tags:
+      - "v*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  config: Release
+  out_folder: ./build-out/
+  package_project: ./Our.Umbraco.MaintenanceMode/Our.Umbraco.MaintenanceMode.csproj
+  client_folder: ./Our.Umbraco.MaintenanceMode.Client/maintenance-client
+  nuget_source: https://api.nuget.org/v3/index.json
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      # required for trusted publishing - this is what lets the job request the
+      # short lived OIDC token that NuGet/login exchanges for a push key.
+      id-token: write
+
+    # This is load bearing: the trusted publishing policy on nuget.org names this
+    # environment, and the token exchange is rejected if the job doesn't run in an
+    # environment of exactly this name. Don't remove or rename it without updating
+    # the policy to match.
+    #
+    # It is NOT an approval gate by itself - environment protection rules (required
+    # reviewers, wait timers) depend on the plan this repo is on. The deliberate step
+    # is creating and publishing the GitHub release, which is what creates the tag.
+    # Publishing to NuGet cannot be undone; a version can be delisted but never
+    # replaced or reused.
+    environment: nuget
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # full history, the branch containment check below needs it
+          fetch-depth: 0
+
+      - name: check the tag looks like a version
+        id: version
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          if ! printf '%s' "$version" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$'; then
+            echo "::error::Tag '$GITHUB_REF_NAME' is not v{major}.{minor}.{patch}[-suffix]"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Releasing $version"
+
+      - name: check the tag is on a release branch
+        run: |
+          # explicit, so this doesn't depend on exactly which refs checkout brought down.
+          # if the branches are missing the grep below finds nothing and we fail closed.
+          git fetch origin '+refs/heads/*:refs/remotes/origin/*' --quiet
+          branches=$(git branch -r --contains "$GITHUB_SHA" --format='%(refname:short)')
+          echo "Tagged commit is on:"
+          echo "$branches" | sed 's/^/  /'
+          if ! printf '%s\n' "$branches" | grep -qE '^origin/(v[0-9]+/)?main$'; then
+            echo "::error::Tag $GITHUB_REF_NAME is not on main or v{major}/main - refusing to publish"
+            exit 1
+          fi
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: "**/package-lock.json"
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
+
+      - name: install client dependencies
+        run: npm ci
+        working-directory: ${{ env.client_folder }}
+
+      # wwwroot/App_Plugins is gitignored and generated, so without this the package
+      # ships with no backoffice assets. it has to run before pack.
+      - name: build client
+        run: npm run build
+        working-directory: ${{ env.client_folder }}
+
+      - name: restore
+        run: dotnet restore ${{ env.package_project }} --locked-mode
+
+      - name: build
+        run: >
+          dotnet build ${{ env.package_project }}
+          -c ${{ env.config }} --no-restore
+          -p:ContinuousIntegrationBuild=true
+
+      # deliberately not --no-build: the version has to be stamped onto the assembly
+      # as well as the nuspec, so this rebuilds with it.
+      - name: package
+        run: >
+          dotnet pack ${{ env.package_project }}
+          -c ${{ env.config }}
+          --output ${{ env.out_folder }}
+          /p:version=${{ steps.version.outputs.version }}
+          -p:ContinuousIntegrationBuild=true
+
+      # keep a copy regardless of what happens on the push
+      - name: upload package as build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: nuget-release-${{ steps.version.outputs.version }}
+          path: ${{ env.out_folder }}
+
+      # Trusted publishing: exchanges this job's OIDC token for a short lived NuGet
+      # key, so there is no long lived secret in the repo to leak or rotate. It only
+      # works if a matching policy exists on nuget.org for this repo + workflow, and
+      # "user" must be the nuget.org account that owns that policy.
+      - name: nuget login
+        id: nuget_login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ vars.NUGET_USER || 'Jumoo' }}
+
+      # --skip-duplicate so re-running a tag is a no-op rather than a failure
+      - name: push to nuget
+        env:
+          NUGET_API_KEY: ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
+        run: >
+          dotnet nuget push "${{ env.out_folder }}*.nupkg"
+          --api-key "$NUGET_API_KEY"
+          --source ${{ env.nuget_source }}
+          --skip-duplicate
