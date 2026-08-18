@@ -1,0 +1,63 @@
+name: CodeQL
+
+# Code scanning. This repo is public, so code scanning is free and does not require
+# GitHub Advanced Security - unlike a private repo, these triggers can stay enabled.
+
+on:
+  push:
+    branches: [ "main", "*/main" ]
+    paths-ignore:
+      - "**.md"
+  pull_request:
+    branches: [ "main", "*/main" ]
+    paths-ignore:
+      - "**.md"
+  schedule:
+    # weekly, so advisories published after a change still get picked up
+    - cron: "33 8 * * 0"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # build-mode none: CodeQL scans the source without compiling it, so this
+          # doesn't need the sdk, node, a restore, or the locked-mode dance.
+          - language: actions
+            build-mode: none
+          - language: csharp
+            build-mode: none
+          # the backoffice client is TypeScript, and it is where most of the package's
+          # user facing behaviour lives - worth scanning too.
+          - language: javascript-typescript
+            build-mode: none
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:${{ matrix.language }}"
