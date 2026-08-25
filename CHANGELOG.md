@@ -19,4 +19,4 @@ entries start from here.
 - `packages.lock.json` for the shipped projects, so a transitive dependency update can't
   change a build without a commit.
 
-[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.0...HEAD
+[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v16.0.0...HEAD

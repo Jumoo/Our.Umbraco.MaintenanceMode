@@ -3,7 +3,7 @@ name: PR Project Build
 permissions:
   contents: read
 
-# this repo releases from "v18/main" - a branch per Umbraco major, matching the rest
+# this repo releases from "v{major}/main" - a branch per Umbraco major, matching the rest
 # of Jumoo. Plain "main" is kept in the filter so a re-created main, or a branch that
 # hasn't been moved over yet, still builds.
 on:

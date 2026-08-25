@@ -39,19 +39,19 @@ npx tsc --noEmit --project Our.Umbraco.MaintenanceMode.Client/maintenance-client
 
 There is no `format` script in the client and no test project. Verification is: dotnet build
 clean, `tsc` clean, `vite build` clean - and for anything user facing, a click-through in a
-running backoffice (`MaintenanceMode.Site.18`).
+running backoffice (`MaintenanceMode.Site.17`).
 
 ## Repository shape
 
-**Branches are per Umbraco major** - `v18/main` is the current release line. Workflow filters
-use `[ "main", "*/main" ]` and GitVersion uses `^(v[0-9]+\/)?main$`, so both forms work and the
-next major needs no CI change.
+**Branches are per Umbraco major** - `v17/main` is this branch's release line (`v18/main` is the
+newer line elsewhere in the org). Workflow filters use `[ "main", "*/main" ]` and GitVersion uses
+`^(v[0-9]+\/)?main$`, so both forms work and the next major needs no CI change.
 
 **Build the package project, never the solution, for anything CI-equivalent.**
-`Our.Umbraco.MaintenanceMode.slnx` references `MaintenanceMode.Site.18` as a local test site;
-`MaintenanceMode.Site.16`, `.17` and `Our.Umbraco.MaintenanceMode.Assets` are tracked for
-reference against older Umbraco majors but are not in the current solution and are not built by
-CI.
+`Our.Umbraco.MaintenanceMode.slnx` references `MaintenanceMode.Site.16`, `MaintenanceMode.Site.17`
+and `MaintenanceMode.Site` (net6.0) as local test sites for the Umbraco majors this branch still
+multi-targets; `Our.Umbraco.MaintenanceMode.Assets` backs the net6.0 target. None of the test
+sites are built by CI.
 
 Adding `Directory.Build.props` here stops any Directory.Build.props further up the disk from
 applying - if one exists there and sets `NuGetAuditMode`, that setting has to be repeated here so

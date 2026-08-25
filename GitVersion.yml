@@ -1,11 +1,11 @@
-next-version: 18.1.0
+next-version: 17.0.0
 assembly-versioning-scheme: MajorMinorPatch
 mode: ContinuousDeployment
 branches:
   main:
     mode: ContinuousDeployment
     tag: ""
-    # this repo releases from "v18/main" - a branch per Umbraco major, matching the rest
+    # this repo releases from "v{major}/main" - a branch per Umbraco major, matching the rest
     # of Jumoo. plain "main" still matches so a re-created main also versions correctly.
     regex: ^(v[0-9]+\/)?main$
   pull-request:
