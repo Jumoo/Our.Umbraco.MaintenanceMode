@@ -12,14 +12,8 @@
 		<Authors>Kevin Jump,Aaron Sadler</Authors>
 		<Description><![CDATA[Put Umbraco Into Maintenance Mode - While you do things]]></Description>
 
-		<PackageTags>umbraco plugin package</PackageTags>
+		<PackageTags>umbraco plugin package umbraco-marketplace</PackageTags>
 		<RootNamespace>Our.Umbraco.MaintenanceMode</RootNamespace>
-
-		<PackageLinenseExpressio>MIT</PackageLinenseExpressio>
-		<PackageProjectUrl>https://github.com/KevinJump/Our.Umbraco.MaintenanceMode</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/KevinJump/Our.Umbraco.MaintenanceMode</RepositoryUrl>
-
-		<PackageTags>umbraco umbraco-marketplace</PackageTags>
 
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>

@@ -17,15 +17,7 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers.Content
 
         public void Handle(ContentSavingNotification notification)
         {
-            if (_maintenanceModeService.Status.IsContentFrozen)
-            {
-                if (_backofficeUserAccessor.BackofficeUser == null) return;
-
-                if (_maintenanceModeService.AllowBackofficeUsersThrough(_backofficeUserAccessor.BackofficeUser.GetId())) return;
-
-
-                notification.CancelOperation(new EventMessage("Warning", "This site is currently frozen during updates", EventMessageType.Error));
-            }
+            FreezeGuard.CancelIfLockedOrFrozen(notification, _maintenanceModeService.Status.IsContentFrozen, _maintenanceModeService.Status.IsSiteLocked, _maintenanceModeService, _backofficeUserAccessor, FreezeGuard.DefaultContentFrozenMessage);
         }
     }
 }

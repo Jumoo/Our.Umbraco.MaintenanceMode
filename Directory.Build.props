@@ -1,0 +1,37 @@
+<Project>
+
+	<!--
+		NOTE: adding this file stops any Directory.Build.props further up the disk from
+		applying. If a parent one sets NuGetAuditMode, repeat it here so local and CI
+		builds agree - see the Xliff.Connector repo for the incident this guards against.
+	-->
+
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<NuGetAuditMode>direct</NuGetAuditMode>
+	</PropertyGroup>
+
+	<!-- shared package metadata, so the values can't drift between projects -->
+	<PropertyGroup>
+		<VersionPrefix>17.0.0</VersionPrefix>
+		<Company>Jumoo</Company>
+		<Copyright>Kevin Jump &amp; Jumoo @ 2017-2026</Copyright>
+
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/Jumoo/Our.Umbraco.MaintenanceMode</PackageProjectUrl>
+
+		<RepositoryUrl>https://github.com/Jumoo/Our.Umbraco.MaintenanceMode</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+		<!-- don't append the build onto the version -->
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+
+		<!-- lock files, so a transitive update can't change a build without a commit -->
+		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+	</PropertyGroup>
+
+</Project>

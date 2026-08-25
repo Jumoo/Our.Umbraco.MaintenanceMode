@@ -29,6 +29,10 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
         [ProducesResponseType<MaintenanceModeStatus>(StatusCodes.Status200OK)]
         public MaintenanceModeStatus GetStatus() => _maintenanceModeService.Status;
 
+        [HttpGet("HasLockPassword")]
+        [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+        public bool HasLockPassword() => _maintenanceModeService.HasLockPassword;
+
         [HttpGet("ToggleMode")]
         [ProducesResponseType(200)]
         public void ToggleMode(bool maintenanceMode)
@@ -41,6 +45,43 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
         public void ToggleFrozen(bool maintenanceMode)
         {
             _maintenanceModeService.ToggleContentFreeze(maintenanceMode);
+        }
+
+        [HttpGet("ToggleSiteLock")]
+        [ProducesResponseType(200)]
+        public void ToggleSiteLock(bool siteLocked)
+        {
+            // Only allow locking via this endpoint
+            // Unlocking must be done via the UnlockSite endpoint with password
+            if (!siteLocked)
+            {
+                throw new InvalidOperationException("Use the UnlockSite endpoint to unlock the site with a password.");
+            }
+            _maintenanceModeService.ToggleSiteLock(siteLocked, User?.Identity?.Name);
+        }
+
+        [HttpPost("UnlockSite")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UnlockSite([FromBody] UnlockSiteRequest request)
+        {
+            // Only require a password when one has actually been configured.
+            // When no lock password is configured, unlocking should happen automatically.
+            if (_maintenanceModeService.HasLockPassword && (request == null || string.IsNullOrEmpty(request.Password)))
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Password is required" });
+            }
+
+            bool success = await _maintenanceModeService.TryUnlockSite(request?.Password ?? string.Empty, User?.Identity?.Name);
+
+            if (success)
+            {
+                return Ok(new { message = "Site unlocked successfully" });
+            }
+
+            // Use 500 instead of 401 so that Umbraco's authentication middleware doesn't
+            // interpret this as an expired/invalid backoffice session and log the user out
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Invalid password" });
         }
 
         [HttpGet("ToggleAccess")]
@@ -60,5 +101,10 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
         {
             _maintenanceModeService.SaveSettings(settings);
         }
+    }
+
+    public class UnlockSiteRequest
+    {
+        public string Password { get; set; } = string.Empty;
     }
 }

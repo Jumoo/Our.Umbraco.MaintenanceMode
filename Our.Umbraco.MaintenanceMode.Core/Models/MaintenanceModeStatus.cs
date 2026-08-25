@@ -10,5 +10,7 @@ namespace Our.Umbraco.MaintenanceMode.Models
         public bool UsingWebConfig = false;
         public MaintenanceModeSettings Settings { get; set; }
         public bool IsContentFrozen { get; set; }
+        public bool IsSiteLocked { get; set; }
+        public bool HasLockPassword { get; set; }
     }
 }

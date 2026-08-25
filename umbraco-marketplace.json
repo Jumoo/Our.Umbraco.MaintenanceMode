@@ -20,6 +20,7 @@
         "Jumoo.TranslationManger",
         "Our.Umbraco.BackOfficeThemes",
         "Our.Umbraco.LinkedPages",
+        "Umbraco.Community.LinkedPages",
         "Our.Umbraco.MaintenanceMode"
     ],
     "Title": "Maintenance Mode",

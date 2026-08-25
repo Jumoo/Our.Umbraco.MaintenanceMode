@@ -88,8 +88,8 @@ export class SettingsModalElement extends UmbModalBaseElement<
         <uui-box>
           <umb-property-layout
             alias="templateName"
-            label="Template"
-            description="Template to be used on maintenance page."
+            label=${this.localize.term("maintenance_labelTemplate")}
+            description=${this.localize.term("maintenance_labelTemplateDesc")}
             orientation="vertical"
           >
             <div slot="editor">
@@ -102,8 +102,8 @@ export class SettingsModalElement extends UmbModalBaseElement<
           </umb-property-layout>
           <umb-property-layout
             alias="unfrozenUsers"
-            label="Unfrozren Users"
-            description="Users who can still edit when content is frozen."
+            label=${this.localize.term("maintenance_labelUnfreeze")}
+            description=${this.localize.term("maintenance_labelUnfreezeDesc")}
             orientation="vertical"
           >
             <div slot="editor">
@@ -111,14 +111,14 @@ export class SettingsModalElement extends UmbModalBaseElement<
                 label="Unfrozen users"
                 .value=${this.settings?.unfrozenUsers ?? ""}
                 @input=${(e: Event) => this.#updateSettings("unfrozenUsers", e)}
-                placeholder="Enter Usernames Here..."
+                placeholder="Enter User IDs Here..."
               ></uui-input>
             </div>
           </umb-property-layout>
           <umb-property-layout
             alias="PageTitle"
-            label="Page Title"
-            description="The title of the maintenance page in your browser."
+            label=${this.localize.term("maintenance_labelPageTitle")}
+            description=${this.localize.term("maintenance_labelPageTitleDesc")}
             orientation="vertical"
           >
             <div slot="editor">
@@ -133,8 +133,8 @@ export class SettingsModalElement extends UmbModalBaseElement<
           </umb-property-layout>
           <umb-property-layout
             alias="title"
-            label="Title"
-            description="The title on the maintenance page."
+            label=${this.localize.term("maintenance_labelTitle")}
+            description=${this.localize.term("maintenance_labelTitleDesc")}
             orientation="vertical"
           >
             <div slot="editor">
@@ -148,8 +148,8 @@ export class SettingsModalElement extends UmbModalBaseElement<
           </umb-property-layout>
           <umb-property-layout
             alias="text"
-            label="Text"
-            description="The text on the maintenance page."
+            label=${this.localize.term("maintenance_labelText")}
+            description=${this.localize.term("maintenance_labelTextDesc")}
             orientation="vertical"
           >
             <div slot="editor">
@@ -165,8 +165,10 @@ export class SettingsModalElement extends UmbModalBaseElement<
           </umb-property-layout>
           <umb-property-layout
             alias="UrlWhitelist"
-            label="Url Whitelist"
-            description="File paths that do not trigger maintenance page override."
+            label=${this.localize.term("maintenance_labelUrlWhitelist")}
+            description=${this.localize.term(
+              "maintenance_labelUrlWhitelistDesc",
+            )}
             orientation="vertical"
           >
             <div slot="editor">
@@ -179,8 +181,10 @@ export class SettingsModalElement extends UmbModalBaseElement<
           </umb-property-layout>
           <umb-property-layout
             alias="IpWhitelist"
-            label="IP Whitelist"
-            description="IP adresses that do not trigger maintenance page override."
+            label=${this.localize.term("maintenance_labelIpWhitelist")}
+            description=${this.localize.term(
+              "maintenance_labelIpWhitelistDesc",
+            )}
             orientation="vertical"
           >
             <div slot="editor">

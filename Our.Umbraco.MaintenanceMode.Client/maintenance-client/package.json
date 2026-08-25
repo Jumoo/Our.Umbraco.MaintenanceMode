@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@hey-api/client-fetch": "^0.10.0",
-    "@hey-api/openapi-ts": "^0.90.4",
+    "@hey-api/openapi-ts": "^0.85.2",
     "@umbraco-cms/backoffice": "^17.0.0",
     "lit": "^3.2.1",
     "rm-rs": "^0.2.3",

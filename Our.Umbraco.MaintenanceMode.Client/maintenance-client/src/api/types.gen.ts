@@ -31,6 +31,8 @@ export type MaintenanceModeStatus = {
     isInMaintenanceMode: boolean;
     settings?: MaintenanceModeSettings | null;
     isContentFrozen: boolean;
+    isSiteLocked: boolean;
+    hasLockPassword: boolean;
 };
 
 export type NotificationHeaderModel = {
@@ -132,3 +134,59 @@ export type ToggleModeResponses = {
      */
     200: unknown;
 };
+
+// NOTE: manually mirrored to match the backend ToggleSiteLock/UnlockSite/HasLockPassword
+// endpoints; regenerate via openapi-ts when the backend is available.
+export type ToggleSiteLockData = {
+    body?: never;
+    path?: never;
+    query?: {
+        siteLocked?: boolean;
+    };
+    url: '/umbraco/maintenance/api/v1/ToggleSiteLock';
+};
+
+export type ToggleSiteLockResponses = {
+    /**
+     * OK
+     */
+    200: unknown;
+};
+
+export type UnlockSiteRequest = {
+    password?: string | null;
+};
+
+export type UnlockSiteData = {
+    body?: UnlockSiteRequest;
+    path?: never;
+    query?: never;
+    url: '/umbraco/maintenance/api/v1/UnlockSite';
+};
+
+export type UnlockSiteResponses = {
+    /**
+     * OK
+     */
+    200: unknown;
+    /**
+     * Internal Server Error - password required or invalid
+     */
+    500: unknown;
+};
+
+export type HasLockPasswordData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/umbraco/maintenance/api/v1/HasLockPassword';
+};
+
+export type HasLockPasswordResponses = {
+    /**
+     * OK
+     */
+    200: boolean;
+};
+
+export type HasLockPasswordResponse = HasLockPasswordResponses[keyof HasLockPasswordResponses];

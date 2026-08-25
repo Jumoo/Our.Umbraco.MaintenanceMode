@@ -1,0 +1,52 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Umbraco is pinned deliberately. The version referenced here sets the minimum for
+    # anyone installing the package, so it moves when we choose to move it - not on a
+    # weekly schedule. Note this also opts it out of dependabot security updates.
+    ignore:
+      - dependency-name: "Umbraco.*"
+    # majors are deliberately left out of the group so they arrive as one PR each.
+    groups:
+      nuget-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # the backoffice client - @umbraco-cms/backoffice is pinned for the same reason as
+  # above, it has to line up with the server side package.
+  - package-ecosystem: "npm"
+    directory: "/Our.Umbraco.MaintenanceMode.Client/maintenance-client"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "@umbraco-cms/*"
+    groups:
+      npm-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # gittools/actions v4 requires GitVersion >= 6.2, which needs GitVersion.yml migrating
+    # to the v6 schema. Dependabot can't see that the action version and the versionSpec
+    # input are coupled, so unpin this only when doing that migration deliberately.
+    ignore:
+      - dependency-name: "gittools/actions"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
