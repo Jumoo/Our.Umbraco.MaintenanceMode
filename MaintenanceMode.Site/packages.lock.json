@@ -4,15 +4,15 @@
     "net6.0": {
       "Microsoft.ICU.ICU4C.Runtime": {
         "type": "Direct",
-        "requested": "[68.2.0.9, )",
-        "resolved": "68.2.0.9",
-        "contentHash": "+JnnRV3LguprgmGBxhPJNvSietNRn5SxQ1A7fYTaTxWJhQXC3BD42UCYa4kPXF13H4O2PV0DdGwx1Ro38dZtmw==",
+        "requested": "[72.1.0.3, )",
+        "resolved": "72.1.0.3",
+        "contentHash": "Z42uzvs0TN9Y02xgHtRgPcumLRnvK3MHVHZ0Pr3OrnvyZYhBwqDgdYBOvoELcTsayUgwqrPLb+C5Fqqk66zlUg==",
         "dependencies": {
-          "Microsoft.ICU.ICU4C.Runtime.linux-arm64": "68.2.0.9",
-          "Microsoft.ICU.ICU4C.Runtime.linux-x64": "68.2.0.9",
-          "Microsoft.ICU.ICU4C.Runtime.win-arm64": "68.2.0.9",
-          "Microsoft.ICU.ICU4C.Runtime.win-x64": "68.2.0.9",
-          "Microsoft.ICU.ICU4C.Runtime.win-x86": "68.2.0.9"
+          "Microsoft.ICU.ICU4C.Runtime.linux-arm64": "72.1.0.3",
+          "Microsoft.ICU.ICU4C.Runtime.linux-x64": "72.1.0.3",
+          "Microsoft.ICU.ICU4C.Runtime.win-arm64": "72.1.0.3",
+          "Microsoft.ICU.ICU4C.Runtime.win-x64": "72.1.0.3",
+          "Microsoft.ICU.ICU4C.Runtime.win-x86": "72.1.0.3"
         }
       },
       "Umbraco.Cms": {
@@ -698,28 +698,28 @@
       },
       "Microsoft.ICU.ICU4C.Runtime.linux-arm64": {
         "type": "Transitive",
-        "resolved": "68.2.0.9",
-        "contentHash": "buZexq1QyLhhAseAJo/j6YkJifiMPxOYU8G05N7LIKWRM1rJ9Ufag7MYcY7d7X13+fS/Rm3CuuVsWEvB3T5pzg=="
+        "resolved": "72.1.0.3",
+        "contentHash": "u/2cPX6JBgSgTOeDjkb2A672LsL3zQo60ViYUTqHOrxuFOIx0ag6bFu2WgN4zRZ71K6L0fubnrlS1HpN+k5kyA=="
       },
       "Microsoft.ICU.ICU4C.Runtime.linux-x64": {
         "type": "Transitive",
-        "resolved": "68.2.0.9",
-        "contentHash": "EzSwdrljzwOhqyW0l68J0aJSkt+2N9KwH10+nnNinQFCUXor1zdPmxZRTBVaAAATEzcmruWTjwq1ij61oB8orQ=="
+        "resolved": "72.1.0.3",
+        "contentHash": "q1iHc4EGCBYbpb+gfMZGn6L/WuBei/la52pRbxlVy4ed7FdB9UmvUXhoRzv6OsYa6E4VlTlj6EKgYvrwPkVGKQ=="
       },
       "Microsoft.ICU.ICU4C.Runtime.win-arm64": {
         "type": "Transitive",
-        "resolved": "68.2.0.9",
-        "contentHash": "LJE0IfJawQDaEl/JN1DLqf5Z9gvDvOPw0ntcKzJYhl1Xv81xon0a5ObU9/DrAVF6BL/AGKqYHuC7bX6zrcT2YA=="
+        "resolved": "72.1.0.3",
+        "contentHash": "/h8OPK1fqrI9t8hKNmpnSy7MYssGB1CtoXANsduFqf0Sc+OOtfoCIvRp2Mt9Fk80CmtU/53TldGvt1oCH7KpEA=="
       },
       "Microsoft.ICU.ICU4C.Runtime.win-x64": {
         "type": "Transitive",
-        "resolved": "68.2.0.9",
-        "contentHash": "4gkh2HW9m2JDM+87otmrukivYP/dedXZCdpnxbBft48eeemwDR12coMYEFbV8xToA3m95MQYFQPxS6a4JaRyyA=="
+        "resolved": "72.1.0.3",
+        "contentHash": "7j6NsmvKuVxgoFsoy0Ty7I09V/tvrQBZN+ddfHtz/OWNRaEIy7PsAguGoyD4AcQZh/KkfT9RQlHoQJ4xVQPr6g=="
       },
       "Microsoft.ICU.ICU4C.Runtime.win-x86": {
         "type": "Transitive",
-        "resolved": "68.2.0.9",
-        "contentHash": "fGnm7nxHhJkea7dgwLX4IGO8K1W0FHs5290FyDQmbB1xBuCFv0sFl308hIajSC1WVvuFbbVpRMBMxQjtIEOnzg=="
+        "resolved": "72.1.0.3",
+        "contentHash": "xTHoHJKtgHDsYkQ/RU3o4U36ktjQqnR+ML00HDDK2SWr+9nMekxnXvtLZ2I4cqF8s51frxqTRgx1jDVtIzCf3w=="
       },
       "Microsoft.Identity.Client": {
         "type": "Transitive",
