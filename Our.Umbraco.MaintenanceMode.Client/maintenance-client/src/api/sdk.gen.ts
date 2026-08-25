@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetSettingsData, GetSettingsResponses, GetStatusData, GetStatusResponses, SaveSettingsData, SaveSettingsResponses, ToggleAccessData, ToggleAccessResponses, ToggleFrozenData, ToggleFrozenResponses, ToggleModeData, ToggleModeResponses } from './types.gen';
+import type { GetSettingsData, GetSettingsResponses, GetStatusData, GetStatusResponses, HasLockPasswordData, HasLockPasswordResponses, SaveSettingsData, SaveSettingsResponses, ToggleAccessData, ToggleAccessResponses, ToggleFrozenData, ToggleFrozenResponses, ToggleModeData, ToggleModeResponses, ToggleSiteLockData, ToggleSiteLockResponses, UnlockSiteData, UnlockSiteResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -22,11 +22,30 @@ export class MaintenanceModeService {
     public static getSettings<ThrowOnError extends boolean = true>(options?: Options<GetSettingsData, ThrowOnError>) {
         return (options?.client ?? client).get<GetSettingsResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/GetSettings', ...options });
     }
-    
+
     public static getStatus<ThrowOnError extends boolean = true>(options?: Options<GetStatusData, ThrowOnError>) {
         return (options?.client ?? client).get<GetStatusResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/GetStatus', ...options });
     }
-    
+
+    public static hasLockPassword<ThrowOnError extends boolean = true>(options?: Options<HasLockPasswordData, ThrowOnError>) {
+        return (options?.client ?? client).get<HasLockPasswordResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/HasLockPassword', ...options });
+    }
+
+    public static toggleSiteLock<ThrowOnError extends boolean = true>(options?: Options<ToggleSiteLockData, ThrowOnError>) {
+        return (options?.client ?? client).get<ToggleSiteLockResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/ToggleSiteLock', ...options });
+    }
+
+    public static unlockSite<ThrowOnError extends boolean = true>(options?: Options<UnlockSiteData, ThrowOnError>) {
+        return (options?.client ?? client).post<UnlockSiteResponses, unknown, ThrowOnError>({
+            url: '/umbraco/maintenance/api/v1/UnlockSite',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers
+            }
+        });
+    }
+
     public static saveSettings<ThrowOnError extends boolean = true>(options?: Options<SaveSettingsData, ThrowOnError>) {
         return (options?.client ?? client).post<SaveSettingsResponses, unknown, ThrowOnError>({
             url: '/umbraco/maintenance/api/v1/SaveSettings',
