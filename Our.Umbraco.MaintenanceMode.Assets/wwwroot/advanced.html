@@ -84,6 +84,13 @@
                            placeholder="Url Whitelist" />
                 </umb-control-group>
 
+                <umb-control-group label="@maintain_labelPublicStatus"
+                                   description="@maintain_labelPublicStatusDesc">
+                    <umb-toggle checked="model.status.Settings.EnablePublicStatus"
+                                on-click="model.status.Settings.EnablePublicStatus = !model.status.Settings.EnablePublicStatus">
+                    </umb-toggle>
+                </umb-control-group>
+
             </umb-box-content>
 	    </umb-box>
 

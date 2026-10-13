@@ -195,6 +195,23 @@ export class SettingsModalElement extends UmbModalBaseElement<
               ></uui-input>
             </div>
           </umb-property-layout>
+          <umb-property-layout
+            alias="EnablePublicStatus"
+            label=${this.localize.term("maintenance_labelPublicStatus")}
+            description=${this.localize.term("maintenance_labelPublicStatusDesc")}
+            orientation="vertical"
+          >
+            <div slot="editor">
+              <uui-toggle
+                label="Public status url"
+                .checked=${this.settings?.enablePublicStatus ?? false}
+                @change=${(e: Event) =>
+                  this._context?.updateSettings({
+                    enablePublicStatus: (e.target as HTMLInputElement).checked,
+                  })}
+              ></uui-toggle>
+            </div>
+          </umb-property-layout>
         </uui-box>
         <div slot="actions">
           <uui-button id="cancel" label="Cancel" @click="${this.#handleCancel}"
