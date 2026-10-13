@@ -98,8 +98,8 @@
       },
       "IPNetwork2": {
         "type": "Transitive",
-        "resolved": "3.4.851",
-        "contentHash": "YoY4tPBQHF+/7uIFf4IYmk7Oc8C3qq37oR3Mk2aiMav+6temsjjBmMIFHI9Ep/8MAKUS0BxhwkFAMxa9CQ1HOQ=="
+        "resolved": "3.6.0",
+        "contentHash": "L9t9h0DVfwzJSVukLJn/S8ggLYk18lU7iLW3JmYZVad14DvT7e1YQU2E3OuLv89mAcbBr/lLMpVIe+9ywky74Q=="
       },
       "J2N": {
         "type": "Transitive",
@@ -1355,7 +1355,7 @@
       "our.umbraco.maintenancemode.core": {
         "type": "Project",
         "dependencies": {
-          "IPNetwork2": "[3.4.851, )",
+          "IPNetwork2": "[3.6.0, )",
           "Umbraco.Cms.Web.Website": "[17.0.0, )"
         }
       }
@@ -1440,8 +1440,8 @@
       },
       "IPNetwork2": {
         "type": "Transitive",
-        "resolved": "3.4.851",
-        "contentHash": "YoY4tPBQHF+/7uIFf4IYmk7Oc8C3qq37oR3Mk2aiMav+6temsjjBmMIFHI9Ep/8MAKUS0BxhwkFAMxa9CQ1HOQ=="
+        "resolved": "3.6.0",
+        "contentHash": "L9t9h0DVfwzJSVukLJn/S8ggLYk18lU7iLW3JmYZVad14DvT7e1YQU2E3OuLv89mAcbBr/lLMpVIe+9ywky74Q=="
       },
       "J2N": {
         "type": "Transitive",
@@ -2494,7 +2494,7 @@
       "our.umbraco.maintenancemode.core": {
         "type": "Project",
         "dependencies": {
-          "IPNetwork2": "[3.4.851, )",
+          "IPNetwork2": "[3.6.0, )",
           "Umbraco.Cms.Web.BackOffice": "[10.0.0, )",
           "Umbraco.Cms.Web.Website": "[10.0.0, )"
         }
@@ -2598,8 +2598,8 @@
       },
       "IPNetwork2": {
         "type": "Transitive",
-        "resolved": "3.4.851",
-        "contentHash": "YoY4tPBQHF+/7uIFf4IYmk7Oc8C3qq37oR3Mk2aiMav+6temsjjBmMIFHI9Ep/8MAKUS0BxhwkFAMxa9CQ1HOQ=="
+        "resolved": "3.6.0",
+        "contentHash": "L9t9h0DVfwzJSVukLJn/S8ggLYk18lU7iLW3JmYZVad14DvT7e1YQU2E3OuLv89mAcbBr/lLMpVIe+9ywky74Q=="
       },
       "J2N": {
         "type": "Transitive",
@@ -3908,7 +3908,7 @@
       "our.umbraco.maintenancemode.core": {
         "type": "Project",
         "dependencies": {
-          "IPNetwork2": "[3.4.851, )",
+          "IPNetwork2": "[3.6.0, )",
           "Umbraco.Cms.Web.Website": "[16.0.0, )"
         }
       }
