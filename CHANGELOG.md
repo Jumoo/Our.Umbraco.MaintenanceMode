@@ -5,7 +5,23 @@ entries start from here.
 
 ## Unreleased
 
-### Added
+## [18.1.1] - 2026-10-13
+
+### Fixed
+
+- The Maintenance Mode dashboard label is now consistent with other backoffice dashboard
+  labels (#79).
+
+### Changed
+
+- Backoffice client dependencies updated: `lit` 3.3, `typescript` 5.9 and `vite` 8 (#105,
+  #106, #108).
+- Dependabot no longer bumps `@hey-api/*` on its own or moves `typescript` to v6+, since both
+  have to line up with `@umbraco-cms/backoffice` (#104).
+- CI builds and packs the Core and Client projects explicitly and pushes them as their own
+  NuGet packages alongside the main package (#89, #92).
+
+### Repository (#81)
 
 - Repository standards: `LICENSE`, `CHANGELOG.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`,
   `.editorconfig`, `global.json`, `Directory.Build.props`, `GitVersion.yml`, dependabot, and
@@ -19,4 +35,16 @@ entries start from here.
 - `packages.lock.json` for the shipped projects, so a transitive dependency update can't
   change a build without a commit.
 
-[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.0...HEAD
+## [18.1.0] - 2026-07-21
+
+### Added
+
+- Lock site: freezes all backoffice editing, not just content and media, with an optional
+  `MaintenanceMode:LockPassword` required to unlock (#80).
+- Locking and unlocking the site writes a log entry naming the backoffice user who did it.
+- Changes to the `MaintenanceMode` appsettings section are picked up without restarting the
+  site.
+
+[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.1...HEAD
+[18.1.1]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.0...v18.1.1
+[18.1.0]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/tree/v18.1.0
