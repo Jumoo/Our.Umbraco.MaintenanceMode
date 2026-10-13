@@ -26,6 +26,13 @@ updates:
       interval: "weekly"
     ignore:
       - dependency-name: "@umbraco-cms/*"
+      # hey-api has to match the version @umbraco-cms/backoffice declares as a peer,
+      # so it moves with the backoffice package, not on its own.
+      - dependency-name: "@hey-api/*"
+      # TypeScript stays on v5 until hey-api supports v7 - moving is a breaking change
+      # for the generated client, not just a version bump.
+      - dependency-name: "typescript"
+        versions: [">=6.0.0"]
     groups:
       npm-dependencies:
         patterns:
