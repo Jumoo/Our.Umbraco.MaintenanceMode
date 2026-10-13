@@ -17,6 +17,8 @@ concurrency:
 env:
   config: Release
   out_folder: ./build-out/
+  core_project: ./Our.Umbraco.MaintenanceMode.Core/Our.Umbraco.MaintenanceMode.Core.csproj
+  client_project: ./Our.Umbraco.MaintenanceMode.Client/Our.Umbraco.MaintenanceMode.Client.csproj
   package_project: ./Our.Umbraco.MaintenanceMode/Our.Umbraco.MaintenanceMode.csproj
   client_folder: ./Our.Umbraco.MaintenanceMode.Client/maintenance-client
 
@@ -82,6 +84,27 @@ jobs:
         run: npm run build
         working-directory: ${{ env.client_folder }}
 
+      # Core and Client are built explicitly, not just pulled in transitively via the
+      # package project's ProjectReferences, so a break in either is attributed to the
+      # right project and isn't masked by only ever building the package project.
+      - name: restore core
+        run: dotnet restore ${{ env.core_project }} --locked-mode
+
+      - name: build core
+        run: >
+          dotnet build ${{ env.core_project }}
+          -c ${{ env.config }} --no-restore
+          -p:ContinuousIntegrationBuild=true
+
+      - name: restore client
+        run: dotnet restore ${{ env.client_project }} --locked-mode
+
+      - name: build client project
+        run: >
+          dotnet build ${{ env.client_project }}
+          -c ${{ env.config }} --no-restore
+          -p:ContinuousIntegrationBuild=true
+
       - name: restore
         run: dotnet restore ${{ env.package_project }} --locked-mode
 
@@ -91,8 +114,29 @@ jobs:
           -c ${{ env.config }} --no-restore
           -p:ContinuousIntegrationBuild=true
 
+      # Our.Umbraco.MaintenanceMode.nuspec declares Core and Client as NuGet dependencies
+      # at this same version (they're ordinary packable ProjectReferences, not
+      # IsPackable=false), so all three have to be packed together for the artifact
+      # produced here to reflect what release.yml would actually publish.
+      #
       # deliberately not --no-build: the version has to be stamped onto the assembly as well
       # as the nuspec, so this step rebuilds with it.
+      - name: pack core
+        run: >
+          dotnet pack ${{ env.core_project }}
+          -c ${{ env.config }}
+          --output ${{ env.out_folder }}
+          /p:version=${{ needs.version.outputs.version_string }}
+          -p:ContinuousIntegrationBuild=true
+
+      - name: pack client
+        run: >
+          dotnet pack ${{ env.client_project }}
+          -c ${{ env.config }}
+          --output ${{ env.out_folder }}
+          /p:version=${{ needs.version.outputs.version_string }}
+          -p:ContinuousIntegrationBuild=true
+
       - name: package
         run: >
           dotnet pack ${{ env.package_project }}
