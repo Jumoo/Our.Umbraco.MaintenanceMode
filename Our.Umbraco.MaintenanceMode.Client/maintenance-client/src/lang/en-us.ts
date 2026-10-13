@@ -27,7 +27,7 @@ export default {
     labelTemplateDesc: "Template to be used on maintenance page.",
 
     labelUnfreeze: "Unfrozen/unlocked users",
-    labelUnFreezeDesc:
+    labelUnfreezeDesc:
       "Users who can still edit when content is frozen or locked.",
 
     labelPageTitle: "Page title",

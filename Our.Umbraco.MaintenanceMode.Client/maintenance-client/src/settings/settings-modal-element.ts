@@ -209,7 +209,11 @@ export class SettingsModalElement extends UmbModalBaseElement<
                   this._context?.updateSettings({
                     enablePublicStatus: (e.target as HTMLInputElement).checked,
                   })}
-              ></uui-toggle>
+              >
+                <span class="visually-hidden"
+                  >${this.localize.term("maintenance_labelPublicStatus")}</span
+                >
+              </uui-toggle>
             </div>
           </umb-property-layout>
         </uui-box>
@@ -232,6 +236,16 @@ export class SettingsModalElement extends UmbModalBaseElement<
   static styles = css`
     uui-input {
       width: 100%;
+    }
+
+    /* toggle label for screen readers only - the property layout already shows it */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
   `;
 }
