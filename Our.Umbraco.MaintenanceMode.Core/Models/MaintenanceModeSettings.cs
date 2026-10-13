@@ -18,6 +18,12 @@ namespace Our.Umbraco.MaintenanceMode.Models
         /// </summary>
         public string IpWhitelist { get; set; } = "";
         public string UnfrozenUsers { get; set; } = "";
+
+        /// <summary>
+        ///  expose the maintenance, freeze and lock flags (and nothing else) on an
+        ///  anonymous status url - off by default
+        /// </summary>
+        public bool EnablePublicStatus { get; set; } = false;
         public MaintenanceMode ViewModel { get; set; }
     }
 }
