@@ -38,6 +38,53 @@ You can configure maintenance mode settings in your `appsettings.json` file:
 - **StorageMode** - Storage mode for maintenance state (Auto, FileSystem, or Database)
 - **WaitTimeBetweenDatabaseCalls** - Seconds to wait between database polling (when using Database storage mode)
 
+### Dashboard Settings
+
+These are set from **Advanced options** on the Maintenance Mode dashboard, and are stored with the
+maintenance state (so with `StorageMode` set to `Database` they apply across all instances).
+
+- **Url Whitelist** - comma-separated paths that skip the maintenance page, e.g. `/health,/robots`.
+  Each path must match the request path exactly (leading/trailing slashes are ignored, sub-paths are
+  not included).
+- **IP Whitelist** - comma-separated IP addresses or CIDR ranges that skip the maintenance page,
+  e.g. `203.0.113.7,10.0.0.0/24`.
+- **Public status url** - see [Public Status Url](#public-status-url) below.
+
+Some paths are always allowed and never need whitelisting: anything under `/umbraco`, `/App_Plugins`,
+`/api`, `/media` and `/install`, any path containing a `.` (static files), and `/umbraco-signin-oidc`.
+
+#### Umbraco Cloud and external logins
+
+Umbraco Cloud (and any other OpenID Connect back office login) returns to the site on
+`/umbraco-signin-oidc` after you sign in. That path is allowed automatically from v17.1.1. On
+earlier versions, or if your login provider uses a different callback path, add it to the
+**Url Whitelist** - otherwise the login callback gets the maintenance page and the back office
+login fails (often as a 400 or 500 error), locking you out:
+
+```
+/umbraco-signin-oidc
+```
+
+### Public Status Url
+
+For monitoring dashboards that track many sites, maintenance mode can expose its state on an
+anonymous url. It is **off by default**; turn on **Public status url** in Advanced options, then:
+
+```
+GET /umbraco/maintenance/status
+```
+
+```json
+{
+  "isInMaintenanceMode": false,
+  "isContentFrozen": true,
+  "isSiteLocked": false
+}
+```
+
+Only these three flags are returned - no settings, whitelists or passwords. When the option is
+off the url returns `404`.
+
 ### Password-Protected Site Lock
 
 The `LockPassword` setting provides additional security for the site lock feature:

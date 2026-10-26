@@ -24,6 +24,7 @@ export type MaintenanceModeSettings = {
     urlWhitelist?: string | null;
     ipWhitelist?: string | null;
     unfrozenUsers?: string | null;
+    enablePublicStatus: boolean;
     viewModel?: MaintenanceMode | null;
 };
 

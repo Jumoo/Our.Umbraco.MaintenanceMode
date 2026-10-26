@@ -15,6 +15,12 @@ Simple dashboard to allow you to flick your Umbraco site in and out of Maintenan
 
 This will persist the maintenance mode configuration settings to your Umbraco database and read from there in your content delivery instances.
 
+## Umbraco Cloud, whitelisting and the public status url
+
+The [package readme](Our.Umbraco.MaintenanceMode/readme.md) covers the **Url Whitelist** and
+**IP Whitelist** settings (both comma-separated), the Umbraco Cloud `/umbraco-signin-oidc` login
+callback, and the opt-in anonymous status url at `/umbraco/maintenance/status`.
+
 ## Repository layout
 
 | Path | What it is |
