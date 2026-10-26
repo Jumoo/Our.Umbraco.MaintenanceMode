@@ -116,8 +116,8 @@
       },
       "IPNetwork2": {
         "type": "Transitive",
-        "resolved": "3.6.0",
-        "contentHash": "L9t9h0DVfwzJSVukLJn/S8ggLYk18lU7iLW3JmYZVad14DvT7e1YQU2E3OuLv89mAcbBr/lLMpVIe+9ywky74Q=="
+        "resolved": "5.0.1",
+        "contentHash": "t9/WGKCqeviplyVe3kGo6d7e3kNf4D6FNrf8iewktMB4VeMRY8VZTmYLvYt7sbsq/OmdtdjBc+gVqxGsNZ5W0Q=="
       },
       "J2N": {
         "type": "Transitive",
@@ -2245,7 +2245,7 @@
       "our.umbraco.maintenancemode.core": {
         "type": "Project",
         "dependencies": {
-          "IPNetwork2": "[3.6.0, )",
+          "IPNetwork2": "[5.0.1, )",
           "Umbraco.Cms.Web.BackOffice": "[10.0.0, )",
           "Umbraco.Cms.Web.Website": "[10.0.0, )"
         }
