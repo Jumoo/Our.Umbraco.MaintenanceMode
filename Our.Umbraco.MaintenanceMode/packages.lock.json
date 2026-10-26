@@ -189,8 +189,8 @@
       },
       "IPNetwork2": {
         "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "OKePsHlxZx6TMy3tL5grQp39hJ2kujpXgotdz+jW8Zfw6UcAvsIWPV+3/ZoE7roo8F54BtXyOJsdUTseAf2grA=="
+        "resolved": "5.0.1",
+        "contentHash": "t9/WGKCqeviplyVe3kGo6d7e3kNf4D6FNrf8iewktMB4VeMRY8VZTmYLvYt7sbsq/OmdtdjBc+gVqxGsNZ5W0Q=="
       },
       "J2N": {
         "type": "Transitive",
@@ -2378,7 +2378,7 @@
       "our.umbraco.maintenancemode.client": {
         "type": "Project",
         "dependencies": {
-          "Our.Umbraco.MaintenanceMode.Core": "[18.1.0, )",
+          "Our.Umbraco.MaintenanceMode.Core": "[18.1.1, )",
           "Umbraco.Cms": "[18.0.0, )",
           "Umbraco.Cms.Api.Management": "[18.0.0, )"
         }
@@ -2386,7 +2386,7 @@
       "our.umbraco.maintenancemode.core": {
         "type": "Project",
         "dependencies": {
-          "IPNetwork2": "[4.3.0, )",
+          "IPNetwork2": "[5.0.1, )",
           "Umbraco.Cms": "[18.0.0, )",
           "Umbraco.Cms.Web.Website": "[18.0.0, )"
         }
