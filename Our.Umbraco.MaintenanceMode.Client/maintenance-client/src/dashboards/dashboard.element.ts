@@ -34,6 +34,7 @@ export class MaintenanceManagerDashboard extends UmbElementMixin(LitElement) {
     hasLockPassword: false,
     settings: {
       allowBackOfficeUsersThrough: true,
+      enablePublicStatus: false,
     },
   };
 

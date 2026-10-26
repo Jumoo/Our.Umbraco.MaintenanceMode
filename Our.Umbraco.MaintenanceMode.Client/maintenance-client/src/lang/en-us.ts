@@ -27,7 +27,7 @@ export default {
     labelTemplateDesc: "Template to be used on maintenance page.",
 
     labelUnfreeze: "Unfrozen/unlocked users",
-    labelUnFreezeDesc:
+    labelUnfreezeDesc:
       "Users who can still edit when content is frozen or locked.",
 
     labelPageTitle: "Page title",
@@ -41,10 +41,14 @@ export default {
 
     labelUrlWhitelist: "Url Whitelist",
     labelUrlWhitelistDesc:
-      "File paths that do not trigger maintenance page override.",
+      "Comma-separated paths that skip the maintenance page, e.g. /health,/robots. Paths must match exactly. /umbraco and /umbraco-signin-oidc (Umbraco Cloud login) are always allowed.",
 
     labelIpWhitelist: "IP Whitelist",
     labelIpWhitelistDesc:
-      "IP adresses that do not trigger maintenance page override.",
+      "Comma-separated IP addresses or CIDR ranges that skip the maintenance page, e.g. 203.0.113.7,10.0.0.0/24.",
+
+    labelPublicStatus: "Public status url",
+    labelPublicStatusDesc:
+      "Allow anyone to read the maintenance, frozen and locked state (and nothing else) at /umbraco/maintenance/status, for monitoring dashboards.",
   },
 };

@@ -5,6 +5,14 @@ entries start from here.
 
 ## Unreleased
 
+### Added
+
+- Opt-in anonymous status url, `/umbraco/maintenance/status`, returning only
+  `isInMaintenanceMode`, `isContentFrozen` and `isSiteLocked` for monitoring dashboards. Turned on
+  with the new **Public status url** option in the dashboard's advanced settings (#66).
+- Documentation for the Url and IP whitelists, and for Umbraco Cloud's `/umbraco-signin-oidc` login
+  callback. The dashboard descriptions now say both whitelists are comma-separated (#76).
+
 ## [18.1.1] - 2026-10-13
 
 ### Fixed
