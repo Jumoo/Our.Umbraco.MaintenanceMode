@@ -5,6 +5,8 @@ entries start from here.
 
 ## Unreleased
 
+## [18.2.0] - 2026-10-26
+
 ### Added
 
 - Opt-in anonymous status url, `/umbraco/maintenance/status`, returning only
@@ -12,6 +14,16 @@ entries start from here.
   with the new **Public status url** option in the dashboard's advanced settings (#66).
 - Documentation for the Url and IP whitelists, and for Umbraco Cloud's `/umbraco-signin-oidc` login
   callback. The dashboard descriptions now say both whitelists are comma-separated (#76).
+
+### Fixed
+
+- The unfreeze option's description showed a raw localization key, and the toggle repeated its
+  label.
+
+### Changed
+
+- `IPNetwork2` updated from 4.3.0 to 5.0.1 (#115). IP whitelist matching behaves the same.
+- Backoffice client dependency updates (vite).
 
 ## [18.1.1] - 2026-10-13
 
@@ -53,6 +65,7 @@ entries start from here.
 - Changes to the `MaintenanceMode` appsettings section are picked up without restarting the
   site.
 
-[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.1...HEAD
+[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.0...HEAD
+[18.2.0]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.1...v18.2.0
 [18.1.1]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.0...v18.1.1
 [18.1.0]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/tree/v18.1.0
