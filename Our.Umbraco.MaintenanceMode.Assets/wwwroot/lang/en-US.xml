@@ -42,6 +42,9 @@
 		<key alias="labelTextDesc"><![CDATA[The body text.]]></key>
 
 		<key alias="labelUrlWhitelist">Url Whitelist</key>
-		<key alias="labelUrlWhitelistDesc"><![CDATA[File paths that do not trigger maintenance page override.]]></key>
+		<key alias="labelUrlWhitelistDesc"><![CDATA[Comma-separated paths that skip the maintenance page, e.g. /health,/robots. Paths must match exactly. /umbraco and /umbraco-signin-oidc (Umbraco Cloud login) are always allowed.]]></key>
+
+		<key alias="labelPublicStatus">Public status url</key>
+		<key alias="labelPublicStatusDesc"><![CDATA[Allow anyone to read the maintenance, frozen and locked state (and nothing else) at /umbraco/maintenance/status, for monitoring dashboards.]]></key>
 	</area>
 </language>
