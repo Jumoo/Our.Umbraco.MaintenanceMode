@@ -8,7 +8,7 @@
         {
             "name": "maintenancemanager.entrypoint",
             "alias": "maintenancemanager.EntryPoint",
-            "type": "entryPoint",
+            "type": "backofficeEntryPoint",
             "js": "/App_Plugins/Our.Umbraco.MaintenanceMode/assets.js?v=16.0.1"
         }
     ]
