@@ -5,6 +5,12 @@ entries start from here.
 
 ## Unreleased
 
+### Fixed
+
+- The backoffice client registers as a `backofficeEntryPoint` instead of the deprecated
+  `entryPoint`, so the deprecation warning no longer shows in the browser console on every
+  backoffice load.
+
 ## [18.2.0] - 2026-10-26
 
 ### Added
