@@ -33,23 +33,23 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
         [ProducesResponseType<bool>(StatusCodes.Status200OK)]
         public bool HasLockPassword() => _maintenanceModeService.HasLockPassword;
 
-        [HttpGet("ToggleMode")]
+        [HttpPut("ToggleMode")]
         [ProducesResponseType(200)]
-        public void ToggleMode(bool maintenanceMode)
+        public void ToggleMode([FromBody] bool maintenanceMode)
         {
             _maintenanceModeService.ToggleMaintenanceMode(maintenanceMode);
         }
 
-        [HttpGet("ToggleFrozen")]
+        [HttpPut("ToggleFrozen")]
         [ProducesResponseType(200)]
-        public void ToggleFrozen(bool maintenanceMode)
+        public void ToggleFrozen([FromBody] bool maintenanceMode)
         {
             _maintenanceModeService.ToggleContentFreeze(maintenanceMode);
         }
 
-        [HttpGet("ToggleSiteLock")]
+        [HttpPut("ToggleSiteLock")]
         [ProducesResponseType(200)]
-        public void ToggleSiteLock(bool siteLocked)
+        public void ToggleSiteLock([FromBody] bool siteLocked)
         {
             // Only allow locking via this endpoint
             // Unlocking must be done via the UnlockSite endpoint with password
@@ -84,9 +84,9 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Invalid password" });
         }
 
-        [HttpGet("ToggleAccess")]
+        [HttpPut("ToggleAccess")]
         [ProducesResponseType(200)]
-        public void ToggleAccess(bool maintenanceMode)
+        public void ToggleAccess([FromBody] bool maintenanceMode)
         {
             _maintenanceModeService.ToggleAccess(maintenanceMode);
         }

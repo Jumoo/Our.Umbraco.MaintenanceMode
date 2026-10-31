@@ -70,9 +70,7 @@ export class MaintenanceContext extends UmbControllerBase {
     await tryExecute(
       this.#host,
       MaintenanceModeService.toggleMode({
-        query: {
-          maintenanceMode: !this.#status.getValue()?.isInMaintenanceMode,
-        },
+        body: !this.#status.getValue()?.isInMaintenanceMode,
       })
     );
     await this.getStatus();
@@ -83,9 +81,7 @@ export class MaintenanceContext extends UmbControllerBase {
     await tryExecute(
       this.#host,
       MaintenanceModeService.toggleFrozen({
-        query: {
-          maintenanceMode: !this.#status.getValue()?.isContentFrozen,
-        },
+        body: !this.#status.getValue()?.isContentFrozen,
       })
     );
     await this.getStatus();
@@ -177,9 +173,7 @@ export class MaintenanceContext extends UmbControllerBase {
       await tryExecute(
         this.#host,
         MaintenanceModeService.toggleSiteLock({
-          query: {
-            siteLocked: !currentStatus?.isSiteLocked,
-          },
+          body: !currentStatus?.isSiteLocked,
         })
       );
       await this.getStatus();
@@ -191,10 +185,7 @@ export class MaintenanceContext extends UmbControllerBase {
     await tryExecute(
       this.#host,
       MaintenanceModeService.toggleAccess({
-        query: {
-          maintenanceMode:
-            !this.#status?.getValue()?.settings?.allowBackOfficeUsersThrough,
-        },
+        body: !this.#status?.getValue()?.settings?.allowBackOfficeUsersThrough,
       })
     );
     await this.getStatus();
