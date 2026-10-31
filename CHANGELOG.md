@@ -5,6 +5,8 @@ entries start from here.
 
 ## Unreleased
 
+## [17.2.1] - 2026-10-31
+
 ### Fixed
 
 - The backoffice client registers as a `backofficeEntryPoint` instead of the deprecated
@@ -59,5 +61,6 @@ entries start from here.
 - `packages.lock.json` for the shipped projects, so a transitive dependency update can't
   change a build without a commit.
 
-[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v17.2.0...HEAD
+[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v17.2.1...HEAD
+[17.2.1]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v17.2.0...v17.2.1
 [17.2.0]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v17.1.4...v17.2.0
