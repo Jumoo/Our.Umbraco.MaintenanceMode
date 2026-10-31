@@ -89,11 +89,9 @@ export type SaveSettingsResponses = {
 };
 
 export type ToggleAccessData = {
-    body?: never;
+    body?: boolean;
     path?: never;
-    query?: {
-        maintenanceMode?: boolean;
-    };
+    query?: never;
     url: '/umbraco/maintenance/api/v1/ToggleAccess';
 };
 
@@ -105,11 +103,9 @@ export type ToggleAccessResponses = {
 };
 
 export type ToggleFrozenData = {
-    body?: never;
+    body?: boolean;
     path?: never;
-    query?: {
-        maintenanceMode?: boolean;
-    };
+    query?: never;
     url: '/umbraco/maintenance/api/v1/ToggleFrozen';
 };
 
@@ -121,11 +117,9 @@ export type ToggleFrozenResponses = {
 };
 
 export type ToggleModeData = {
-    body?: never;
+    body?: boolean;
     path?: never;
-    query?: {
-        maintenanceMode?: boolean;
-    };
+    query?: never;
     url: '/umbraco/maintenance/api/v1/ToggleMode';
 };
 
@@ -139,11 +133,9 @@ export type ToggleModeResponses = {
 // NOTE: manually mirrored to match the backend ToggleSiteLock/UnlockSite/HasLockPassword
 // endpoints; regenerate via openapi-ts when the backend is available.
 export type ToggleSiteLockData = {
-    body?: never;
+    body?: boolean;
     path?: never;
-    query?: {
-        siteLocked?: boolean;
-    };
+    query?: never;
     url: '/umbraco/maintenance/api/v1/ToggleSiteLock';
 };
 

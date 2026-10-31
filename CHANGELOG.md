@@ -11,6 +11,13 @@ entries start from here.
   `entryPoint`, so the deprecation warning no longer shows in the browser console on every
   backoffice load.
 
+### Security
+
+- The dashboard's toggle endpoints (`ToggleMode`, `ToggleFrozen`, `ToggleSiteLock`, `ToggleAccess`)
+  changed state on a GET. They are now POSTs that take a JSON body, so a link or an image tag can't
+  trigger them for a logged in user.
+- Line breaks are stripped from the request path before it is written to the debug log.
+
 ## [17.2.0] - 2026-10-26
 
 ### Added

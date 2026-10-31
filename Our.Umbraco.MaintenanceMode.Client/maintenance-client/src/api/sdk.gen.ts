@@ -32,7 +32,14 @@ export class MaintenanceModeService {
     }
 
     public static toggleSiteLock<ThrowOnError extends boolean = true>(options?: Options<ToggleSiteLockData, ThrowOnError>) {
-        return (options?.client ?? client).get<ToggleSiteLockResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/ToggleSiteLock', ...options });
+        return (options?.client ?? client).post<ToggleSiteLockResponses, unknown, ThrowOnError>({
+            url: '/umbraco/maintenance/api/v1/ToggleSiteLock',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers
+            }
+        });
     }
 
     public static unlockSite<ThrowOnError extends boolean = true>(options?: Options<UnlockSiteData, ThrowOnError>) {
@@ -58,14 +65,35 @@ export class MaintenanceModeService {
     }
     
     public static toggleAccess<ThrowOnError extends boolean = true>(options?: Options<ToggleAccessData, ThrowOnError>) {
-        return (options?.client ?? client).get<ToggleAccessResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/ToggleAccess', ...options });
+        return (options?.client ?? client).post<ToggleAccessResponses, unknown, ThrowOnError>({
+            url: '/umbraco/maintenance/api/v1/ToggleAccess',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers
+            }
+        });
     }
     
     public static toggleFrozen<ThrowOnError extends boolean = true>(options?: Options<ToggleFrozenData, ThrowOnError>) {
-        return (options?.client ?? client).get<ToggleFrozenResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/ToggleFrozen', ...options });
+        return (options?.client ?? client).post<ToggleFrozenResponses, unknown, ThrowOnError>({
+            url: '/umbraco/maintenance/api/v1/ToggleFrozen',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers
+            }
+        });
     }
     
     public static toggleMode<ThrowOnError extends boolean = true>(options?: Options<ToggleModeData, ThrowOnError>) {
-        return (options?.client ?? client).get<ToggleModeResponses, unknown, ThrowOnError>({ url: '/umbraco/maintenance/api/v1/ToggleMode', ...options });
+        return (options?.client ?? client).post<ToggleModeResponses, unknown, ThrowOnError>({
+            url: '/umbraco/maintenance/api/v1/ToggleMode',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers
+            }
+        });
     }
 }

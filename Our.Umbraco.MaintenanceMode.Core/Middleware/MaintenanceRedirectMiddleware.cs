@@ -35,7 +35,7 @@ namespace Our.Umbraco.MaintenanceMode.Middleware
 
         public async Task InvokeAsync(HttpContext context, IBackofficeUserAccessor backofficeUserAccessor)
         {
-            _logger.LogDebug("Maintenance mode middleware triggered {url}", context.Request.Path);
+            _logger.LogDebug("Maintenance mode middleware triggered {url}", context.Request.Path.Value?.Replace("\r", "").Replace("\n", ""));
 
             if (IsAllowedPath(context) == true)
             {
