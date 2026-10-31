@@ -33,21 +33,21 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
         [ProducesResponseType<bool>(StatusCodes.Status200OK)]
         public bool HasLockPassword() => _maintenanceModeService.HasLockPassword;
 
-        [HttpPost("ToggleMode")]
+        [HttpPut("ToggleMode")]
         [ProducesResponseType(200)]
         public void ToggleMode([FromBody] bool maintenanceMode)
         {
             _maintenanceModeService.ToggleMaintenanceMode(maintenanceMode);
         }
 
-        [HttpPost("ToggleFrozen")]
+        [HttpPut("ToggleFrozen")]
         [ProducesResponseType(200)]
         public void ToggleFrozen([FromBody] bool maintenanceMode)
         {
             _maintenanceModeService.ToggleContentFreeze(maintenanceMode);
         }
 
-        [HttpPost("ToggleSiteLock")]
+        [HttpPut("ToggleSiteLock")]
         [ProducesResponseType(200)]
         public void ToggleSiteLock([FromBody] bool siteLocked)
         {
@@ -84,7 +84,7 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Invalid password" });
         }
 
-        [HttpPost("ToggleAccess")]
+        [HttpPut("ToggleAccess")]
         [ProducesResponseType(200)]
         public void ToggleAccess([FromBody] bool maintenanceMode)
         {

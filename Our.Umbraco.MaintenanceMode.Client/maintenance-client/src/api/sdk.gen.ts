@@ -99,7 +99,7 @@ export class MaintenanceModeService {
   public static toggleAccess<ThrowOnError extends boolean = true>(
     options?: Options<ToggleAccessData, ThrowOnError>,
   ): RequestResult<ToggleAccessResponses, unknown, ThrowOnError> {
-    return (options?.client ?? client).post<
+    return (options?.client ?? client).put<
       ToggleAccessResponses,
       unknown,
       ThrowOnError
@@ -116,7 +116,7 @@ export class MaintenanceModeService {
   public static toggleFrozen<ThrowOnError extends boolean = true>(
     options?: Options<ToggleFrozenData, ThrowOnError>,
   ): RequestResult<ToggleFrozenResponses, unknown, ThrowOnError> {
-    return (options?.client ?? client).post<
+    return (options?.client ?? client).put<
       ToggleFrozenResponses,
       unknown,
       ThrowOnError
@@ -133,7 +133,7 @@ export class MaintenanceModeService {
   public static toggleMode<ThrowOnError extends boolean = true>(
     options?: Options<ToggleModeData, ThrowOnError>,
   ): RequestResult<ToggleModeResponses, unknown, ThrowOnError> {
-    return (options?.client ?? client).post<
+    return (options?.client ?? client).put<
       ToggleModeResponses,
       unknown,
       ThrowOnError
@@ -150,7 +150,7 @@ export class MaintenanceModeService {
   public static toggleSiteLock<ThrowOnError extends boolean = true>(
     options?: Options<ToggleSiteLockData, ThrowOnError>,
   ): RequestResult<ToggleSiteLockResponses, unknown, ThrowOnError> {
-    return (options?.client ?? client).post<
+    return (options?.client ?? client).put<
       ToggleSiteLockResponses,
       unknown,
       ThrowOnError

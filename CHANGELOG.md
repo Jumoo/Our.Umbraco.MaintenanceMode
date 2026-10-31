@@ -10,11 +10,13 @@ entries start from here.
 - The backoffice client registers as a `backofficeEntryPoint` instead of the deprecated
   `entryPoint`, so the deprecation warning no longer shows in the browser console on every
   backoffice load.
+- The cache-busting version on the backoffice entry point is updated, so browsers pick up the new
+  client after an upgrade.
 
 ### Security
 
 - The dashboard's toggle endpoints (`ToggleMode`, `ToggleFrozen`, `ToggleSiteLock`, `ToggleAccess`)
-  changed state on a GET. They are now POSTs that take a JSON body, so a link or an image tag can't
+  changed state on a GET. They are now PUTs that take a JSON body, so a link or an image tag can't
   trigger them for a logged in user.
 - Line breaks are stripped from the request path before it is written to the debug log.
 
