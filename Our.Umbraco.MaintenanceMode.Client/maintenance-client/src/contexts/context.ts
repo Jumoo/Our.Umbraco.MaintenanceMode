@@ -11,10 +11,10 @@ import { INFO_MODAL } from "../modals/info-modal-token";
 import {
   getSettings,
   getStatus,
-  getToggleAccess,
-  getToggleFrozen,
-  getToggleMode,
-  getToggleSiteLock,
+  putToggleAccess,
+  putToggleFrozen,
+  putToggleMode,
+  putToggleSiteLock,
   postUnlockSite,
   MaintenanceModeSettings,
   MaintenanceModeStatus,
@@ -70,10 +70,8 @@ export class MaintenanceContext extends UmbControllerBase {
     console.log("Value:", this.#status.getValue());
     await tryExecute(
       this.#host,
-      getToggleMode({
-        query: {
-          maintenanceMode: !this.#status.getValue()?.isInMaintenanceMode,
-        },
+      putToggleMode({
+        body: !this.#status.getValue()?.isInMaintenanceMode,
       }),
     );
     await this.getStatus();
@@ -83,10 +81,8 @@ export class MaintenanceContext extends UmbControllerBase {
   async toggleFrozen() {
     await tryExecute(
       this.#host,
-      getToggleFrozen({
-        query: {
-          maintenanceMode: !this.#status.getValue()?.isContentFrozen,
-        },
+      putToggleFrozen({
+        body: !this.#status.getValue()?.isContentFrozen,
       }),
     );
     await this.getStatus();
@@ -177,10 +173,8 @@ export class MaintenanceContext extends UmbControllerBase {
       // Locking the site (no password required)
       await tryExecute(
         this.#host,
-        getToggleSiteLock({
-          query: {
-            siteLocked: !currentStatus?.isSiteLocked,
-          },
+        putToggleSiteLock({
+          body: !currentStatus?.isSiteLocked,
         }),
       );
       await this.getStatus();
@@ -191,11 +185,8 @@ export class MaintenanceContext extends UmbControllerBase {
     console.log(this.#status.getValue());
     await tryExecute(
       this.#host,
-      getToggleAccess({
-        query: {
-          maintenanceMode:
-            !this.#status?.getValue()?.settings?.allowBackOfficeUsersThrough,
-        },
+      putToggleAccess({
+        body: !this.#status?.getValue()?.settings?.allowBackOfficeUsersThrough,
       }),
     );
     await this.getStatus();
