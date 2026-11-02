@@ -5,6 +5,8 @@ entries start from here.
 
 ## Unreleased
 
+## [17.3.0] - 2026-11-02
+
 ### Removed
 
 - Umbraco 16 (`net9.0`) is no longer supported. The package now targets Umbraco 10-13 (`net6.0`)
