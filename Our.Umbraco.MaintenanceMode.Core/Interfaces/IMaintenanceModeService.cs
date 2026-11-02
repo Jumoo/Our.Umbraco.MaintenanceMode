@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Our.Umbraco.MaintenanceMode.Models;
+using Umbraco.Cms.Core.Models.Membership;
 
 namespace Our.Umbraco.MaintenanceMode.Interfaces
 {
@@ -18,5 +19,6 @@ namespace Our.Umbraco.MaintenanceMode.Interfaces
         Task SaveSettings(MaintenanceModeSettings settings);
         Task ToggleAccess(bool hasAccess);
         bool AllowBackofficeUsersThrough(int? id);
+        bool AllowBackofficeUserThrough(IUser user);
     }
 }

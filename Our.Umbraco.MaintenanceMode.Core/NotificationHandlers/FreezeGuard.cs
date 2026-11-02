@@ -25,9 +25,7 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers
         {
             if (!isLocked) return;
 
-            if (backofficeUserAccessor.BackofficeUser == null) return;
-
-            if (maintenanceModeService.AllowBackofficeUsersThrough(backofficeUserAccessor.BackofficeUser.GetId())) return;
+            if (IsAllowedThrough(maintenanceModeService, backofficeUserAccessor)) return;
 
             notification.CancelOperation(new EventMessage("Warning", message, EventMessageType.Error));
         }
@@ -43,13 +41,24 @@ namespace Our.Umbraco.MaintenanceMode.NotificationHandlers
         {
             if (!isFrozen && !isLocked) return;
 
-            if (backofficeUserAccessor.BackofficeUser == null) return;
-
-            if (maintenanceModeService.AllowBackofficeUsersThrough(backofficeUserAccessor.BackofficeUser.GetId())) return;
+            if (IsAllowedThrough(maintenanceModeService, backofficeUserAccessor)) return;
 
             var message = isLocked ? DefaultSiteLockedMessage : frozenMessage;
 
             notification.CancelOperation(new EventMessage("Warning", message, EventMessageType.Error));
+        }
+
+        private static bool IsAllowedThrough(IMaintenanceModeService maintenanceModeService, IBackofficeUserAccessor backofficeUserAccessor)
+        {
+            // prefer the user Umbraco authenticated for this request - on Umbraco 14+ edits come
+            // through the token authenticated Management API, so the cookie may not identify them
+            var currentUser = backofficeUserAccessor.CurrentUser;
+            if (currentUser != null) return maintenanceModeService.AllowBackofficeUserThrough(currentUser);
+
+            var identity = backofficeUserAccessor.BackofficeUser;
+            if (identity == null) return true;
+
+            return maintenanceModeService.AllowBackofficeUsersThrough(identity.GetId());
         }
     }
 }
