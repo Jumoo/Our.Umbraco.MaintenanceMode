@@ -48,8 +48,8 @@ newer line elsewhere in the org). Workflow filters use `[ "main", "*/main" ]` an
 `^(v[0-9]+\/)?main$`, so both forms work and the next major needs no CI change.
 
 **Build the package project, never the solution, for anything CI-equivalent.**
-`Our.Umbraco.MaintenanceMode.slnx` references `MaintenanceMode.Site.16`, `MaintenanceMode.Site.17`
-and `MaintenanceMode.Site` (net6.0) as local test sites for the Umbraco majors this branch still
+`Our.Umbraco.MaintenanceMode.slnx` references `MaintenanceMode.Site.17` and
+`MaintenanceMode.Site` (net6.0) as local test sites for the Umbraco majors this branch still
 multi-targets; `Our.Umbraco.MaintenanceMode.Assets` backs the net6.0 target. None of the test
 sites are built by CI.
 

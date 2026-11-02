@@ -5,6 +5,18 @@ entries start from here.
 
 ## Unreleased
 
+### Removed
+
+- Umbraco 16 (`net9.0`) is no longer supported. The package now targets Umbraco 10-13 (`net6.0`)
+  and Umbraco 17 (`net10.0`). Umbraco 16 sites should stay on 17.2.1.
+
+### Changed
+
+- Umbraco 17 installs need Umbraco 17.3.0 or later.
+- The backoffice dashboard authenticates through Umbraco's `configureClient()`, which also adds
+  Umbraco's 401 retry and error notifications. The API's swagger document now marks every
+  operation as needing back office auth.
+
 ## [17.2.1] - 2026-10-31
 
 ### Fixed

@@ -5,7 +5,6 @@
     <File Path="gulpfile.js" />
     <File Path="paths.json" />
   </Folder>
-  <Project Path="MaintenanceMode.Site.16/MaintenanceMode.Site.16.csproj" />
   <Project Path="MaintenanceMode.Site.17/MaintenanceMode.Site.17.csproj" />
   <Project Path="MaintenanceMode.Site/MaintenanceMode.Site.csproj" />
   <Project Path="Our.Umbraco.MaintenanceMode.Assets/Our.Umbraco.MaintenanceMode.Assets.csproj" />

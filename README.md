@@ -31,7 +31,7 @@ callback, and the opt-in anonymous status url at `/umbraco/maintenance/status`.
 | `MaintenanceMode.Site.18` | Local test site for Umbraco 18, referenced by `Our.Umbraco.MaintenanceMode.slnx` |
 | `dist/buildpackage.ps1` | Local packaging script, for a package you don't want to release |
 
-`MaintenanceMode.Site.16`, `MaintenanceMode.Site.17` and `Our.Umbraco.MaintenanceMode.Assets` are
+`MaintenanceMode.Site.17` and `Our.Umbraco.MaintenanceMode.Assets` are
 kept for reference against earlier Umbraco majors and are not part of the current solution.
 
 ## Building
