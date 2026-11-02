@@ -4,14 +4,6 @@ export type ClientOptions = {
   baseUrl: "http://localhost:31222" | (string & {});
 };
 
-export enum EventMessageTypeModel {
-  DEFAULT = "Default",
-  INFO = "Info",
-  ERROR = "Error",
-  SUCCESS = "Success",
-  WARNING = "Warning",
-}
-
 export type MaintenanceMode = {
   pageTitle?: string | null;
   title?: string | null;
@@ -36,12 +28,6 @@ export type MaintenanceModeStatus = {
   hasLockPassword: boolean;
 };
 
-export type NotificationHeaderModel = {
-  message: string;
-  category: string;
-  type: EventMessageTypeModel;
-};
-
 export type UnlockSiteRequest = {
   password: string;
 };
@@ -51,6 +37,13 @@ export type GetSettingsData = {
   path?: never;
   query?: never;
   url: "/umbraco/maintenance/api/v1/GetSettings";
+};
+
+export type GetSettingsErrors = {
+  /**
+   * The resource is protected and requires an authentication token
+   */
+  401: unknown;
 };
 
 export type GetSettingsResponses = {
@@ -70,6 +63,13 @@ export type GetStatusData = {
   url: "/umbraco/maintenance/api/v1/GetStatus";
 };
 
+export type GetStatusErrors = {
+  /**
+   * The resource is protected and requires an authentication token
+   */
+  401: unknown;
+};
+
 export type GetStatusResponses = {
   /**
    * OK
@@ -84,6 +84,13 @@ export type HasLockPasswordData = {
   path?: never;
   query?: never;
   url: "/umbraco/maintenance/api/v1/HasLockPassword";
+};
+
+export type HasLockPasswordErrors = {
+  /**
+   * The resource is protected and requires an authentication token
+   */
+  401: unknown;
 };
 
 export type HasLockPasswordResponses = {
@@ -103,6 +110,13 @@ export type SaveSettingsData = {
   url: "/umbraco/maintenance/api/v1/SaveSettings";
 };
 
+export type SaveSettingsErrors = {
+  /**
+   * The resource is protected and requires an authentication token
+   */
+  401: unknown;
+};
+
 export type SaveSettingsResponses = {
   /**
    * OK
@@ -115,6 +129,13 @@ export type ToggleAccessData = {
   path?: never;
   query?: never;
   url: "/umbraco/maintenance/api/v1/ToggleAccess";
+};
+
+export type ToggleAccessErrors = {
+  /**
+   * The resource is protected and requires an authentication token
+   */
+  401: unknown;
 };
 
 export type ToggleAccessResponses = {
@@ -131,6 +152,13 @@ export type ToggleFrozenData = {
   url: "/umbraco/maintenance/api/v1/ToggleFrozen";
 };
 
+export type ToggleFrozenErrors = {
+  /**
+   * The resource is protected and requires an authentication token
+   */
+  401: unknown;
+};
+
 export type ToggleFrozenResponses = {
   /**
    * OK
@@ -145,6 +173,13 @@ export type ToggleModeData = {
   url: "/umbraco/maintenance/api/v1/ToggleMode";
 };
 
+export type ToggleModeErrors = {
+  /**
+   * The resource is protected and requires an authentication token
+   */
+  401: unknown;
+};
+
 export type ToggleModeResponses = {
   /**
    * OK
@@ -157,6 +192,13 @@ export type ToggleSiteLockData = {
   path?: never;
   query?: never;
   url: "/umbraco/maintenance/api/v1/ToggleSiteLock";
+};
+
+export type ToggleSiteLockErrors = {
+  /**
+   * The resource is protected and requires an authentication token
+   */
+  401: unknown;
 };
 
 export type ToggleSiteLockResponses = {
@@ -174,6 +216,10 @@ export type UnlockSiteData = {
 };
 
 export type UnlockSiteErrors = {
+  /**
+   * The resource is protected and requires an authentication token
+   */
+  401: unknown;
   /**
    * Internal Server Error
    */

@@ -10,15 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Umbraco.Cms.Api.Common.OpenApi;
+using Umbraco.Cms.Api.Management.OpenApi;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 
 
-#if NET10_0
 using Microsoft.OpenApi;
-#else
-using Microsoft.OpenApi.Models;
-#endif
+
 namespace Our.Umbraco.MaintenanceMode.Client
 {
     public class MaintenanceModeComposer : IComposer
@@ -43,7 +41,15 @@ namespace Our.Umbraco.MaintenanceMode.Client
                     Description = "it's maintenance mode methods"
                 });
 
+            // Marks every operation as needing back office auth, so the generated
+            // client sends the auth header configureClient() sets up.
+            options.OperationFilter<MaintenanceModeOperationSecurityFilter>();
         }
+    }
+
+    public class MaintenanceModeOperationSecurityFilter : BackOfficeSecurityRequirementsOperationFilterBase
+    {
+        protected override string ApiName => "maintenance";
     }
 
     public class MaintenanceModeCustomOperationHandler : IOperationIdHandler

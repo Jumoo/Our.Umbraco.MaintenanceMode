@@ -17,22 +17,19 @@ const manifests: Array<UmbExtensionManifest> = [
   ...modalManifests,
 ];
 
-export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
-  // register them here.
+export const onInit: UmbEntryPointOnInit = async (host, extensionRegistry) => {
+  // Configure the API client before registering anything that uses it, so the
+  // first request is already authenticated. configureClient() sets baseUrl and
+  // credentials, attaches the auth callback and binds the default interceptors
+  // (401 retry, error notifications).
+  const authContext = await host.getContext(UMB_AUTH_CONTEXT);
+  if (authContext) {
+    authContext.configureClient(client);
+  } else {
+    console.warn(
+      "UMB_AUTH_CONTEXT not available — extension API client will not be authenticated",
+    );
+  }
+
   extensionRegistry.registerMany(manifests);
-  _host.consumeContext(UMB_AUTH_CONTEXT, (_auth) => {
-    if (!_auth) return;
-    const config = _auth.getOpenApiConfiguration();
-
-    client.setConfig({
-      baseUrl: config.base,
-      credentials: config.credentials,
-    });
-
-    client.interceptors.request.use(async (request, _options) => {
-      const token = await _auth.getLatestToken();
-      request.headers.set("Authorization", `Bearer ${token}`);
-      return request;
-    });
-  });
 };

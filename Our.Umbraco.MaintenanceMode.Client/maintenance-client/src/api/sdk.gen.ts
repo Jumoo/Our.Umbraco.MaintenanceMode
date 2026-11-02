@@ -10,20 +10,28 @@ import type {
 import { client } from "./client.gen";
 import type {
   GetSettingsData,
+  GetSettingsErrors,
   GetSettingsResponses,
   GetStatusData,
+  GetStatusErrors,
   GetStatusResponses,
   HasLockPasswordData,
+  HasLockPasswordErrors,
   HasLockPasswordResponses,
   SaveSettingsData,
+  SaveSettingsErrors,
   SaveSettingsResponses,
   ToggleAccessData,
+  ToggleAccessErrors,
   ToggleAccessResponses,
   ToggleFrozenData,
+  ToggleFrozenErrors,
   ToggleFrozenResponses,
   ToggleModeData,
+  ToggleModeErrors,
   ToggleModeResponses,
   ToggleSiteLockData,
+  ToggleSiteLockErrors,
   ToggleSiteLockResponses,
   UnlockSiteData,
   UnlockSiteErrors,
@@ -51,42 +59,59 @@ export type Options<
 export class MaintenanceModeService {
   public static getSettings<ThrowOnError extends boolean = true>(
     options?: Options<GetSettingsData, ThrowOnError>,
-  ): RequestResult<GetSettingsResponses, unknown, ThrowOnError> {
+  ): RequestResult<GetSettingsResponses, GetSettingsErrors, ThrowOnError> {
     return (options?.client ?? client).get<
       GetSettingsResponses,
-      unknown,
+      GetSettingsErrors,
       ThrowOnError
-    >({ url: "/umbraco/maintenance/api/v1/GetSettings", ...options });
+    >({
+      security: [{ scheme: "bearer", type: "http" }],
+      url: "/umbraco/maintenance/api/v1/GetSettings",
+      ...options,
+    });
   }
 
   public static getStatus<ThrowOnError extends boolean = true>(
     options?: Options<GetStatusData, ThrowOnError>,
-  ): RequestResult<GetStatusResponses, unknown, ThrowOnError> {
+  ): RequestResult<GetStatusResponses, GetStatusErrors, ThrowOnError> {
     return (options?.client ?? client).get<
       GetStatusResponses,
-      unknown,
+      GetStatusErrors,
       ThrowOnError
-    >({ url: "/umbraco/maintenance/api/v1/GetStatus", ...options });
+    >({
+      security: [{ scheme: "bearer", type: "http" }],
+      url: "/umbraco/maintenance/api/v1/GetStatus",
+      ...options,
+    });
   }
 
   public static hasLockPassword<ThrowOnError extends boolean = true>(
     options?: Options<HasLockPasswordData, ThrowOnError>,
-  ): RequestResult<HasLockPasswordResponses, unknown, ThrowOnError> {
+  ): RequestResult<
+    HasLockPasswordResponses,
+    HasLockPasswordErrors,
+    ThrowOnError
+  > {
     return (options?.client ?? client).get<
       HasLockPasswordResponses,
-      unknown,
+      HasLockPasswordErrors,
       ThrowOnError
-    >({ url: "/umbraco/maintenance/api/v1/HasLockPassword", ...options });
+    >({
+      security: [{ scheme: "bearer", type: "http" }],
+      url: "/umbraco/maintenance/api/v1/HasLockPassword",
+      ...options,
+    });
   }
 
   public static saveSettings<ThrowOnError extends boolean = true>(
     options?: Options<SaveSettingsData, ThrowOnError>,
-  ): RequestResult<SaveSettingsResponses, unknown, ThrowOnError> {
+  ): RequestResult<SaveSettingsResponses, SaveSettingsErrors, ThrowOnError> {
     return (options?.client ?? client).post<
       SaveSettingsResponses,
-      unknown,
+      SaveSettingsErrors,
       ThrowOnError
     >({
+      security: [{ scheme: "bearer", type: "http" }],
       url: "/umbraco/maintenance/api/v1/SaveSettings",
       ...options,
       headers: {
@@ -98,12 +123,13 @@ export class MaintenanceModeService {
 
   public static toggleAccess<ThrowOnError extends boolean = true>(
     options?: Options<ToggleAccessData, ThrowOnError>,
-  ): RequestResult<ToggleAccessResponses, unknown, ThrowOnError> {
+  ): RequestResult<ToggleAccessResponses, ToggleAccessErrors, ThrowOnError> {
     return (options?.client ?? client).put<
       ToggleAccessResponses,
-      unknown,
+      ToggleAccessErrors,
       ThrowOnError
     >({
+      security: [{ scheme: "bearer", type: "http" }],
       url: "/umbraco/maintenance/api/v1/ToggleAccess",
       ...options,
       headers: {
@@ -115,12 +141,13 @@ export class MaintenanceModeService {
 
   public static toggleFrozen<ThrowOnError extends boolean = true>(
     options?: Options<ToggleFrozenData, ThrowOnError>,
-  ): RequestResult<ToggleFrozenResponses, unknown, ThrowOnError> {
+  ): RequestResult<ToggleFrozenResponses, ToggleFrozenErrors, ThrowOnError> {
     return (options?.client ?? client).put<
       ToggleFrozenResponses,
-      unknown,
+      ToggleFrozenErrors,
       ThrowOnError
     >({
+      security: [{ scheme: "bearer", type: "http" }],
       url: "/umbraco/maintenance/api/v1/ToggleFrozen",
       ...options,
       headers: {
@@ -132,12 +159,13 @@ export class MaintenanceModeService {
 
   public static toggleMode<ThrowOnError extends boolean = true>(
     options?: Options<ToggleModeData, ThrowOnError>,
-  ): RequestResult<ToggleModeResponses, unknown, ThrowOnError> {
+  ): RequestResult<ToggleModeResponses, ToggleModeErrors, ThrowOnError> {
     return (options?.client ?? client).put<
       ToggleModeResponses,
-      unknown,
+      ToggleModeErrors,
       ThrowOnError
     >({
+      security: [{ scheme: "bearer", type: "http" }],
       url: "/umbraco/maintenance/api/v1/ToggleMode",
       ...options,
       headers: {
@@ -149,12 +177,17 @@ export class MaintenanceModeService {
 
   public static toggleSiteLock<ThrowOnError extends boolean = true>(
     options?: Options<ToggleSiteLockData, ThrowOnError>,
-  ): RequestResult<ToggleSiteLockResponses, unknown, ThrowOnError> {
+  ): RequestResult<
+    ToggleSiteLockResponses,
+    ToggleSiteLockErrors,
+    ThrowOnError
+  > {
     return (options?.client ?? client).put<
       ToggleSiteLockResponses,
-      unknown,
+      ToggleSiteLockErrors,
       ThrowOnError
     >({
+      security: [{ scheme: "bearer", type: "http" }],
       url: "/umbraco/maintenance/api/v1/ToggleSiteLock",
       ...options,
       headers: {
@@ -172,6 +205,7 @@ export class MaintenanceModeService {
       UnlockSiteErrors,
       ThrowOnError
     >({
+      security: [{ scheme: "bearer", type: "http" }],
       url: "/umbraco/maintenance/api/v1/UnlockSite",
       ...options,
       headers: {
