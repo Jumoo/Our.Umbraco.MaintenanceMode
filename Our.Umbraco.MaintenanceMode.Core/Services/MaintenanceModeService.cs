@@ -9,7 +9,9 @@ using Our.Umbraco.MaintenanceMode.Providers;
 using Serilog;
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Umbraco.Cms.Core.Models.Membership;
 using Umbraco.Extensions;
 
 namespace Our.Umbraco.MaintenanceMode.Services
@@ -143,10 +145,24 @@ namespace Our.Umbraco.MaintenanceMode.Services
             await StorageProvider.Save(TrackedStatus);
         }
 
-        public bool AllowBackofficeUsersThrough(int? id) 
-            => id is not null && Status.Settings.UnfrozenUsers.ToDelimitedList().Contains(id.ToString());
+        public bool AllowBackofficeUsersThrough(int? id)
+            => id is not null && IsUnfrozenUser(id.ToString());
 
-        //Status.Settings.UnfrozenUsers.Contains
+        /// <summary>
+        ///  a user can be listed by id, key, username or email - Umbraco 14+ only shows
+        ///  user keys in the backoffice, so the integer id alone can't be found there.
+        /// </summary>
+        public bool AllowBackofficeUserThrough(IUser user)
+            => user is not null && IsUnfrozenUser(user.Id.ToString(), user.Key.ToString(), user.Username, user.Email);
+
+        private bool IsUnfrozenUser(params string[] identifiers)
+        {
+            var unfrozenUsers = Status.Settings?.UnfrozenUsers.ToDelimitedList().ToList();
+            if (unfrozenUsers is null || unfrozenUsers.Count == 0) return false;
+
+            return identifiers.Any(identifier => !string.IsNullOrWhiteSpace(identifier)
+                && unfrozenUsers.Contains(identifier, StringComparer.OrdinalIgnoreCase));
+        }
 
         public async Task SaveSettings(Models.MaintenanceModeSettings settings)
         {

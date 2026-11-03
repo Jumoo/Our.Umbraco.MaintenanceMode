@@ -28,7 +28,7 @@ export default {
 
     labelUnfreeze: "Unfrozen/unlocked users",
     labelUnfreezeDesc:
-      "Users who can still edit when content is frozen or locked.",
+      "Users who can still edit when content is frozen or locked. Comma separated user keys, usernames or emails.",
 
     labelPageTitle: "Page title",
     labelPageTitleDesc: "The title of the maintenance page in your browser.",
