@@ -5,6 +5,22 @@ entries start from here.
 
 ## Unreleased
 
+## [17.3.1] - 2026-11-03
+
+### Fixed
+
+- Users listed under "Unfrozen/unlocked users" can edit again while content is frozen or the site
+  is locked. On Umbraco 17 the setting let nobody through: the backoffice only shows user keys, so
+  the integer id it matched against couldn't be found, and the editor wasn't reliably identified.
+  The current user now comes from Umbraco's own authentication, and the list accepts user ids,
+  keys, usernames or emails, comma separated.
+
+### Changed
+
+- `IMaintenanceModeService` gains `AllowBackofficeUserThrough(IUser)`, and
+  `IBackofficeUserAccessor` gains `CurrentUser`. Only code that implements these interfaces
+  itself needs updating.
+
 ## [17.3.0] - 2026-11-02
 
 ### Removed
