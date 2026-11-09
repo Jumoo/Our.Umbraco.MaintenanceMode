@@ -5,6 +5,8 @@ entries start from here.
 
 ## Unreleased
 
+## [18.2.2] - 2026-11-09
+
 ### Fixed
 
 - Users listed under "Unfrozen/unlocked users" can edit again while content is frozen or the site
@@ -17,6 +19,11 @@ entries start from here.
 - `IMaintenanceModeService` gains `AllowBackofficeUserThrough(IUser)`, and
   `IBackofficeUserAccessor` gains `CurrentUser`. Only code that implements these interfaces
   itself needs updating.
+- The backoffice dashboard authenticates through Umbraco's `configureClient()`, which also adds
+  Umbraco's 401 retry and error notifications. The API's swagger document now marks every
+  operation as needing back office auth.
+- The cache-busting version on the backoffice entry point is updated, so browsers pick up the new
+  client after an upgrade.
 
 ## [18.2.1] - 2026-10-31
 
