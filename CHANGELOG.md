@@ -5,8 +5,14 @@ entries start from here.
 
 ## Unreleased
 
+## [19.0.0-beta01] - 2026-11-10
+
+First build for Umbraco 19, a prerelease against Umbraco 19.0.0-beta1.
+
 ### Changed
 
+- Targets .NET 11 and Umbraco 19.0.0-beta1, and the backoffice dashboard is built against
+  `@umbraco-cms/backoffice` 19.0.0-beta1. Use the 18.x releases on Umbraco 18.
 - The cache-busting version on the backoffice entry point is updated for Umbraco 19, so browsers
   that cached the 18.x client pick up the new one after an upgrade.
 
@@ -114,7 +120,9 @@ entries start from here.
 - Changes to the `MaintenanceMode` appsettings section are picked up without restarting the
   site.
 
-[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.1...HEAD
+[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v19.0.0-beta01...HEAD
+[19.0.0-beta01]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.2...v19.0.0-beta01
+[18.2.2]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.1...v18.2.2
 [18.2.1]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.0...v18.2.1
 [18.2.0]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.1...v18.2.0
 [18.1.1]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.0...v18.1.1
