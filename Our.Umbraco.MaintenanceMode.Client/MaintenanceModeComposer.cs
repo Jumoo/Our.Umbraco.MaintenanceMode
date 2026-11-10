@@ -4,7 +4,7 @@ using Umbraco.Cms.Core.Composing;
 
 
 
-#if NET10_0
+#if NET10_0_OR_GREATER
 #else
 using Microsoft.OpenApi.Models;
 #endif

@@ -6,6 +6,7 @@
 
 | Version | Branch | Supported |
 | --- | --- | --- |
+| 19.x (beta) | `v19/main` | Pre-release only |
 | 18.x | `v18/main` | Yes |
 | 17.x | `v17/main` | Yes |
 | 16.x and earlier | — | No |

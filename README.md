@@ -28,7 +28,7 @@ callback, and the opt-in anonymous status url at `/umbraco/maintenance/status`.
 | `Our.Umbraco.MaintenanceMode` | The package project - this is what ships to NuGet |
 | `Our.Umbraco.MaintenanceMode.Core` | Settings, storage providers, middleware and the maintenance page view |
 | `Our.Umbraco.MaintenanceMode.Client` | The backoffice dashboard (TypeScript, Lit, Vite) under `maintenance-client` |
-| `MaintenanceMode.Site.18` | Local test site for Umbraco 18, referenced by `Our.Umbraco.MaintenanceMode.slnx` |
+| `MaintenanceMode.Site.19` | Local (gitignored) test site for Umbraco 19, referenced by `Our.Umbraco.MaintenanceMode.slnx` |
 | `dist/buildpackage.ps1` | Local packaging script, for a package you don't want to release |
 
 `MaintenanceMode.Site.17` and `Our.Umbraco.MaintenanceMode.Assets` are
@@ -65,13 +65,13 @@ dotnet restore Our.Umbraco.MaintenanceMode/Our.Umbraco.MaintenanceMode.csproj --
 
 ## Releasing
 
-Pushing a `v{version}` tag on a release branch (`v18/main`, `v17/main`, ...) publishes to NuGet:
+Pushing a `v{version}` tag on a release branch (`v19/main`, `v18/main`, `v17/main`, ...) publishes to NuGet:
 
 ```bash
-git tag v18.1.0 && git push origin v18.1.0
+git tag v19.0.0 && git push origin v19.0.0
 ```
 
-The tag is the version - `v18.1.0` publishes `18.1.0`. The workflow refuses to run if the tag
+The tag is the version - `v19.0.0` publishes `19.0.0`. The workflow refuses to run if the tag
 isn't a valid version, or if the tagged commit isn't on a release branch.
 
 Authentication is [trusted publishing](https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing) -

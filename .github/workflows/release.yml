@@ -2,11 +2,11 @@ name: Release to NuGet
 
 # Publishing is triggered by pushing a version tag:
 #
-#   git tag v18.1.0 && git push origin v18.1.0
+#   git tag v19.0.0 && git push origin v19.0.0
 #
 # NOTE: "branches" and "tags" under push: are OR'd, not AND'd - a tag filter cannot
 # be restricted to a branch in the trigger itself. The tag has to be on a release
-# branch (v17/main, v18/main, ...), so that is enforced as a step below instead.
+# branch (v17/main, v18/main, v19/main, ...), so that is enforced as a step below instead.
 
 permissions:
   contents: read
