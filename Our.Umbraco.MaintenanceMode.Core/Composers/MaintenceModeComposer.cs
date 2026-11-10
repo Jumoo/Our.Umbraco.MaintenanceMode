@@ -5,6 +5,7 @@ using Our.Umbraco.MaintenanceMode.Factories;
 using Our.Umbraco.MaintenanceMode.Interfaces;
 using Our.Umbraco.MaintenanceMode.NotificationHandlers.Application;
 using Our.Umbraco.MaintenanceMode.NotificationHandlers.Content;
+using Our.Umbraco.MaintenanceMode.NotificationHandlers.Element;
 using Our.Umbraco.MaintenanceMode.NotificationHandlers.Media;
 using Our.Umbraco.MaintenanceMode.NotificationHandlers.Settings;
 using Our.Umbraco.MaintenanceMode.Providers;
@@ -60,6 +61,13 @@ namespace Our.Umbraco.MaintenanceMode.Composers
                 .AddNotificationHandler<ContentPublishingNotification, FreezeContentPublishingNotification>()
                 .AddNotificationHandler<ContentSavingNotification, FreezeContentSavingNotification>()
                 .AddNotificationHandler<ContentUnpublishingNotification, FreezeContentUnpublishingNotification>()
+                .AddNotificationHandler<ElementCopyingNotification, FreezeElementCopyingNotification>()
+                .AddNotificationHandler<ElementDeletingNotification, FreezeElementDeletingNotification>()
+                .AddNotificationHandler<ElementMovingNotification, FreezeElementMovingNotification>()
+                .AddNotificationHandler<ElementMovingToRecycleBinNotification, FreezeElementMovingToRecycleBinNotification>()
+                .AddNotificationHandler<ElementPublishingNotification, FreezeElementPublishingNotification>()
+                .AddNotificationHandler<ElementSavingNotification, FreezeElementSavingNotification>()
+                .AddNotificationHandler<ElementUnpublishingNotification, FreezeElementUnpublishingNotification>()
                 .AddNotificationHandler<MediaDeletingNotification, FreezeMediaDeletingNotification>()
                 .AddNotificationHandler<MediaMovingNotification, FreezeMediaMovingNotification>()
                 .AddNotificationHandler<MediaMovingToRecycleBinNotification, FreezeMediaMovingToRecycleBinNotification>()
