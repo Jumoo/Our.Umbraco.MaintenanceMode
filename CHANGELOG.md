@@ -5,6 +5,11 @@ entries start from here.
 
 ## Unreleased
 
+### Changed
+
+- The cache-busting version on the backoffice entry point is updated for Umbraco 19, so browsers
+  that cached the 18.x client pick up the new one after an upgrade.
+
 ## [18.2.2] - 2026-11-09
 
 ### Fixed
