@@ -10,6 +10,13 @@ entries start from here.
 - The cache-busting version on the backoffice entry point is updated for Umbraco 19, so browsers
   that cached the 18.x client pick up the new one after an upgrade.
 
+### Fixed
+
+- Elements in the backoffice Library section can no longer be saved, published, unpublished,
+  copied, moved, trashed or deleted while content is frozen or the site is locked. Only content
+  and media were blocked before; Elements now follow the same rules as content, including the
+  "Unfrozen/unlocked users" list.
+
 ## [18.2.2] - 2026-11-09
 
 ### Fixed
