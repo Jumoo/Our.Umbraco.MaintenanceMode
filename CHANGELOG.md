@@ -5,6 +5,15 @@ entries start from here.
 
 ## Unreleased
 
+## [19.0.0-rc1] - 2026-11-12
+
+Release candidate for Umbraco 19.
+
+### Changed
+
+- Built against Umbraco 19.0.0-rc1. The backoffice dashboard is still built against
+  `@umbraco-cms/backoffice` 19.0.0-beta1.
+
 ## [19.0.0-beta01] - 2026-11-10
 
 First build for Umbraco 19, a prerelease against Umbraco 19.0.0-beta1.

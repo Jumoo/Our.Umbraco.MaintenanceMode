@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="IPNetwork2" Version="5.0.1" />
-		<PackageReference Include="Umbraco.Cms" Version="19.0.0-beta1" />
-		<PackageReference Include="Umbraco.Cms.Web.Website" Version="19.0.0-beta1" />
+		<PackageReference Include="Umbraco.Cms" Version="19.0.0-rc1" />
+		<PackageReference Include="Umbraco.Cms.Web.Website" Version="19.0.0-rc1" />
 	</ItemGroup>
 </Project>
