@@ -14,10 +14,10 @@
     "@hey-api/openapi-ts": "^0.99.0",
     "@umbraco-cms/backoffice": "^17.3.0",
     "lit": "^3.3.3",
-    "prettier": "^3.9.10",
+    "prettier": "^3.10.0",
     "rm-rs": "^0.2.3",
     "typescript": "^5.9.3",
-    "vite": "^8.3.5"
+    "vite": "^8.3.8"
   },
   "overrides": {
     "js-yaml": "^4.3.2"
