@@ -5,6 +5,8 @@ entries start from here.
 
 ## Unreleased
 
+## [18.2.3] - 2026-11-16
+
 ### Fixed
 
 - Elements in the backoffice Library section can no longer be saved, published, unpublished,
@@ -109,7 +111,9 @@ entries start from here.
 - Changes to the `MaintenanceMode` appsettings section are picked up without restarting the
   site.
 
-[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.1...HEAD
+[Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.3...HEAD
+[18.2.3]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.2...v18.2.3
+[18.2.2]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.1...v18.2.2
 [18.2.1]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.0...v18.2.1
 [18.2.0]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.1...v18.2.0
 [18.1.1]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.0...v18.1.1
