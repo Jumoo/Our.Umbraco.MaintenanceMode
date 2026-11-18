@@ -1,7 +1,18 @@
-name: PR Project Build
+name: Build
 
 permissions:
   contents: read
+
+# When this builds (jumoo-context#159):
+#
+# - Dependabot PRs. Nobody builds those locally, so CI is the only check they get.
+# - Other PRs: no. /commit-pr builds and tests locally before opening the PR. The
+#   build-project job is skipped, which still satisfies a required status check.
+# - Nightly: each {version}/main with commits in the last day, so a break from combined
+#   changes shows up the next morning. Dispatched, so each branch builds with its own
+#   copy of this file.
+# - On demand: Actions > Build > Run workflow, on any branch.
+#
 
 # this repo releases from "v18/main" - a branch per Umbraco major, matching the rest
 # of Jumoo. Plain "main" is kept in the filter so a re-created main, or a branch that
@@ -11,9 +22,14 @@ on:
     branches: [ "main", "*/main" ]
     paths-ignore:
       - "**.md"
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
 
+# event_name keeps the nightly dispatcher out of the group of the build it dispatches on
+# the default branch, which would otherwise cancel it before it reached the other branches.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 env:
@@ -24,7 +40,38 @@ env:
   client_folder: ./Our.Umbraco.MaintenanceMode.Client/maintenance-client
 
 jobs:
+  # Schedules only run on the default branch, so this job dispatches the build on each
+  # release branch that changed, rather than building it here.
+  nightly:
+    if: ${{ github.event_name == 'schedule' }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: dispatch a build for each branch changed in the last day
+        run: |
+          since=$(date -u -d '25 hours ago' +%s)
+          gh api "repos/$GITHUB_REPOSITORY/branches" --paginate -q '.[].name' \
+            | grep -E '^(v[0-9]+/)?main$' \
+            | while read -r branch; do
+                committed=$(gh api "repos/$GITHUB_REPOSITORY/commits/$branch" -q .commit.committer.date)
+                if [ "$(date -u -d "$committed" +%s)" -ge "$since" ]; then
+                  echo "$branch changed $committed - building"
+                  # an old branch (v13/main) may not have this workflow; don't let it stop the rest
+                  gh workflow run dotnet-build.yml --repo "$GITHUB_REPOSITORY" --ref "$branch" \
+                    || echo "::warning::couldn't dispatch a build on $branch"
+                else
+                  echo "$branch unchanged since $committed - skipping"
+                fi
+              done
+
   build-project:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]')
     runs-on: ubuntu-latest
 
     steps:
