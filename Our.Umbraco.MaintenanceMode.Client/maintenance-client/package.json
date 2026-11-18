@@ -14,7 +14,7 @@
     "@hey-api/openapi-ts": "^0.99.0",
     "@umbraco-cms/backoffice": "^17.3.0",
     "lit": "^3.3.3",
-    "prettier": "^3.10.0",
+    "prettier": "^3.10.1",
     "rm-rs": "^0.2.3",
     "typescript": "^5.9.3",
     "vite": "^8.3.8"
