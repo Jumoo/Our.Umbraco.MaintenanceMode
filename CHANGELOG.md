@@ -25,6 +25,8 @@ First build for Umbraco 19, a prerelease against Umbraco 19.0.0-beta1.
 - The cache-busting version on the backoffice entry point is updated for Umbraco 19, so browsers
   that cached the 18.x client pick up the new one after an upgrade.
 
+## [18.2.3] - 2026-11-16
+
 ### Fixed
 
 - Elements in the backoffice Library section can no longer be saved, published, unpublished,
@@ -131,6 +133,7 @@ First build for Umbraco 19, a prerelease against Umbraco 19.0.0-beta1.
 
 [Unreleased]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v19.0.0-beta01...HEAD
 [19.0.0-beta01]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.2...v19.0.0-beta01
+[18.2.3]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.2...v18.2.3
 [18.2.2]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.1...v18.2.2
 [18.2.1]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.2.0...v18.2.1
 [18.2.0]: https://github.com/Jumoo/Our.Umbraco.MaintenanceMode/compare/v18.1.1...v18.2.0
