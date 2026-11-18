@@ -4,14 +4,6 @@ name: CodeQL
 # GitHub Advanced Security - unlike a private repo, these triggers can stay enabled.
 
 on:
-  push:
-    branches: [ "main", "*/main" ]
-    paths-ignore:
-      - "**.md"
-  pull_request:
-    branches: [ "main", "*/main" ]
-    paths-ignore:
-      - "**.md"
   schedule:
     # weekly, so advisories published after a change still get picked up
     - cron: "33 8 * * 0"
