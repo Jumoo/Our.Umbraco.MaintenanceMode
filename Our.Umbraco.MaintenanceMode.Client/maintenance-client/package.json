@@ -17,7 +17,7 @@
     "cross-env": "^10.1.0",
     "lit": "^3.3.3",
     "node-fetch": "^3.3.2",
-    "prettier": "^3.8.4",
+    "prettier": "^3.10.1",
     "rm-rs": "^0.2.3",
     "typescript": "^5.9.3",
     "vite": "^8.3.5"
