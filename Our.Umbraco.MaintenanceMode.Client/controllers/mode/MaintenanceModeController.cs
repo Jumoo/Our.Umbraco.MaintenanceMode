@@ -35,21 +35,21 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
 
         [HttpPut("ToggleMode")]
         [ProducesResponseType(200)]
-        public void ToggleMode([FromBody] bool maintenanceMode)
+        public async Task ToggleMode([FromBody] bool maintenanceMode)
         {
-            _maintenanceModeService.ToggleMaintenanceMode(maintenanceMode);
+            await _maintenanceModeService.ToggleMaintenanceMode(maintenanceMode);
         }
 
         [HttpPut("ToggleFrozen")]
         [ProducesResponseType(200)]
-        public void ToggleFrozen([FromBody] bool maintenanceMode)
+        public async Task ToggleFrozen([FromBody] bool maintenanceMode)
         {
-            _maintenanceModeService.ToggleContentFreeze(maintenanceMode);
+            await _maintenanceModeService.ToggleContentFreeze(maintenanceMode);
         }
 
         [HttpPut("ToggleSiteLock")]
         [ProducesResponseType(200)]
-        public void ToggleSiteLock([FromBody] bool siteLocked)
+        public async Task ToggleSiteLock([FromBody] bool siteLocked)
         {
             // Only allow locking via this endpoint
             // Unlocking must be done via the UnlockSite endpoint with password
@@ -57,7 +57,7 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
             {
                 throw new InvalidOperationException("Use the UnlockSite endpoint to unlock the site with a password.");
             }
-            _maintenanceModeService.ToggleSiteLock(siteLocked, User?.Identity?.Name);
+            await _maintenanceModeService.ToggleSiteLock(siteLocked, User?.Identity?.Name);
         }
 
         [HttpPost("UnlockSite")]
@@ -86,9 +86,9 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
 
         [HttpPut("ToggleAccess")]
         [ProducesResponseType(200)]
-        public void ToggleAccess([FromBody] bool maintenanceMode)
+        public async Task ToggleAccess([FromBody] bool maintenanceMode)
         {
-            _maintenanceModeService.ToggleAccess(maintenanceMode);
+            await _maintenanceModeService.ToggleAccess(maintenanceMode);
         }
 
         [HttpGet("GetSettings")]
@@ -97,9 +97,9 @@ namespace Our.Umbraco.MaintenanceMode.Client.controllers.mode
 
         [HttpPost("SaveSettings")]
         [ProducesResponseType(200)]
-        public void SaveSettings(MaintenanceModeSettings settings)
+        public async Task SaveSettings(MaintenanceModeSettings settings)
         {
-            _maintenanceModeService.SaveSettings(settings);
+            await _maintenanceModeService.SaveSettings(settings);
         }
     }
 

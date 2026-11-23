@@ -80,7 +80,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 return; // already in this state
 
             TrackedStatus.IsInMaintenanceMode = maintenanceMode;
-            await StorageProvider.Save(TrackedStatus);
+            await SaveTrackedStatus();
         }
 
         public async Task ToggleContentFreeze(bool isContentFrozen)
@@ -91,7 +91,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 return; // already in this state
 
             TrackedStatus.IsContentFrozen = isContentFrozen;
-            await StorageProvider.Save(TrackedStatus);
+            await SaveTrackedStatus();
         }
 
         public async Task ToggleSiteLock(bool isSiteLocked, string? username = null)
@@ -102,7 +102,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 return; // already in this state
 
             TrackedStatus.IsSiteLocked = isSiteLocked;
-            await StorageProvider.Save(TrackedStatus);
+            await SaveTrackedStatus();
 
             _logger.Information(
                 "Maintenance Mode: site was {LockState} by {Username}",
@@ -127,7 +127,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
             // Password is correct, unlock the site
             TrackedStatus.IsSiteLocked = false;
-            await StorageProvider.Save(TrackedStatus);
+            await SaveTrackedStatus();
 
             _logger.Information(
                 "Maintenance Mode: site was unlocked by {Username}",
@@ -138,11 +138,11 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
         public async Task ToggleAccess(bool hasAccess)
         {
-            if (hasAccess == Status.Settings.AllowBackOfficeUsersThrough)
+            if (hasAccess == TrackedStatus.Settings.AllowBackOfficeUsersThrough)
                 return; // already in this state
 
-            Status.Settings.AllowBackOfficeUsersThrough = hasAccess;
-            await StorageProvider.Save(TrackedStatus);
+            TrackedStatus.Settings.AllowBackOfficeUsersThrough = hasAccess;
+            await SaveTrackedStatus();
         }
 
         public bool AllowBackofficeUsersThrough(int? id)
@@ -168,10 +168,10 @@ namespace Our.Umbraco.MaintenanceMode.Services
         {
             TrackedStatus.Settings = settings;
             if (TrackedStatus.Settings.TemplateName == "undefined") TrackedStatus.Settings.TemplateName = "MaintenancePage";
-            await StorageProvider.Save(TrackedStatus);
+            await SaveTrackedStatus();
         }
 
-        private static MaintenanceModeStatus _defaultStatus = new MaintenanceModeStatus
+        private static MaintenanceModeStatus CreateDefaultStatus() => new MaintenanceModeStatus
         {
             IsInMaintenanceMode = false,
             UsingWebConfig = false,
@@ -180,6 +180,19 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 ViewModel = new Models.MaintenanceMode()
             }
         };
+
+        private async Task SaveTrackedStatus()
+        {
+            try
+            {
+                await StorageProvider.Save(TrackedStatus);
+            }
+            catch
+            {
+                TrackedStatus = await LoadStatus();
+                throw;
+            }
+        }
 
         private async Task<MaintenanceModeStatus> LoadStatus()
         {
@@ -211,7 +224,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
         private async Task<MaintenanceModeStatus> GetFromStorageOrDefault()
         {
-            return await StorageProvider.Read() ?? _defaultStatus;
+            return await StorageProvider.Read() ?? CreateDefaultStatus();
         }
     }
 }
