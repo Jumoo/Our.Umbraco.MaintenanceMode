@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Our.Umbraco.MaintenanceMode.Interfaces;
 using Our.Umbraco.MaintenanceMode.Models;
@@ -24,22 +25,22 @@ namespace Our.Umbraco.MaintenanceMode.Assets.Controllers
             => _maintenanceModeService.Status;
 
         [HttpPost]
-        public void ToggleMode(bool maintenanceMode)
+        public async Task ToggleMode(bool maintenanceMode)
         {
-            _maintenanceModeService.ToggleMaintenanceMode(maintenanceMode);
+            await _maintenanceModeService.ToggleMaintenanceMode(maintenanceMode);
         }
 
         [HttpPost]
-        public void ToggleFreeze(bool contentFreeze)
+        public async Task ToggleFreeze(bool contentFreeze)
         {
-            _maintenanceModeService.ToggleContentFreeze(contentFreeze);
+            await _maintenanceModeService.ToggleContentFreeze(contentFreeze);
         }
 
 
         [HttpPost]
-        public void SaveSettings(MaintenanceModeSettings settings)
+        public async Task SaveSettings(MaintenanceModeSettings settings)
         {
-            _maintenanceModeService.SaveSettings(settings);
+            await _maintenanceModeService.SaveSettings(settings);
         }
 
         [HttpGet]
