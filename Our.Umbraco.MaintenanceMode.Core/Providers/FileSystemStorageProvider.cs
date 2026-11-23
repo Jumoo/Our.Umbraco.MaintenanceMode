@@ -75,12 +75,14 @@ namespace Our.Umbraco.MaintenanceMode.Providers
 
                 string json = JsonSerializer.Serialize(status);
                 await File.WriteAllTextAsync(_configFilePath, json);
-                _eventAggregator.Publish(new MaintenanceModeSavedNotification(status));
             }
             catch (Exception ex)
             {
-                _logger.Debug(ex, string.Concat("Failed to save config ", ex.Message));
+                _logger.Error(ex, string.Concat("Failed to save config ", ex.Message));
+                throw;
             }
+
+            _eventAggregator.Publish(new MaintenanceModeSavedNotification(status));
         }
     }
 }
