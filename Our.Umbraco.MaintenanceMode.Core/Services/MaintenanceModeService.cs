@@ -10,6 +10,7 @@ using Serilog;
 
 using System;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Umbraco.Cms.Core.Models.Membership;
 using Umbraco.Extensions;
@@ -79,8 +80,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
             if (maintenanceMode == TrackedStatus.IsInMaintenanceMode)
                 return; // already in this state
 
-            TrackedStatus.IsInMaintenanceMode = maintenanceMode;
-            await StorageProvider.Save(TrackedStatus);
+            await UpdateTrackedStatus(status => status.IsInMaintenanceMode = maintenanceMode);
         }
 
         public async Task ToggleContentFreeze(bool isContentFrozen)
@@ -90,8 +90,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
             if (isContentFrozen == TrackedStatus.IsContentFrozen)
                 return; // already in this state
 
-            TrackedStatus.IsContentFrozen = isContentFrozen;
-            await StorageProvider.Save(TrackedStatus);
+            await UpdateTrackedStatus(status => status.IsContentFrozen = isContentFrozen);
         }
 
         public async Task ToggleSiteLock(bool isSiteLocked, string? username = null)
@@ -101,8 +100,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
             if (isSiteLocked == TrackedStatus.IsSiteLocked)
                 return; // already in this state
 
-            TrackedStatus.IsSiteLocked = isSiteLocked;
-            await StorageProvider.Save(TrackedStatus);
+            await UpdateTrackedStatus(status => status.IsSiteLocked = isSiteLocked);
 
             _logger.Information(
                 "Maintenance Mode: site was {LockState} by {Username}",
@@ -126,8 +124,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
             }
 
             // Password is correct, unlock the site
-            TrackedStatus.IsSiteLocked = false;
-            await StorageProvider.Save(TrackedStatus);
+            await UpdateTrackedStatus(status => status.IsSiteLocked = false);
 
             _logger.Information(
                 "Maintenance Mode: site was unlocked by {Username}",
@@ -138,11 +135,10 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
         public async Task ToggleAccess(bool hasAccess)
         {
-            if (hasAccess == Status.Settings.AllowBackOfficeUsersThrough)
+            if (hasAccess == TrackedStatus.Settings.AllowBackOfficeUsersThrough)
                 return; // already in this state
 
-            Status.Settings.AllowBackOfficeUsersThrough = hasAccess;
-            await StorageProvider.Save(TrackedStatus);
+            await UpdateTrackedStatus(status => status.Settings.AllowBackOfficeUsersThrough = hasAccess);
         }
 
         public bool AllowBackofficeUsersThrough(int? id)
@@ -166,12 +162,14 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
         public async Task SaveSettings(Models.MaintenanceModeSettings settings)
         {
-            TrackedStatus.Settings = settings;
-            if (TrackedStatus.Settings.TemplateName == "undefined") TrackedStatus.Settings.TemplateName = "MaintenancePage";
-            await StorageProvider.Save(TrackedStatus);
+            await UpdateTrackedStatus(status =>
+            {
+                status.Settings = settings;
+                if (status.Settings.TemplateName == "undefined") status.Settings.TemplateName = "MaintenancePage";
+            });
         }
 
-        private static MaintenanceModeStatus _defaultStatus = new MaintenanceModeStatus
+        private static MaintenanceModeStatus CreateDefaultStatus() => new MaintenanceModeStatus
         {
             IsInMaintenanceMode = false,
             UsingWebConfig = false,
@@ -180,6 +178,24 @@ namespace Our.Umbraco.MaintenanceMode.Services
                 ViewModel = new Models.MaintenanceMode()
             }
         };
+
+        /// <summary>
+        ///  applies the change to a copy of the tracked status and only swaps it in once
+        ///  it has been saved - if the save throws, the tracked status is left untouched.
+        /// </summary>
+        private async Task UpdateTrackedStatus(Action<MaintenanceModeStatus> update)
+        {
+            var updated = CloneStatus(TrackedStatus);
+            update(updated);
+            await StorageProvider.Save(updated);
+            TrackedStatus = updated;
+        }
+
+        // IncludeFields so the UsingWebConfig public field is copied along with the properties
+        private static readonly JsonSerializerOptions _cloneOptions = new() { IncludeFields = true };
+
+        private static MaintenanceModeStatus CloneStatus(MaintenanceModeStatus status)
+            => JsonSerializer.Deserialize<MaintenanceModeStatus>(JsonSerializer.Serialize(status, _cloneOptions), _cloneOptions)!;
 
         private async Task<MaintenanceModeStatus> LoadStatus()
         {
@@ -211,7 +227,7 @@ namespace Our.Umbraco.MaintenanceMode.Services
 
         private async Task<MaintenanceModeStatus> GetFromStorageOrDefault()
         {
-            return await StorageProvider.Read() ?? _defaultStatus;
+            return await StorageProvider.Read() ?? CreateDefaultStatus();
         }
     }
 }

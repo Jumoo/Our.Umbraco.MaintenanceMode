@@ -112,13 +112,14 @@ namespace Our.Umbraco.MaintenanceMode.Providers
                 scope.Complete();
 
                 _lastChecked = DateTime.MinValue;
-
-                _eventAggregator.Publish(new MaintenanceModeSavedNotification(status));
             }
             catch (Exception ex)
             {
-                _logger.Debug(ex, string.Concat("Failed to save config ", ex.Message));
+                _logger.Error(ex, string.Concat("Failed to save config ", ex.Message));
+                throw;
             }
+
+            _eventAggregator.Publish(new MaintenanceModeSavedNotification(status));
         }
     }
 }
