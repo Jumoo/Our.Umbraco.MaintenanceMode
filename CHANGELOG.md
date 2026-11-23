@@ -5,6 +5,17 @@ entries start from here.
 
 ## Unreleased
 
+## [19.0.0-rc2] - 2026-11-23
+
+Release candidate for Umbraco 19, still built against Umbraco 19.0.0-rc1.
+
+### Fixed
+
+- Turning maintenance mode, content freeze or the site lock on or off, and saving the dashboard
+  settings, now save reliably when `StorageMode` is `Database`. If a save does fail, it is logged
+  as an error and reported back to the dashboard, and the site keeps its previous state rather
+  than acting on a change that was never stored.
+
 ## [19.0.0-rc1] - 2026-11-12
 
 Release candidate for Umbraco 19.
