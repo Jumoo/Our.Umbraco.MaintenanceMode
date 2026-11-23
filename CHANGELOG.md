@@ -5,6 +5,15 @@ entries start from here.
 
 ## Unreleased
 
+## [17.3.2] - 2026-11-23
+
+### Fixed
+
+- Turning maintenance mode, content freeze or the site lock on or off, and saving the dashboard
+  settings, now save reliably when `StorageMode` is `Database`. If a save does fail, it is logged
+  as an error and reported back to the dashboard, and the site keeps its previous state rather
+  than acting on a change that was never stored.
+
 ## [17.3.1] - 2026-11-03
 
 ### Fixed
